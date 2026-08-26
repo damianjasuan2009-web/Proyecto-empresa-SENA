@@ -11,6 +11,7 @@
       <ion-item button><ion-icon name="calculator"></ion-icon> Finanzas</ion-item>
       <ion-item button><ion-icon name="briefcase"></ion-icon> Proyectos</ion-item>
       <ion-item button><ion-icon name="heart"></ion-icon> Contacto</ion-item>
+      <ion-item button (click)="logout()" color="danger"><ion-icon name="log-out-outline"></ion-icon> Cerrar Sesión</ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
@@ -25,6 +26,11 @@
       <ion-title>
         Empresa App
       </ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="logout()" title="Cerrar Sesión">
+          <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
     </ion-toolbar>
   </ion-header>
 

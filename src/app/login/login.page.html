@@ -1,0 +1,47 @@
+<ion-header>
+  <ion-toolbar color="dark">
+    <ion-title>Iniciar Sesión</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div class="login-container">
+    <div class="header-section">
+      <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
+      <h2>Bienvenido de nuevo</h2>
+      <p>Ingresa tus credenciales para acceder a Empresa App</p>
+    </div>
+
+    <form [formGroup]="credentials" (ngSubmit)="login()">
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Correo Electrónico</ion-label>
+        <ion-input type="email" formControlName="email" placeholder="ejemplo@empresa.com"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['required']">
+        <p class="error-msg">El correo electrónico es requerido.</p>
+      </ion-text>
+      <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['email']">
+        <p class="error-msg">Ingrese un correo electrónico válido.</p>
+      </ion-text>
+
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password" placeholder="******"></ion-input>
+      </ion-item>
+      <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['required']">
+        <p class="error-msg">La contraseña es requerida.</p>
+      </ion-text>
+      <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['minlength']">
+        <p class="error-msg">La contraseña debe tener al menos 6 caracteres.</p>
+      </ion-text>
+
+      <ion-button expand="block" type="submit" [disabled]="credentials.invalid" class="ion-margin-top" color="primary">
+        Iniciar Sesión
+      </ion-button>
+    </form>
+
+    <div class="footer-links ion-text-center ion-margin-top">
+      <p>¿No tienes una cuenta? <a routerLink="/register">Regístrate aquí</a></p>
+    </div>
+  </div>
+</ion-content>
