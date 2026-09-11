@@ -1,2 +1,93 @@
-// For information on how to create your own theme, please refer to:
-// https://ionicframework.com/docs/theming/
+// Theme variables for TeAcompaño - Paleta de Colores Cálidos
+// Diseñado para alta accesibilidad y confort visual (Adulto Mayor)
+
+:root {
+  /** Colores Cálidos Principales **/
+  /* Primario: Terracota Cálido Intenso (Alto Contraste y Calidez) */
+  --ion-color-primary: #E05326;
+  --ion-color-primary-rgb: 224, 83, 38;
+  --ion-color-primary-contrast: #ffffff;
+  --ion-color-primary-contrast-rgb: 255, 255, 255;
+  --ion-color-primary-shade: #c54921;
+  --ion-color-primary-tint: #e3643c;
+
+  /* Secundario: Ámbar / Miel Dorado */
+  --ion-color-secondary: #F59E0B;
+  --ion-color-secondary-rgb: 245, 158, 11;
+  --ion-color-secondary-contrast: #1f140e;
+  --ion-color-secondary-contrast-rgb: 31, 20, 14;
+  --ion-color-secondary-shade: #d88b0a;
+  --ion-color-secondary-tint: #f6a823;
+
+  /* Terciario: Naranja Atardecer */
+  --ion-color-tertiary: #EA580C;
+  --ion-color-tertiary-rgb: 234, 88, 12;
+  --ion-color-tertiary-contrast: #ffffff;
+  --ion-color-tertiary-contrast-rgb: 255, 255, 255;
+  --ion-color-tertiary-shade: #ce4d0b;
+  --ion-color-tertiary-tint: #ec6924;
+
+  /* Éxito / Confirmación: Verde Oliva Cálido */
+  --ion-color-success: #15803D;
+  --ion-color-success-rgb: 21, 128, 61;
+  --ion-color-success-contrast: #ffffff;
+  --ion-color-success-contrast-rgb: 255, 255, 255;
+  --ion-color-success-shade: #127136;
+  --ion-color-success-tint: #2c8d50;
+
+  /* Advertencia: Ámbar Suave */
+  --ion-color-warning: #D97706;
+  --ion-color-warning-rgb: 217, 119, 6;
+  --ion-color-warning-contrast: #ffffff;
+  --ion-color-warning-contrast-rgb: 255, 255, 255;
+  --ion-color-warning-shade: #bf6905;
+  --ion-color-warning-tint: #dd851f;
+
+  /* Peligro / Error: Carmesí Cálido */
+  --ion-color-danger: #DC2626;
+  --ion-color-danger-rgb: 220, 38, 38;
+  --ion-color-danger-contrast: #ffffff;
+  --ion-color-danger-contrast-rgb: 255, 255, 255;
+  --ion-color-danger-shade: #c22121;
+  --ion-color-danger-tint: #e03c3c;
+
+  /* Claro / Fondo Suave (Evita fatiga visual del blanco puro) */
+  --ion-color-light: #FFF8F1;
+  --ion-color-light-rgb: 255, 248, 241;
+  --ion-color-light-contrast: #2D1810;
+  --ion-color-light-contrast-rgb: 45, 24, 16;
+  --ion-color-light-shade: #e0dad4;
+  --ion-color-light-tint: #fff9f2;
+
+  /* Medio / Bordes y texto secundario cálido */
+  --ion-color-medium: #785949;
+  --ion-color-medium-rgb: 120, 89, 73;
+  --ion-color-medium-contrast: #ffffff;
+  --ion-color-medium-contrast-rgb: 255, 255, 255;
+  --ion-color-medium-shade: #6a4e40;
+  --ion-color-medium-tint: #866a5b;
+
+  /* Oscuro: Marrón Café Muy Oscuro (Mejor legibilidad que negro puro) */
+  --ion-color-dark: #26150D;
+  --ion-color-dark-rgb: 38, 21, 13;
+  --ion-color-dark-contrast: #ffffff;
+  --ion-color-dark-contrast-rgb: 255, 255, 255;
+  --ion-color-dark-shade: #21120b;
+  --ion-color-dark-tint: #3c2c25;
+
+  /* Variables globales de fondo y texto */
+  --ion-background-color: #FFF9F3;
+  --ion-background-color-rgb: 255, 249, 243;
+  --ion-text-color: #2D1810;
+  --ion-text-color-rgb: 45, 24, 16;
+
+  /* Variables personalizadas para TeAcompaño */
+  --app-warm-cream: #FFF9F3;
+  --app-warm-surface: #FFFFFF;
+  --app-warm-border: #FED7AA;
+  --app-warm-peach: #FFEDD5;
+  --app-warm-amber: #F59E0B;
+  --app-warm-terracotta: #E05326;
+  --app-warm-brown: #2D1810;
+  --app-warm-brown-muted: #6B4F42;
+}

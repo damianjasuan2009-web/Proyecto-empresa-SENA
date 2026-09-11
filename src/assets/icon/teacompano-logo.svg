@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240" width="100%" height="100%">
+  <defs>
+    <!-- Warm Background Gradient -->
+    <linearGradient id="warmBg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FFEDD5"/>
+      <stop offset="50%" stop-color="#FED7AA"/>
+      <stop offset="100%" stop-color="#FDBA74"/>
+    </linearGradient>
+    
+    <!-- Warm Halo / Glow -->
+    <radialGradient id="sunGlow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.8"/>
+      <stop offset="100%" stop-color="#FED7AA" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- Warm Accent Gradient -->
+    <linearGradient id="terracottaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F97316"/>
+      <stop offset="100%" stop-color="#C2410C"/>
+    </linearGradient>
+
+    <linearGradient id="amberGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBBF24"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="6" stdDeviation="6" flood-color="#7C2D12" flood-opacity="0.18"/>
+    </filter>
+  </defs>
+
+  <!-- Outer Rounded Badge -->
+  <rect x="15" y="15" width="210" height="210" rx="48" fill="url(#warmBg)" filter="url(#softShadow)" stroke="#FDBA74" stroke-width="3"/>
+  <circle cx="120" cy="110" r="85" fill="url(#sunGlow)"/>
+
+  <!-- Companionship Scene: Grandparent and Companion with Tablet -->
+  <g transform="translate(0, 5)">
+    <!-- Companion Body (Right) -->
+    <path d="M128 175 C128 142 145 130 165 130 C185 130 202 142 202 175 Z" fill="url(#terracottaGrad)"/>
+    <!-- Companion Neck -->
+    <rect x="158" y="118" width="14" height="15" fill="#FED7AA" rx="4"/>
+    <!-- Companion Head -->
+    <circle cx="165" cy="106" r="18" fill="#FDBA74"/>
+    <!-- Companion Hair (Modern Warm Brown) -->
+    <path d="M147 104 C147 88 160 84 175 84 C186 84 186 92 186 98 C182 96 176 96 171 99 C164 102 158 106 147 104 Z" fill="#78350F"/>
+    <circle cx="159" cy="105" r="2.2" fill="#451A03"/>
+    <path d="M157 113 Q162 117 167 113" stroke="#9A3412" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Grandparent Body (Left) -->
+    <path d="M38 175 C38 138 58 126 85 126 C112 126 132 138 132 175 Z" fill="url(#amberGrad)"/>
+    <!-- Grandparent Collar/Shirt -->
+    <path d="M72 128 L85 142 L98 128 Z" fill="#FFF7ED"/>
+    <!-- Grandparent Neck -->
+    <rect x="78" y="112" width="14" height="16" fill="#FED7AA" rx="4"/>
+    <!-- Grandparent Head -->
+    <circle cx="85" cy="98" r="20" fill="#FED7AA"/>
+    <!-- Grandparent Hair (Soft Silvery White) -->
+    <path d="M64 96 C63 80 73 72 85 72 C98 72 107 80 106 96 C103 89 97 85 85 85 C73 85 67 89 64 96 Z" fill="#F3F4F6" stroke="#E5E7EB" stroke-width="1.5"/>
+    <!-- Grandparent Glasses -->
+    <circle cx="78" cy="98" r="6" fill="none" stroke="#9A3412" stroke-width="2"/>
+    <circle cx="92" cy="98" r="6" fill="none" stroke="#9A3412" stroke-width="2"/>
+    <line x1="84" y1="98" x2="86" y2="98" stroke="#9A3412" stroke-width="2"/>
+    <!-- Grandparent Smile -->
+    <path d="M80 108 Q85 113 90 108" stroke="#9A3412" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+    <!-- Shared Tablet / Device in hands -->
+    <g transform="translate(90, 138)">
+      <rect x="0" y="0" width="60" height="42" rx="6" fill="#1F2937" stroke="#EA580C" stroke-width="2"/>
+      <!-- Glowing warm screen -->
+      <rect x="4" y="4" width="52" height="34" rx="4" fill="#FEF3C7"/>
+      <!-- Heart on screen (Care / Support) -->
+      <path d="M30 26 C30 26 21 21 21 15.5 C21 12.5 23.5 10 26.5 10 C28.2 10 29.5 10.9 30 11.8 C30.5 10.9 31.8 10 33.5 10 C36.5 10 39 12.5 39 15.5 C39 21 30 26 30 26 Z" fill="#E11D48"/>
+      <circle cx="30" cy="35" r="1.5" fill="#9CA3AF"/>
+    </g>
+
+    <!-- Supportive Hand from companion -->
+    <path d="M125 152 Q112 152 105 146" stroke="#FED7AA" stroke-width="6" stroke-linecap="round" fill="none"/>
+    <circle cx="104" cy="146" r="4.5" fill="#FED7AA"/>
+    <!-- Grandparent's Hand holding tablet -->
+    <circle cx="88" cy="154" r="5" fill="#FED7AA"/>
+  </g>
+
+  <!-- Sparkles / Warm stars -->
+  <path d="M195 55 Q195 62 190 65 Q195 68 195 75 Q195 68 200 65 Q195 62 195 55 Z" fill="#F59E0B"/>
+  <path d="M42 62 Q42 67 38 69 Q42 71 42 76 Q42 71 46 69 Q42 67 42 62 Z" fill="#EA580C"/>
+</svg>

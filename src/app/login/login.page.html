@@ -1,47 +1,215 @@
-<ion-header>
-  <ion-toolbar color="dark">
-    <ion-title>Iniciar Sesión</ion-title>
+<ion-header class="ion-no-border">
+  <ion-toolbar class="warm-toolbar">
+    <div class="toolbar-brand" slot="start">
+      <img src="assets/icon/teacompano-logo.svg" alt="Ícono TeAcompaño" class="toolbar-logo" />
+      <span class="brand-title">TeAcompaño</span>
+    </div>
+    <ion-buttons slot="end">
+      <!-- Botón de Accesibilidad: Ajustar Tamaño de Letra -->
+      <ion-button 
+        fill="solid" 
+        color="light" 
+        class="font-size-btn" 
+        (click)="toggleFontSize()"
+        aria-label="Cambiar tamaño de letra">
+        <ion-icon name="text-outline" slot="start"></ion-icon>
+        <span class="font-toggle-text">{{ isLargeFont ? 'Letra normal' : 'Letra más grande' }}</span>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <div class="login-container">
-    <div class="header-section">
-      <ion-icon name="person-circle-outline" class="user-icon"></ion-icon>
-      <h2>Bienvenido de nuevo</h2>
-      <p>Ingresa tus credenciales para acceder a Empresa App</p>
+<ion-content class="warm-content" [class.large-font-mode]="isLargeFont">
+  <div class="login-wrapper">
+    
+    <!-- TARJETA PRINCIPAL DE BIENVENIDA -->
+    <div class="welcome-card">
+      <div class="logo-container">
+        <img src="assets/icon/teacompano-logo.svg" alt="Logo de TeAcompaño - Dos personas aprendiendo juntas" class="main-logo" />
+      </div>
+
+      <div class="greeting-text">
+        <h1 class="main-title">¡Bienvenido a TeAcompaño!</h1>
+        <p class="subtitle">Tecnología fácil, amigable y a tu propio ritmo.</p>
+        <div class="friendly-badge">
+          <ion-icon name="heart" class="heart-icon"></ion-icon>
+          <span>Estamos contigo para guiarte paso a paso</span>
+        </div>
+      </div>
     </div>
 
-    <form [formGroup]="credentials" (ngSubmit)="login()">
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Correo Electrónico</ion-label>
-        <ion-input type="email" formControlName="email" placeholder="ejemplo@empresa.com"></ion-input>
-      </ion-item>
-      <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['required']">
-        <p class="error-msg">El correo electrónico es requerido.</p>
-      </ion-text>
-      <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['email']">
-        <p class="error-msg">Ingrese un correo electrónico válido.</p>
-      </ion-text>
+    <!-- CONTENEDOR DEL FORMULARIO DE ACCESO -->
+    <div class="form-card">
+      <div class="form-header">
+        <ion-icon name="log-in" class="form-header-icon"></ion-icon>
+        <h2>Inicia sesión con tu cuenta</h2>
+        <p class="instruction-text">Escribe tu correo y tu contraseña en las casillas de abajo:</p>
+      </div>
 
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" formControlName="password" placeholder="******"></ion-input>
-      </ion-item>
-      <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['required']">
-        <p class="error-msg">La contraseña es requerida.</p>
-      </ion-text>
-      <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['minlength']">
-        <p class="error-msg">La contraseña debe tener al menos 6 caracteres.</p>
-      </ion-text>
+      <form [formGroup]="credentials" (ngSubmit)="login()" novalidate>
+        
+        <!-- CAMPO 1: EMAIL (Etiqueta grande en mayúscula según diseño de presentación) -->
+        <div class="input-group">
+          <label class="accessible-label" for="emailInput">
+            <ion-icon name="mail" class="label-icon"></ion-icon>
+            EMAIL / CORREO ELECTRÓNICO:
+          </label>
+          <div class="input-box" [class.input-box-error]="email?.touched && email?.invalid">
+            <ion-input
+              id="emailInput"
+              type="email"
+              inputmode="email"
+              autocomplete="email"
+              formControlName="email"
+              placeholder="Ejemplo: abuelo@correo.com"
+              aria-required="true"
+              clear-input="true"
+              class="custom-accessible-input">
+            </ion-input>
+          </div>
+          <div class="field-hint">Escribe aquí la dirección de correo con la que te registraste.</div>
 
-      <ion-button expand="block" type="submit" [disabled]="credentials.invalid" class="ion-margin-top" color="primary">
-        Iniciar Sesión
+          <!-- Mensajes de error claros y grandes -->
+          <div class="error-banner" *ngIf="email?.touched && email?.errors?.['required']">
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>Por favor, escribe tu correo electrónico.</span>
+          </div>
+          <div class="error-banner" *ngIf="email?.touched && email?.errors?.['email']">
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>Revisa el correo, parece faltarle el @ o estar incompleto.</span>
+          </div>
+        </div>
+
+        <!-- CAMPO 2: CONTRASEÑA (Etiqueta grande en mayúscula según diseño de presentación) -->
+        <div class="input-group">
+          <div class="label-row">
+            <label class="accessible-label" for="passwordInput">
+              <ion-icon name="lock-closed" class="label-icon"></ion-icon>
+              CONTRASEÑA:
+            </label>
+            <!-- Botón para ver/ocultar contraseña (clave para personas mayores) -->
+            <button 
+              type="button" 
+              class="reveal-password-btn" 
+              (click)="togglePasswordVisibility()" 
+              [attr.aria-label]="showPassword ? 'Ocultar contraseña' : 'Ver contraseña'">
+              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+              <span>{{ showPassword ? 'Ocultar clave' : 'Ver lo que escribo' }}</span>
+            </button>
+          </div>
+
+          <div class="input-box" [class.input-box-error]="password?.touched && password?.invalid">
+            <ion-input
+              id="passwordInput"
+              [type]="showPassword ? 'text' : 'password'"
+              formControlName="password"
+              placeholder="Escribe aquí tu clave secreta"
+              aria-required="true"
+              class="custom-accessible-input">
+            </ion-input>
+          </div>
+          <div class="field-hint">Mínimo 6 letras o números. Puedes tocar "Ver lo que escribo" para revisar.</div>
+
+          <!-- Mensajes de error claros y grandes -->
+          <div class="error-banner" *ngIf="password?.touched && password?.errors?.['required']">
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>Por favor, escribe tu contraseña para continuar.</span>
+          </div>
+          <div class="error-banner" *ngIf="password?.touched && password?.errors?.['minlength']">
+            <ion-icon name="alert-circle" class="error-icon"></ion-icon>
+            <span>La clave debe tener al menos 6 caracteres.</span>
+          </div>
+        </div>
+
+        <!-- BOTÓN PRINCIPAL DE INICIO DE SESIÓN (Alto Contraste y Cálido) -->
+        <ion-button
+          expand="block"
+          type="submit"
+          class="btn-primary-warm ion-margin-top"
+          [disabled]="credentials.invalid">
+          <ion-icon name="arrow-forward-circle" slot="start" class="btn-icon"></ion-icon>
+          <span class="btn-text">INICIAR SESIÓN</span>
+        </ion-button>
+      </form>
+    </div>
+
+    <!-- SECCIÓN: OTROS MÉTODOS DE INICIO DE SESIÓN (Punto 2 Diapositiva 17) -->
+    <div class="alternative-methods-card">
+      <div class="section-badge-title">
+        <ion-icon name="key-outline"></ion-icon>
+        <h3>OTROS MÉTODOS DE INICIO DE SESIÓN</h3>
+      </div>
+      <p class="section-desc">¿Prefieres no escribir contraseñas? Usa una de estas opciones fáciles:</p>
+
+      <div class="methods-grid">
+        <!-- Método 1: Celular / SMS -->
+        <button type="button" class="alt-method-btn" (click)="loginWithPhone()">
+          <div class="method-icon-circle phone-circle">
+            <ion-icon name="phone-portrait"></ion-icon>
+          </div>
+          <div class="method-text">
+            <strong>Entrar con mi número celular</strong>
+            <small>Te enviamos un mensaje de texto con un código fácil</small>
+          </div>
+          <ion-icon name="chevron-forward" class="method-arrow"></ion-icon>
+        </button>
+
+        <!-- Método 2: Huella digital o Biometría -->
+        <button type="button" class="alt-method-btn" (click)="loginWithBiometrics()">
+          <div class="method-icon-circle fingerprint-circle">
+            <ion-icon name="finger-print"></ion-icon>
+          </div>
+          <div class="method-text">
+            <strong>Entrar con mi huella digital</strong>
+            <small>Usa el lector de tu teléfono para entrar al instante</small>
+          </div>
+          <ion-icon name="chevron-forward" class="method-arrow"></ion-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- SECCIÓN: REGISTRO / CREAR CUENTA (Puntos 3 y 4 Diapositiva 17) -->
+    <div class="register-promo-card">
+      <div class="promo-header">
+        <ion-icon name="person-add" class="promo-icon"></ion-icon>
+        <div>
+          <h3>¿No tienes una cuenta todavía?</h3>
+          <p>Crear tu cuenta es gratis, muy rápido y te acompañamos paso a paso.</p>
+        </div>
+      </div>
+
+      <ion-button
+        expand="block"
+        fill="solid"
+        routerLink="/register"
+        class="btn-create-account">
+        <ion-icon name="sparkles" slot="start"></ion-icon>
+        <span class="btn-text">CREA UNA CUENTA AQUÍ</span>
       </ion-button>
-    </form>
-
-    <div class="footer-links ion-text-center ion-margin-top">
-      <p>¿No tienes una cuenta? <a routerLink="/register">Regístrate aquí</a></p>
     </div>
+
+    <!-- SECCIÓN DE ASISTENCIA Y APOYO (Diapositivas 10 y 21: Ayuda al usuario) -->
+    <div class="support-card">
+      <div class="support-content">
+        <div class="support-info">
+          <ion-icon name="help-buoy" class="support-icon"></ion-icon>
+          <div>
+            <strong>¿Tienes dudas o necesitas ayuda?</strong>
+            <span>Puedes pedir asistencia a tu familiar registrado o a soporte técnico.</span>
+          </div>
+        </div>
+        <ion-button fill="outline" color="dark" class="btn-help" (click)="requestHelp()">
+          <ion-icon name="call-outline" slot="start"></ion-icon>
+          Pedir Ayuda
+        </ion-button>
+      </div>
+    </div>
+
+    <!-- PIE DE PÁGINA -->
+    <footer class="app-footer">
+      <p>Proyecto <strong>TeAcompaño</strong> · SENA 2026</p>
+      <p class="footer-subtext">Diseñado con cariño y accesibilidad para nuestros adultos mayores</p>
+    </footer>
+
   </div>
 </ion-content>
