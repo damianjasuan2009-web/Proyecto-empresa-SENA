@@ -14,6 +14,11 @@ export const environment = {
   }
 };
 
+
+export const environment={
+  production: false,
+  gemini apiKey: 'AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg'
+}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
