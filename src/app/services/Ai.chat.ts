@@ -43,7 +43,7 @@ const apiKey = environment.geminiapikey;
 if (!apiKey || apiKey === 'src/environments/environment.ts'){
     return this.getOfflineResponse(userMessage);
 }
-//agregar el mensaje al historial
+//agregar el mensaje del usuario al historial
 
 const userMsg: chatMessage= {
     id: 'msg_' + Date.now(),
@@ -53,7 +53,7 @@ const userMsg: chatMessage= {
 };
 this.conversationHistory.push(userMsg);
 
-// Construir el cuerpo de la peticion para gemini
+// Construir el cuerpo de la peticion para Gemini
 const body = this .buildGeminiRequest(userMessage);
 
 return this.http.post.<any>(`${this.GEMINI_URL}?key=${apiKey}`, body).pipe(
@@ -137,11 +137,27 @@ private getOfflineResponse(userMessage: stirng): Observable<chatMessage> {
   };
   this.conversationHistory.push(userMsg);
 
-  // Retornar la respuesta como Observable
-  return of({
-    id: 'bot_' + Date.now(),
-    role: 'bot',
-    content: response,
-    timestamp: new Date()
-  });
+  const assistantMsg: chatMessage = {
+  id: 'msg_' + (Date.now() + 1),
+ role:'assistant'
+ content: response + '\n\n_ tip: configura tu API key de gemini en la app para respuestas mas inteligentes y personalizadas._',
+  timestamp: new Date()
+};
+this.conversationHistory.push(assistantMsg);
+
+return of (assistantMsg);
+}
+/**
+ * Obtiene el historial de conversacion actual
+ */
+get conversationHistory(): chatMessage[] {
+    return [...this.conversationHistory];
+}
+
+/**
+ * Limpia el historial de conversacion
+ */
+ClearConversation(): void {
+    this.conversationHistory = [];
+}
 }
