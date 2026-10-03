@@ -5,20 +5,16 @@
 export const environment = {
   production: false,
   firebase: {
-  apiKey: "AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU",
-  authDomain: "abuelo-digital-b2d45.firebaseapp.com",
-  projectId: "abuelo-digital-b2d45",
-  storageBucket: "abuelo-digital-b2d45.firebasestorage.app",
-  messagingSenderId: "420361839486",
-  appId: "1:420361839486:web:ec96aaf33823d7de0fc92f"
-  }
+    apiKey: "AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU",
+    authDomain: "abuelo-digital-b2d45.firebaseapp.com",
+    projectId: "abuelo-digital-b2d45",
+    storageBucket: "abuelo-digital-b2d45.firebasestorage.app",
+    messagingSenderId: "420361839486",
+    appId: "1:420361839486:web:ec96aaf33823d7de0fc92f"
+  },
+  geminiApiKey: 'AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg'
 };
 
-
-export const environment={
-  production: false,
-  gemini apiKey: 'AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg'
-}
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.

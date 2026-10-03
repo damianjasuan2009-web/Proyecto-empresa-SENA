@@ -1,8 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
-import { Observable } from 'rxjs\operators';
-import { chatMessage} from '.. \models\chat.model';
-import { environment} from '..\..\environments\environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +24,3 @@ export class AuthService {
     return await signOut(this.auth);
   }
 }
-
