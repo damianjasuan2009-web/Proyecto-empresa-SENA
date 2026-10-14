@@ -1,0 +1,76 @@
+.settings-page {
+  --background: var(--app-background);
+}
+
+ion-toolbar {
+  --background: var(--app-surface-warm);
+  --color: var(--app-text);
+}
+
+.settings-shell {
+  width: min(100% - 28px, 760px);
+  margin: 0 auto;
+  padding: 16px 0 36px;
+}
+
+.settings-header {
+  margin-bottom: 18px;
+  padding: 20px;
+  border-radius: var(--app-radius);
+  background: var(--app-banner);
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--app-primary-hover);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.settings-header h1 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 1.75rem;
+  line-height: 1.25;
+}
+
+.settings-header p {
+  margin: 8px 0 0;
+  color: var(--app-muted);
+}
+
+ion-card {
+  margin: 14px 0 0;
+}
+
+ion-card-header {
+  padding-bottom: 8px;
+}
+
+ion-card-title {
+  color: var(--app-text);
+  font-size: 1.2rem;
+}
+
+ion-item {
+  --background: transparent;
+  --border-color: var(--app-border);
+  --min-height: 58px;
+}
+
+ion-label {
+  color: var(--app-text);
+  font-size: 1rem;
+}
+
+.settings-actions {
+  display: grid;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.settings-actions ion-button {
+  min-height: 50px;
+  --border-radius: 12px;
+}
+

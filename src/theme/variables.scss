@@ -1,93 +1,97 @@
-// Theme variables for TeAcompaño - Paleta de Colores Cálidos
-// Diseñado para alta accesibilidad y confort visual (Adulto Mayor)
-
 :root {
-  /** Colores Cálidos Principales **/
-  /* Primario: Terracota Cálido Intenso (Alto Contraste y Calidez) */
-  --ion-color-primary: #E05326;
-  --ion-color-primary-rgb: 224, 83, 38;
+  --app-background: #faf7f2;
+  --app-surface: #ffffff;
+  --app-surface-warm: #fffaf4;
+  --app-banner: #f4dfcb;
+  --app-peach-soft: #f5e8d8;
+  --app-sage-soft: #e9efe4;
+  --app-blue-soft: #e6edf0;
+  --app-blue-hover: #405f70;
+  --app-note-background: #f1eee5;
+  --app-primary: #805638;
+  --app-primary-hover: #704528;
+  --app-secondary: #607b5b;
+  --app-secondary-hover: #4d6849;
+  --app-blue: #557384;
+  --app-accent: #b7793d;
+  --app-accent-dark: #8a6e38;
+  --app-text: #342b23;
+  --app-muted: #655b51;
+  --app-border: #e8dfd3;
+  --app-focus: rgba(128, 86, 56, 0.28);
+  --app-shadow: 0 4px 16px rgba(67, 51, 39, 0.08);
+  --app-shadow-hover: 0 6px 20px rgba(67, 51, 39, 0.13);
+  --app-danger: #a83f38;
+  --app-danger-soft: #fbe9e7;
+  --app-danger-border: #d9928d;
+  --app-heart: #ad5361;
+  --app-radius: 16px;
+
+  --ion-color-primary: #805638;
+  --ion-color-primary-rgb: 128, 86, 56;
   --ion-color-primary-contrast: #ffffff;
   --ion-color-primary-contrast-rgb: 255, 255, 255;
-  --ion-color-primary-shade: #c54921;
-  --ion-color-primary-tint: #e3643c;
+  --ion-color-primary-shade: #704528;
+  --ion-color-primary-tint: #98775e;
 
-  /* Secundario: Ámbar / Miel Dorado */
-  --ion-color-secondary: #F59E0B;
-  --ion-color-secondary-rgb: 245, 158, 11;
-  --ion-color-secondary-contrast: #1f140e;
-  --ion-color-secondary-contrast-rgb: 31, 20, 14;
-  --ion-color-secondary-shade: #d88b0a;
-  --ion-color-secondary-tint: #f6a823;
+  --ion-color-secondary: #607b5b;
+  --ion-color-secondary-rgb: 96, 123, 91;
+  --ion-color-secondary-contrast: #ffffff;
+  --ion-color-secondary-contrast-rgb: 255, 255, 255;
+  --ion-color-secondary-shade: #4d6849;
+  --ion-color-secondary-tint: #789273;
 
-  /* Terciario: Naranja Atardecer */
-  --ion-color-tertiary: #EA580C;
-  --ion-color-tertiary-rgb: 234, 88, 12;
+  --ion-color-tertiary: #b7793d;
+  --ion-color-tertiary-rgb: 183, 121, 61;
   --ion-color-tertiary-contrast: #ffffff;
   --ion-color-tertiary-contrast-rgb: 255, 255, 255;
-  --ion-color-tertiary-shade: #ce4d0b;
-  --ion-color-tertiary-tint: #ec6924;
+  --ion-color-tertiary-shade: #996431;
+  --ion-color-tertiary-tint: #c48b54;
 
-  /* Éxito / Confirmación: Verde Oliva Cálido */
-  --ion-color-success: #15803D;
-  --ion-color-success-rgb: 21, 128, 61;
+  --ion-color-success: #55734e;
+  --ion-color-success-rgb: 85, 115, 78;
   --ion-color-success-contrast: #ffffff;
   --ion-color-success-contrast-rgb: 255, 255, 255;
-  --ion-color-success-shade: #127136;
-  --ion-color-success-tint: #2c8d50;
+  --ion-color-success-shade: #46603f;
+  --ion-color-success-tint: #6b8764;
 
-  /* Advertencia: Ámbar Suave */
-  --ion-color-warning: #D97706;
-  --ion-color-warning-rgb: 217, 119, 6;
+  --ion-color-warning: #93651f;
+  --ion-color-warning-rgb: 147, 101, 31;
   --ion-color-warning-contrast: #ffffff;
   --ion-color-warning-contrast-rgb: 255, 255, 255;
-  --ion-color-warning-shade: #bf6905;
-  --ion-color-warning-tint: #dd851f;
+  --ion-color-warning-shade: #79531a;
+  --ion-color-warning-tint: #a77a36;
 
-  /* Peligro / Error: Carmesí Cálido */
-  --ion-color-danger: #DC2626;
-  --ion-color-danger-rgb: 220, 38, 38;
+  --ion-color-danger: #a83f38;
+  --ion-color-danger-rgb: 168, 63, 56;
   --ion-color-danger-contrast: #ffffff;
   --ion-color-danger-contrast-rgb: 255, 255, 255;
-  --ion-color-danger-shade: #c22121;
-  --ion-color-danger-tint: #e03c3c;
+  --ion-color-danger-shade: #8f352f;
+  --ion-color-danger-tint: #b85851;
 
-  /* Claro / Fondo Suave (Evita fatiga visual del blanco puro) */
-  --ion-color-light: #FFF8F1;
-  --ion-color-light-rgb: 255, 248, 241;
-  --ion-color-light-contrast: #2D1810;
-  --ion-color-light-contrast-rgb: 45, 24, 16;
-  --ion-color-light-shade: #e0dad4;
-  --ion-color-light-tint: #fff9f2;
+  --ion-color-light: #fffaf4;
+  --ion-color-light-rgb: 255, 250, 244;
+  --ion-color-light-contrast: #342b23;
+  --ion-color-light-contrast-rgb: 52, 43, 35;
+  --ion-color-light-shade: #e0dbd5;
+  --ion-color-light-tint: #fffaf5;
 
-  /* Medio / Bordes y texto secundario cálido */
-  --ion-color-medium: #785949;
-  --ion-color-medium-rgb: 120, 89, 73;
+  --ion-color-medium: #655b51;
+  --ion-color-medium-rgb: 101, 91, 81;
   --ion-color-medium-contrast: #ffffff;
   --ion-color-medium-contrast-rgb: 255, 255, 255;
-  --ion-color-medium-shade: #6a4e40;
-  --ion-color-medium-tint: #866a5b;
+  --ion-color-medium-shade: #554c44;
+  --ion-color-medium-tint: #746b62;
 
-  /* Oscuro: Marrón Café Muy Oscuro (Mejor legibilidad que negro puro) */
-  --ion-color-dark: #26150D;
-  --ion-color-dark-rgb: 38, 21, 13;
+  --ion-color-dark: #342b23;
+  --ion-color-dark-rgb: 52, 43, 35;
   --ion-color-dark-contrast: #ffffff;
   --ion-color-dark-contrast-rgb: 255, 255, 255;
-  --ion-color-dark-shade: #21120b;
-  --ion-color-dark-tint: #3c2c25;
+  --ion-color-dark-shade: #2d251f;
+  --ion-color-dark-tint: #484039;
 
-  /* Variables globales de fondo y texto */
-  --ion-background-color: #FFF9F3;
-  --ion-background-color-rgb: 255, 249, 243;
-  --ion-text-color: #2D1810;
-  --ion-text-color-rgb: 45, 24, 16;
-
-  /* Variables personalizadas para TeAcompaño */
-  --app-warm-cream: #FFF9F3;
-  --app-warm-surface: #FFFFFF;
-  --app-warm-border: #FED7AA;
-  --app-warm-peach: #FFEDD5;
-  --app-warm-amber: #F59E0B;
-  --app-warm-terracotta: #E05326;
-  --app-warm-brown: #2D1810;
-  --app-warm-brown-muted: #6B4F42;
+  --ion-background-color: var(--app-background);
+  --ion-background-color-rgb: 250, 247, 242;
+  --ion-text-color: var(--app-text);
+  --ion-text-color-rgb: 52, 43, 35;
 }

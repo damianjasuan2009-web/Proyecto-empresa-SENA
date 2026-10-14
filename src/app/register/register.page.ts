@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoadingController, ToastController } from '@ionic/angular';
@@ -11,15 +11,13 @@ import { AuthService } from '../services/auth.service';
   standalone: false,
 })
 export class RegisterPage implements OnInit {
-  registerForm!: FormGroup;
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly loadingController = inject(LoadingController);
+  private readonly toastController = inject(ToastController);
 
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private loadingController: LoadingController,
-    private toastController: ToastController
-  ) {}
+  registerForm!: FormGroup;
 
   ngOnInit() {
     this.registerForm = this.fb.group({

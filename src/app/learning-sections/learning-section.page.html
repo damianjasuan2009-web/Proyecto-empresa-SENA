@@ -1,0 +1,101 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>TeAcompaño</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/settings" aria-label="Ajustes">
+        <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="section-page">
+  <main class="section-shell">
+    <nav class="section-nav" aria-label="Apartados principales">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/apartados/aprendizaje" routerLinkActive="active">Aprendizaje</a>
+      <a routerLink="/apartados/tutoriales" routerLinkActive="active">Tutoriales</a>
+      <a routerLink="/apartados/verificacion" routerLinkActive="active">Verificación</a>
+    </nav>
+
+    <header class="section-intro">
+      <p class="eyebrow">Aprende a tu ritmo</p>
+      <h1>{{ title }}</h1>
+      <p>{{ description }}</p>
+    </header>
+
+    <section *ngIf="section === 'aprendizaje'" class="content-list" aria-label="Cursos disponibles">
+      <article class="content-item path-item" *ngFor="let path of learningContent.learningPaths">
+        <div class="item-icon"><ion-icon [name]="path.icon"></ion-icon></div>
+        <div class="item-copy">
+          <span class="item-label">{{ path.level }}</span>
+          <h2>{{ path.title }}</h2>
+          <p>{{ path.description }}</p>
+          <ul>
+            <li *ngFor="let topic of path.topics">{{ topic }}</li>
+          </ul>
+        </div>
+        <ion-button class="item-action" (click)="openPathTutorials()">Ver guías</ion-button>
+      </article>
+    </section>
+
+    <section *ngIf="section === 'tutoriales'" class="content-list" aria-label="Guías disponibles">
+      <article class="content-item" *ngFor="let tutorial of learningContent.tutorials">
+        <div class="item-icon tutorial-icon"><ion-icon name="play-outline"></ion-icon></div>
+        <div class="item-copy">
+          <span class="item-label">{{ tutorial.level }} · {{ tutorial.duration }}</span>
+          <h2>{{ tutorial.title }}</h2>
+          <p>{{ tutorial.description }}</p>
+        </div>
+        <div class="item-action-group">
+          <ion-icon *ngIf="tutorial.completed" class="completed-icon" name="checkmark-circle"></ion-icon>
+          <ion-button class="item-action" (click)="openTutorial(tutorial.id)">
+            {{ tutorial.completed ? 'Repasar guía' : 'Abrir guía' }}
+          </ion-button>
+        </div>
+      </article>
+      <div class="progress-summary">
+        <span>Guías completadas</span>
+        <strong>{{ learningContent.totalCompletedTutorials }} de {{ learningContent.tutorials.length }}</strong>
+        <ion-progress-bar [value]="learningContent.learningProgress / 100"></ion-progress-bar>
+      </div>
+    </section>
+
+    <section *ngIf="section === 'verificacion'" class="content-list" aria-label="Preguntas de práctica">
+      <article class="content-item" *ngFor="let task of learningContent.verificationTasks">
+        <div class="item-icon verification-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
+        <div class="item-copy">
+          <span class="item-label">{{ task.points }} puntos</span>
+          <h2>{{ task.title }}</h2>
+          <p>{{ task.description }}</p>
+        </div>
+        <div class="item-action-group">
+          <ion-icon *ngIf="task.completed" class="completed-icon" name="checkmark-circle"></ion-icon>
+          <ion-button class="item-action" [disabled]="task.completed" (click)="verify(task)">
+            {{ task.completed ? 'Completado' : 'Responder' }}
+          </ion-button>
+        </div>
+      </article>
+      <div class="progress-summary">
+        <span>Verificaciones completadas</span>
+        <strong>{{ learningContent.completedVerifications }} de {{ learningContent.verificationTasks.length }}</strong>
+        <ion-progress-bar [value]="learningContent.completedVerifications / learningContent.verificationTasks.length"></ion-progress-bar>
+      </div>
+    </section>
+
+    <aside *ngIf="section === 'aprendizaje'" class="learning-note">
+      <ion-icon name="bulb-outline"></ion-icon>
+      <div>
+        <strong>Aprende con un propósito</strong>
+        <p>Empieza por una tarea que te interese, practica sin apuro y adapta el teléfono a lo que te resulte cómodo.</p>
+        <div class="source-links">
+          <a href="https://www.ilunion.com/es/blog-puntoilunion/tecnologia-personas-mayores" target="_blank" rel="noopener noreferrer">Consejos para aprender a tu ritmo</a>
+          <a href="https://www.mineducacion.gov.co/portal/men/Publicaciones/Guias/160915:Guia-No-30-Ser-competente-en-tecnologia-una-necesidad-para-el-desarrollo" target="_blank" rel="noopener noreferrer">Guía 30 del Ministerio de Educación</a>
+        </div>
+      </div>
+    </aside>
+  </main>
+</ion-content>

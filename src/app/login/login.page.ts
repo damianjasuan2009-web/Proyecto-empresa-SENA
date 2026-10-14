@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
@@ -11,18 +11,16 @@ import { AuthService } from '../services/auth.service';
   standalone: false,
 })
 export class LoginPage implements OnInit {
+  private readonly fb = inject(FormBuilder);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  private readonly loadingController = inject(LoadingController);
+  private readonly toastController = inject(ToastController);
+  private readonly alertController = inject(AlertController);
+
   credentials!: FormGroup;
   showPassword = false;
   isLargeFont = false;
-
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private router: Router,
-    private loadingController: LoadingController,
-    private toastController: ToastController,
-    private alertController: AlertController
-  ) {}
 
   ngOnInit() {
     this.credentials = this.fb.group({

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
 import { Observable } from 'rxjs';
 
@@ -6,11 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AuthService {
-  user$: Observable<User | null>;
-
-  constructor(private auth: Auth) {
-    this.user$ = user(this.auth);
-  }
+  private readonly auth = inject(Auth);
+  user$: Observable<User | null> = user(this.auth);
 
   async register({ email, password }: { email: string; password: string }): Promise<any> {
     return await createUserWithEmailAndPassword(this.auth, email, password);

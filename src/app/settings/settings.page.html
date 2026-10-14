@@ -1,0 +1,72 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()" aria-label="Volver al inicio">
+        <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Configuración</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding settings-page">
+  <div class="settings-shell">
+    <section class="settings-header">
+      <p class="eyebrow">Personaliza tu experiencia</p>
+      <h1>Preferencias de la aplicación</h1>
+      <p>Configura el estilo y la forma en que quieres usar TeAcompaño.</p>
+    </section>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Visual</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Modo oscuro</ion-label>
+          <ion-toggle [(ngModel)]="preferences.darkMode" color="primary"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Alto contraste</ion-label>
+          <ion-toggle [(ngModel)]="preferences.highContrast" color="primary"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Vista compacta</ion-label>
+          <ion-toggle [(ngModel)]="preferences.compactView" color="primary"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Fuente</ion-label>
+          <ion-select [(ngModel)]="preferences.fontSize" interface="popover" placeholder="Selecciona una opción">
+            <ion-select-option value="normal">Normal</ion-select-option>
+            <ion-select-option value="large">Grande</ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Notificaciones</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item lines="none">
+          <ion-label>Correo electrónico</ion-label>
+          <ion-toggle [(ngModel)]="preferences.emailNotifications" color="success"></ion-toggle>
+        </ion-item>
+
+        <ion-item lines="none">
+          <ion-label>Reportes semanales</ion-label>
+          <ion-toggle [(ngModel)]="preferences.weeklyReports" color="success"></ion-toggle>
+        </ion-item>
+      </ion-card-content>
+    </ion-card>
+
+    <div class="settings-actions">
+      <ion-button expand="block" color="primary" (click)="savePreferences()">Guardar preferencias</ion-button>
+      <ion-button expand="block" fill="outline" color="medium" (click)="resetPreferences()">Restablecer</ion-button>
+    </div>
+  </div>
+</ion-content>

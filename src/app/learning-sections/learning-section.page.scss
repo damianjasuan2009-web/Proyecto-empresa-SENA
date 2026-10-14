@@ -1,0 +1,251 @@
+.section-page {
+  --background: var(--app-background);
+}
+
+ion-toolbar {
+  --background: var(--app-surface-warm);
+  --color: var(--app-text);
+}
+
+.section-shell {
+  width: min(100% - 32px, 980px);
+  margin: 0 auto;
+  padding: 20px 0 40px;
+}
+
+.section-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 2px 0 8px;
+}
+
+.section-nav a {
+  flex: 0 0 auto;
+  padding: 11px 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 12px;
+  background: var(--app-surface);
+  color: var(--app-muted);
+  font-size: 1rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.section-nav a.active {
+  border-color: var(--app-primary);
+  background: var(--app-primary);
+  color: #fff;
+}
+
+.section-intro {
+  margin: 22px 0 20px;
+}
+
+.eyebrow {
+  margin: 0 0 6px;
+  color: var(--app-primary-hover);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.section-intro h1 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 1.8rem;
+  line-height: 1.25;
+}
+
+.section-intro > p:last-child {
+  max-width: 680px;
+  margin: 8px 0 0;
+  color: var(--app-muted);
+  font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.content-list {
+  display: grid;
+  gap: 14px;
+}
+
+.content-item,
+.progress-summary {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  padding: 20px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+}
+
+.item-icon {
+  display: grid;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--app-peach-soft);
+  color: var(--app-primary);
+  font-size: 1.55rem;
+}
+
+.tutorial-icon {
+  background: var(--app-sage-soft);
+  color: var(--app-secondary);
+}
+
+.verification-icon {
+  background: var(--app-blue-soft);
+  color: var(--app-blue);
+}
+
+.item-copy {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.item-label {
+  color: var(--app-primary-hover);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+.item-copy h2 {
+  margin: 4px 0 6px;
+  color: var(--app-text);
+  font-size: 1.2rem;
+  line-height: 1.35;
+}
+
+.item-copy p {
+  margin: 0;
+  color: var(--app-muted);
+  line-height: 1.5;
+}
+
+.item-copy ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  margin: 12px 0 0;
+  padding-left: 20px;
+  color: #655b51;
+}
+
+.item-action,
+.item-action-group {
+  flex: 0 0 auto;
+}
+
+.item-action {
+  min-width: 132px;
+  min-height: 46px;
+  margin: 0;
+  --border-radius: 12px;
+  --background: var(--app-primary);
+  --background-hover: var(--app-primary-hover);
+  --color: #fff;
+  font-size: 1rem;
+}
+
+.item-action[disabled] {
+  --background: var(--app-secondary);
+  --color: #fff;
+  opacity: 1;
+}
+
+.item-action-group {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.completed-icon {
+  color: var(--app-secondary);
+  font-size: 1.5rem;
+}
+
+.progress-summary {
+  flex-wrap: wrap;
+  align-items: center;
+  color: var(--app-muted);
+}
+
+.progress-summary strong {
+  margin-left: auto;
+  color: var(--app-text);
+}
+
+.progress-summary ion-progress-bar {
+  flex: 0 0 100%;
+}
+
+.learning-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 18px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: var(--app-note-background);
+  color: var(--app-muted);
+}
+
+.learning-note > ion-icon {
+  flex: 0 0 auto;
+  color: var(--app-accent-dark);
+  font-size: 1.4rem;
+}
+
+.learning-note p {
+  margin: 5px 0 10px;
+  line-height: 1.45;
+}
+
+.source-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 18px;
+}
+
+.source-links a {
+  color: var(--app-primary-hover);
+  font-weight: 700;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .section-shell {
+    width: min(100% - 24px, 980px);
+    padding-top: 12px;
+  }
+
+  .content-item {
+    flex-wrap: wrap;
+    padding: 16px;
+  }
+
+  .item-copy {
+    flex-basis: calc(100% - 64px);
+  }
+
+  .item-action,
+  .item-action-group {
+    width: 100%;
+    margin-left: 64px;
+  }
+
+  .item-action-group .item-action {
+    width: auto;
+    flex: 1;
+    margin-left: 0;
+  }
+
+  .progress-summary strong {
+    margin-left: 0;
+  }
+}

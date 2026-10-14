@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { ThemePreferencesService } from './services/theme-preferences.service';
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['app.component.scss'],
   standalone: false,
 })
-export class AppComponent {
-  constructor() {}
+export class AppComponent implements OnInit {
+  private readonly themePreferences = inject(ThemePreferencesService);
+
+  ngOnInit(): void {
+    this.themePreferences.applySavedPreferences();
+  }
 }

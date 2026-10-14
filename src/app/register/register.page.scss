@@ -1,39 +1,90 @@
+.register-page {
+  --background: var(--app-background);
+}
+
+ion-toolbar {
+  --background: var(--app-surface-warm);
+  --color: var(--app-text);
+}
+
 .register-container {
-  max-width: 450px;
+  width: min(100% - 24px, 520px);
   margin: 0 auto;
-  padding-top: 1.5rem;
+  padding: 20px 0 36px;
+}
 
-  .header-section {
-    text-align: center;
-    margin-bottom: 2rem;
+.header-section {
+  margin-bottom: 18px;
+  padding: 22px 20px;
+  border-radius: var(--app-radius);
+  background: var(--app-banner);
+  color: var(--app-text);
+  text-align: center;
+}
 
-    .user-icon {
-      font-size: 5rem;
-      color: var(--ion-color-success);
-    }
+.header-section .user-icon {
+  color: var(--app-primary);
+  font-size: 3.5rem;
+}
 
-    h2 {
-      margin-top: 0.5rem;
-      font-weight: 600;
-    }
+.header-section h2 {
+  margin: 8px 0 4px;
+  color: var(--app-text);
+  font-size: 1.6rem;
+}
 
-    p {
-      color: var(--ion-color-medium);
-    }
-  }
+.header-section p {
+  margin: 0;
+  color: var(--app-muted);
+}
 
-  .error-msg {
-    font-size: 0.85rem;
-    padding-left: 1rem;
-    margin-top: -0.5rem;
-    margin-bottom: 0.5rem;
-  }
+form {
+  padding: 18px;
+  border: 1px solid var(--app-border);
+  border-radius: var(--app-radius);
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
 
-  .footer-links {
-    a {
-      color: var(--ion-color-primary);
-      text-decoration: none;
-      font-weight: bold;
-    }
-  }
+form ion-item {
+  --background: var(--app-surface-warm);
+  --border-color: var(--app-border);
+  --border-radius: 12px;
+  min-height: 60px;
+  margin-bottom: 14px;
+}
+
+form ion-label {
+  color: var(--app-text);
+  font-weight: 700;
+}
+
+form ion-input {
+  --padding-start: 12px;
+  --padding-end: 12px;
+  font-size: 1.05rem;
+}
+
+.error-msg {
+  margin: 0 0 12px;
+  padding-left: 12px;
+  color: var(--app-danger);
+  font-size: 0.95rem;
+}
+
+form ion-button {
+  min-height: 50px;
+  --border-radius: 12px;
+  font-size: 1.05rem;
+}
+
+.footer-links {
+  margin-top: 18px;
+  color: var(--app-muted);
+}
+
+.footer-links a {
+  color: var(--app-primary-hover);
+  font-weight: 700;
+  text-underline-offset: 3px;
 }

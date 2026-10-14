@@ -1,26 +1,26 @@
 // Paleta de Colores Cálidos - TeAcompaño
 // Diseñado con criterios WCAG AAA para adultos mayores
 
-$warm-cream-bg: #FFF9F3;
-$warm-card-bg: #FFFFFF;
-$warm-border: #FED7AA;
-$warm-border-strong: #FB923C;
-$warm-peach-light: #FFEDD5;
-$warm-amber: #F59E0B;
-$warm-amber-dark: #D97706;
-$warm-terracotta: #E05326;
-$warm-terracotta-dark: #C2410C;
-$warm-text-main: #26150D;
-$warm-text-muted: #6B4F42;
-$warm-shadow: 0 4px 18px rgba(154, 52, 18, 0.09);
-$warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
+$warm-cream-bg: var(--app-background);
+$warm-card-bg: var(--app-surface);
+$warm-border: var(--app-border);
+$warm-border-strong: var(--app-primary);
+$warm-peach-light: var(--app-peach-soft);
+$warm-amber: var(--app-accent);
+$warm-amber-dark: var(--app-accent-dark);
+$warm-terracotta: var(--app-primary);
+$warm-terracotta-dark: var(--app-primary-hover);
+$warm-text-main: var(--app-text);
+$warm-text-muted: var(--app-muted);
+$warm-shadow: var(--app-shadow);
+$warm-shadow-hover: var(--app-shadow-hover);
 
 // BARRA DE NAVEGACIÓN SUPERIOR
 .warm-toolbar {
-  --background: #{$warm-terracotta};
-  --color: #FFFFFF;
-  padding: 4px 8px;
-  box-shadow: 0 2px 10px rgba(124, 45, 18, 0.25);
+  --background: var(--app-surface-warm);
+  --color: var(--app-text);
+  padding: 2px 8px;
+  box-shadow: 0 2px 8px rgba(67, 51, 39, 0.08);
 
   .toolbar-brand {
     display: flex;
@@ -32,22 +32,23 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       width: 36px;
       height: 36px;
       border-radius: 8px;
-      background: #FFFFFF;
+      background: var(--app-banner);
       padding: 2px;
     }
 
     .brand-title {
       font-size: 1.3rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
-      color: #FFFFFF;
+      letter-spacing: 0;
+      color: var(--app-text);
+      letter-spacing: 0;
     }
   }
 
   .font-size-btn {
-    --background: #FFF7ED;
-    --color: #{$warm-terracotta-dark};
-    --border-radius: 20px;
+    --background: var(--app-peach-soft);
+    --color: var(--app-primary-hover);
+    --border-radius: 12px;
     font-weight: 700;
     font-size: 0.85rem;
     height: 38px;
@@ -66,7 +67,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 
 // CONTENIDO PRINCIPAL
 .warm-content {
-  --background: linear-gradient(180deg, #FFF9F3 0%, #FFFAF0 50%, #FFF5EB 100%);
+  --background: var(--app-background);
   --color: #{$warm-text-main};
 }
 
@@ -110,7 +111,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       font-weight: 800;
       color: $warm-terracotta-dark;
       margin: 0 0 6px;
-      letter-spacing: -0.5px;
+      letter-spacing: 0;
     }
 
     .subtitle {
@@ -127,14 +128,14 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       gap: 8px;
       background: $warm-peach-light;
       border: 1px solid $warm-border;
-      color: #9A3412;
+      color: $warm-terracotta-dark;
       padding: 8px 16px;
       border-radius: 50px;
       font-size: 0.95rem;
       font-weight: 700;
 
       .heart-icon {
-        color: #E11D48;
+        color: var(--app-heart);
         font-size: 1.1rem;
       }
     }
@@ -195,7 +196,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       font-size: 1.05rem;
       font-weight: 800;
       color: $warm-terracotta-dark;
-      letter-spacing: 0.6px;
+      letter-spacing: 0;
       margin-bottom: 8px;
 
       .label-icon {
@@ -207,7 +208,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
     .reveal-password-btn {
       background: $warm-peach-light;
       border: 1px solid $warm-border-strong;
-      color: #7C2D12;
+      color: $warm-terracotta-dark;
       border-radius: 12px;
       padding: 6px 12px;
       font-size: 0.9rem;
@@ -229,7 +230,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
     }
 
     .input-box {
-      background: #FFFFFF;
+      background: $warm-card-bg;
       border: 2.5px solid #E2B89D;
       border-radius: 16px;
       padding: 2px 14px;
@@ -241,23 +242,23 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       &:focus-within {
         border-color: $warm-terracotta;
         box-shadow: 0 0 0 4px rgba(224, 83, 38, 0.15);
-        background: #FFFDFB;
+        background: var(--app-surface-warm);
       }
 
       &.input-box-error {
-        border-color: #DC2626;
-        background: #FEF2F2;
+        border-color: var(--app-danger-border);
+        background: var(--app-danger-soft);
       }
 
       .custom-accessible-input {
         --padding-top: 14px;
         --padding-bottom: 14px;
         --color: #{$warm-text-main};
-        --placeholder-color: #8C7468;
+        --placeholder-color: var(--app-muted);
         --placeholder-opacity: 0.9;
         font-size: 1.15rem;
         font-weight: 600;
-        letter-spacing: 0.3px;
+        letter-spacing: 0;
         width: 100%;
       }
     }
@@ -274,9 +275,9 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       display: flex;
       align-items: center;
       gap: 8px;
-      background: #FEE2E2;
-      border: 1.5px solid #FCA5A5;
-      color: #991B1B;
+      background: var(--app-danger-soft);
+      border: 1.5px solid var(--app-danger-border);
+      color: var(--app-danger);
       padding: 8px 12px;
       border-radius: 12px;
       margin-top: 8px;
@@ -300,7 +301,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
     height: 60px;
     margin-top: 24px;
     font-weight: 800;
-    letter-spacing: 0.6px;
+    letter-spacing: 0;
     cursor: pointer;
 
     .btn-icon {
@@ -314,7 +315,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 
     &[disabled] {
       --background: #D1B8AC;
-      --color: #6B574D;
+      --color: var(--app-muted);
       opacity: 0.7;
     }
   }
@@ -344,7 +345,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
     h3 {
       font-size: 1.08rem;
       font-weight: 800;
-      letter-spacing: 0.5px;
+      letter-spacing: 0;
       margin: 0;
     }
   }
@@ -364,7 +365,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 
   .alt-method-btn {
     width: 100%;
-    background: #FFFDF9;
+    background: var(--app-surface-warm);
     border: 2px solid #FED7AA;
     border-radius: 16px;
     padding: 12px 14px;
@@ -393,15 +394,15 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       flex-shrink: 0;
 
       &.phone-circle {
-        background: #FEF3C7;
-        color: #B45309;
-        border: 1px solid #FDE68A;
+        background: var(--app-peach-soft);
+        color: $warm-terracotta-dark;
+        border: 1px solid $warm-border;
       }
 
       &.fingerprint-circle {
-        background: #FFEDD5;
-        color: #C2410C;
-        border: 1px solid #FED7AA;
+        background: var(--app-peach-soft);
+        color: $warm-terracotta-dark;
+        border: 1px solid $warm-border;
       }
     }
 
@@ -473,8 +474,8 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
   }
 
   .btn-create-account {
-    --background: #FFFFFF;
-    --background-hover: #FFF7ED;
+    --background: var(--app-surface);
+    --background-hover: var(--app-surface-warm);
     --color: #{$warm-terracotta-dark};
     --border-color: #{$warm-terracotta};
     --border-style: solid;
@@ -483,7 +484,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
     --box-shadow: 0 4px 12px rgba(180, 83, 9, 0.12);
     height: 54px;
     font-weight: 800;
-    letter-spacing: 0.5px;
+    letter-spacing: 0;
 
     ion-icon {
       font-size: 1.4rem;
@@ -500,7 +501,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 .support-card {
   background: #FFFFFF;
   border-radius: 20px;
-  border: 2px solid #E5E7EB;
+  border: 1px solid var(--app-border);
   padding: 18px;
   margin-bottom: 24px;
 
@@ -521,7 +522,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 
     .support-icon {
       font-size: 2.2rem;
-      color: #0284C7;
+      color: var(--app-secondary);
       flex-shrink: 0;
     }
 
@@ -573,7 +574,7 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
 
   .footer-subtext {
     font-size: 0.85rem;
-    color: #8C7468;
+    color: var(--app-muted);
   }
 }
 
@@ -667,4 +668,33 @@ $warm-shadow-hover: 0 6px 24px rgba(154, 52, 18, 0.16);
       }
     }
   }
+}
+
+.welcome-card,
+.form-card,
+.alternative-methods-card,
+.register-promo-card,
+.support-card {
+  border-radius: var(--app-radius);
+  border-color: var(--app-border);
+  box-shadow: var(--app-shadow);
+}
+
+.welcome-card,
+.form-card,
+.alternative-methods-card,
+.support-card {
+  background: var(--app-surface);
+}
+
+.register-promo-card {
+  background: var(--app-banner);
+}
+
+.input-box,
+.reveal-password-btn,
+.alt-method-btn,
+.btn-create-account,
+.btn-help {
+  border-radius: 12px !important;
 }

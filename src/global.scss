@@ -35,4 +35,151 @@
 
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
-@import "@ionic/angular/css/palettes/dark.system.css";
+
+:root {
+	--ion-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+}
+
+html,
+body {
+	min-height: 100%;
+	background: var(--app-background);
+	color: var(--app-text);
+	font-family: var(--ion-font-family);
+	font-size: 17px;
+	line-height: 1.5;
+}
+
+ion-content {
+	--background: var(--app-background);
+	--color: var(--app-text);
+}
+
+ion-toolbar {
+	--background: var(--app-surface-warm);
+	--color: var(--app-text);
+	--border-color: var(--app-border);
+}
+
+ion-card {
+	--background: var(--app-surface);
+	--color: var(--app-text);
+	border: 1px solid var(--app-border);
+	border-radius: var(--app-radius);
+	box-shadow: var(--app-shadow);
+}
+
+ion-item {
+	--color: var(--app-text);
+	--border-color: var(--app-border);
+}
+
+ion-button {
+	--border-radius: 12px;
+	font-weight: 700;
+}
+
+ion-input,
+ion-textarea,
+ion-select {
+	--color: var(--app-text);
+	--placeholder-color: var(--app-muted);
+	font-size: 1.05rem;
+}
+
+body.theme-dark {
+	--app-background: #29251f;
+	--app-surface: #38332c;
+	--app-surface-warm: #40372d;
+	--app-banner: #514236;
+	--app-peach-soft: #514236;
+	--app-sage-soft: #384538;
+	--app-blue-soft: #354149;
+	--app-note-background: #38332c;
+	--app-text: #f6f0e7;
+	--app-muted: #d0c4b7;
+	--app-border: #5a5044;
+	--app-primary: #805638;
+	--app-primary-hover: #f0c9a7;
+	--app-focus: rgba(244, 211, 174, 0.55);
+	--app-heart: #e9a0aa;
+	--app-danger: #e6a09b;
+	--app-danger-soft: #50312f;
+	--app-danger-border: #a95e58;
+	--ion-color-light: #40372d;
+	--ion-color-light-rgb: 64, 55, 45;
+	--ion-color-light-contrast: #f6f0e7;
+	--ion-color-light-contrast-rgb: 246, 240, 231;
+	--ion-color-light-shade: #383027;
+	--ion-color-light-tint: #52493f;
+	--ion-color-medium: #d0c4b7;
+	--ion-color-medium-rgb: 208, 196, 183;
+	--ion-color-medium-contrast: #29251f;
+	--ion-color-medium-contrast-rgb: 41, 37, 31;
+	--ion-color-medium-shade: #b7ab9b;
+	--ion-color-medium-tint: #dfd4c7;
+	--ion-background-color: var(--app-background);
+	--ion-text-color: var(--app-text);
+	color-scheme: dark;
+}
+
+body.theme-high-contrast {
+	--app-text: #18130f;
+	--app-muted: #342b23;
+	--app-border: #5b4533;
+	--app-primary: #603a20;
+	--app-primary-hover: #4d2e19;
+	--app-focus: rgba(96, 58, 32, 0.48);
+	--ion-color-primary: #603a20;
+	--ion-color-primary-contrast: #ffffff;
+}
+
+body.theme-dark.theme-high-contrast {
+	--app-text: #ffffff;
+	--app-muted: #f0e9df;
+	--app-border: #d0c4b7;
+	--app-primary: #604020;
+	--app-primary-hover: #f0d0af;
+	--app-focus: rgba(255, 255, 255, 0.72);
+	--ion-color-primary: #604020;
+	--ion-color-primary-contrast: #ffffff;
+}
+
+body.theme-dark .btn-primary-warm[disabled] {
+	--background: #62574c;
+	--color: #f6f0e7;
+	opacity: 1;
+}
+
+body.compact-view ion-card {
+	border-radius: 12px;
+}
+
+body.large-font {
+	font-size: 1.12rem;
+}
+
+html.large-font {
+	font-size: 1.12rem;
+}
+
+a:focus-visible,
+button:focus-visible,
+ion-button:focus-visible,
+ion-item:focus-visible,
+ion-input:focus-within,
+ion-select:focus-within {
+	outline: 3px solid var(--app-focus);
+	outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+	}
+}

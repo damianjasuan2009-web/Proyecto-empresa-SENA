@@ -1,96 +1,117 @@
 <ion-menu contentId="main-content">
   <ion-header>
-    <ion-toolbar color="dark">
-      <ion-title>Menu</ion-title>
+    <ion-toolbar color="light">
+      <ion-title>Mi aprendizaje</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content class="ion-padding">
     <ion-list>
-      <ion-item button><ion-icon name="home-outline"></ion-icon> Inicio</ion-item>
-      <ion-item button><ion-icon name="people"></ion-icon> Empleados</ion-item>
-      <ion-item button><ion-icon name="calculator"></ion-icon> Finanzas</ion-item>
-      <ion-item button><ion-icon name="briefcase"></ion-icon> Proyectos</ion-item>
-      <ion-item button><ion-icon name="heart"></ion-icon> Contacto</ion-item>
-      <ion-item button (click)="logout()" color="danger"><ion-icon name="log-out-outline"></ion-icon> Cerrar Sesión</ion-item>
+      <ion-item button routerLink="/home" detail="false">
+        <ion-icon name="home-outline" slot="start"></ion-icon>
+        <ion-label>Inicio</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/apartados/aprendizaje" detail="false">
+        <ion-icon name="book-outline" slot="start"></ion-icon>
+        <ion-label>Aprendizaje</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/apartados/tutoriales" detail="false">
+        <ion-icon name="play-circle-outline" slot="start"></ion-icon>
+        <ion-label>Tutoriales</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/apartados/verificacion" detail="false">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        <ion-label>Verificación</ion-label>
+      </ion-item>
+      <ion-item button routerLink="/settings" detail="false">
+        <ion-icon name="settings-outline" slot="start"></ion-icon>
+        <ion-label>Configuración</ion-label>
+      </ion-item>
+      <ion-item button (click)="logout()" color="danger">
+        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-label>Cerrar sesión</ion-label>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-menu>
 
-
 <div class="ion-page" id="main-content">
   <ion-header>
-    <ion-toolbar color="dark">
+    <ion-toolbar color="light">
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>
-        Empresa App
-      </ion-title>
+      <ion-title>TeAcompaño</ion-title>
       <ion-buttons slot="end">
-        <ion-button (click)="logout()" title="Cerrar Sesión">
-          <ion-icon slot="icon-only" name="log-out-outline"></ion-icon>
+        <ion-button (click)="goToSettings()" aria-label="Configuración">
+          <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
         </ion-button>
       </ion-buttons>
     </ion-toolbar>
   </ion-header>
 
-  <ion-content class="ion-padding">
-    <h1>Bienvenido a Empresa App!</h1>
-    <img src="assets/img/empresa.jpg" alt="Imagen de empresa" style="width: 300px; height: auto; margin-bottom: 10px; border-radius: 28px;">
+  <ion-content class="home-page">
+    <main class="home-shell">
+      <section class="welcome-panel">
+        <div>
+          <p class="eyebrow">Tu espacio de aprendizaje</p>
+          <h1>Hola, vamos paso a paso</h1>
+          <p>Aprende a usar la tecnología con calma y a tu propio ritmo.</p>
+        </div>
+        <div class="streak-summary">
+          <ion-icon name="flame-outline"></ion-icon>
+          <strong>{{ streakDays }} días</strong>
+          <span>de práctica</span>
+        </div>
+      </section>
 
-    <p>
-      Esta aplicación está diseñada para ayudarte a gestionar tu empresa de manera eficiente. Aquí podrás encontrar
-      herramientas para administrar tus empleados, controlar tus finanzas, y mantener un seguimiento de tus proyectos.
-    </p>
+      <section class="progress-summary" aria-label="Resumen de progreso">
+        <div class="progress-copy">
+          <div>
+            <h2>Tu avance</h2>
+            <p>{{ learningContent.totalCompletedTutorials }} de {{ learningContent.tutorials.length }} guías completadas</p>
+          </div>
+          <strong>{{ learningContent.learningProgress }}%</strong>
+        </div>
+        <ion-progress-bar [value]="learningContent.learningProgress / 100"></ion-progress-bar>
+      </section>
 
-    <h2>Características principales:</h2>
-    <ul>
-      <li>Administración de empleados</li>
-      <li>Control de finanzas</li>
-      <li>Seguimiento de proyectos</li>
-    </ul>
+      <section class="section-heading">
+        <div>
+          <p class="eyebrow">¿Qué quieres aprender?</p>
+          <h2>Elige un apartado</h2>
+        </div>
+      </section>
 
-    <ion-card>
-      <ion-card-header>
-        <ion-card-title>Administración de empleados</ion-card-title>
-      </ion-card-header>
-      <ion-card-content>
-        Gestiona la información de tus empleados, asigna tareas y controla su desempeño.
-      </ion-card-content>
-    </ion-card>
+      <section class="section-grid" aria-label="Apartados de aprendizaje">
+        <article class="section-card learning-card">
+          <div class="section-icon"><ion-icon name="book-outline"></ion-icon></div>
+          <h3>Aprendizaje</h3>
+          <p>Explora cursos de mensajes, seguridad, banca y redes.</p>
+          <ion-button expand="block" routerLink="/apartados/aprendizaje">Ver cursos</ion-button>
+        </article>
 
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Control de finanzas</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      Lleva un control detallado de tus ingresos y gastos, y genera reportes financieros para tu empresa.
-    </ion-card-content>
-  </ion-card>
+        <article class="section-card tutorials-card">
+          <div class="section-icon"><ion-icon name="play-circle-outline"></ion-icon></div>
+          <h3>Tutoriales</h3>
+          <p>Guías fáciles, explicadas paso a paso.</p>
+          <ion-button expand="block" routerLink="/apartados/tutoriales">Ver tutoriales</ion-button>
+        </article>
 
+        <article class="section-card verification-card">
+          <div class="section-icon"><ion-icon name="checkmark-circle-outline"></ion-icon></div>
+          <h3>Verificación</h3>
+          <p>Practica lo aprendido con preguntas sencillas.</p>
+          <ion-button expand="block" routerLink="/apartados/verificacion">Comenzar</ion-button>
+        </article>
+      </section>
 
-    <h3>Contacto</h3>
-    <p>
-      Si tienes alguna pregunta o necesitas ayuda, no dudes en contactarnos a través de nuestro correo electrónico:
-      <a href="mailto:info@empresaapp.com">
-        info@empresaapp.com
-      </a>
-    </p>
-
-    <ion-button expand="block" color="primary">
-      <ion-icon name="logo-facebook"></ion-icon>
-      Facebook
-    </ion-button>
-        <ion-button expand="block" color="danger">
-      <ion-icon name="logo-instagram"></ion-icon>
-      Instagram
-    </ion-button>
+      <section class="daily-tip">
+        <ion-icon name="bulb-outline"></ion-icon>
+        <div>
+          <strong>Recuerda</strong>
+          <p>No tienes que aprender todo hoy. Puedes volver cuando quieras.</p>
+        </div>
+      </section>
+    </main>
   </ion-content>
-
-  <ion-footer>
-    <ion-toolbar color="dark">
-      <ion-title>&copy; 2026 Empresa App. Todos los derechos reservados.</ion-title>
-    </ion-toolbar>
-  </ion-footer>
-
 </div>
