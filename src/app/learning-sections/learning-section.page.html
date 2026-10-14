@@ -19,6 +19,8 @@
       <a routerLink="/apartados/aprendizaje" routerLinkActive="active">Aprendizaje</a>
       <a routerLink="/apartados/tutoriales" routerLinkActive="active">Tutoriales</a>
       <a routerLink="/apartados/verificacion" routerLinkActive="active">Verificación</a>
+      <a routerLink="/apartados/contactos" routerLinkActive="active">Contactos</a>
+      <a routerLink="/apartados/ayuda" routerLinkActive="active">Ayuda</a>
     </nav>
 
     <header class="section-intro">
@@ -42,7 +44,37 @@
       </article>
     </section>
 
-    <section *ngIf="section === 'tutoriales'" class="content-list" aria-label="Guías disponibles">
+    <section *ngIf="section === 'tutoriales' && activeTutorial as tutorial" class="tutorial-player" aria-label="Guía interactiva">
+      <div class="player-heading">
+        <ion-button fill="clear" color="medium" (click)="closeTutorial()">
+          <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+          Volver a las guías
+        </ion-button>
+        <span class="item-label">Paso {{ currentStepIndex + 1 }} de {{ tutorial.steps.length }}</span>
+      </div>
+      <h2>{{ tutorial.title }}</h2>
+      <ion-progress-bar [value]="(currentStepIndex + 1) / tutorial.steps.length"></ion-progress-bar>
+      <div class="instruction-panel" aria-live="polite">
+        <span class="instruction-number">{{ currentStepIndex + 1 }}</span>
+        <p>{{ tutorial.steps[currentStepIndex] }}</p>
+      </div>
+      <ion-button expand="block" fill="outline" class="listen-button" (click)="readCurrentStep()">
+        <ion-icon slot="start" name="volume-high-outline"></ion-icon>
+        Escuchar este paso
+      </ion-button>
+      <div class="player-controls">
+        <ion-button fill="outline" [disabled]="currentStepIndex === 0" (click)="previousStep()">
+          <ion-icon slot="start" name="arrow-back-outline"></ion-icon>
+          Anterior
+        </ion-button>
+        <ion-button (click)="nextStep()">
+          {{ currentStepIndex === tutorial.steps.length - 1 ? 'Terminar guía' : 'Siguiente paso' }}
+          <ion-icon slot="end" [name]="currentStepIndex === tutorial.steps.length - 1 ? 'checkmark-outline' : 'arrow-forward-outline'"></ion-icon>
+        </ion-button>
+      </div>
+    </section>
+
+    <section *ngIf="section === 'tutoriales' && !activeTutorial" class="content-list" aria-label="Guías disponibles">
       <article class="content-item" *ngFor="let tutorial of learningContent.tutorials">
         <div class="item-icon tutorial-icon"><ion-icon name="play-outline"></ion-icon></div>
         <div class="item-copy">
@@ -52,8 +84,8 @@
         </div>
         <div class="item-action-group">
           <ion-icon *ngIf="tutorial.completed" class="completed-icon" name="checkmark-circle"></ion-icon>
-          <ion-button class="item-action" (click)="openTutorial(tutorial.id)">
-            {{ tutorial.completed ? 'Repasar guía' : 'Abrir guía' }}
+          <ion-button class="item-action" (click)="startTutorial(tutorial.id)">
+            {{ tutorial.completed ? 'Repasar guía' : 'Comenzar' }}
           </ion-button>
         </div>
       </article>
@@ -62,6 +94,52 @@
         <strong>{{ learningContent.totalCompletedTutorials }} de {{ learningContent.tutorials.length }}</strong>
         <ion-progress-bar [value]="learningContent.learningProgress / 100"></ion-progress-bar>
       </div>
+    </section>
+
+    <section *ngIf="section === 'contactos'" class="content-list contact-list" aria-label="Personas de confianza">
+      <div class="contact-intro">
+        <p>Los contactos se guardan solo en este dispositivo. Puedes agregarlos o quitarlos cuando quieras.</p>
+        <ion-button (click)="addContact()"><ion-icon slot="start" name="person-add-outline"></ion-icon>Agregar contacto</ion-button>
+      </div>
+      <div *ngIf="contactBook.contacts.length === 0" class="empty-contacts">
+        <ion-icon name="people-outline"></ion-icon>
+        <h2>Agrega a alguien de confianza</h2>
+        <p>Después podrás llamarle o enviarle un mensaje desde aquí.</p>
+        <ion-button fill="outline" (click)="addContact()">Agregar primera persona</ion-button>
+      </div>
+      <article class="content-item contact-item" *ngFor="let contact of contactBook.contacts">
+        <div class="contact-avatar" aria-hidden="true">{{ contact.name.slice(0, 1).toUpperCase() }}</div>
+        <div class="item-copy">
+          <h2>{{ contact.name }}</h2>
+          <p>{{ contact.phone }}</p>
+        </div>
+        <div class="contact-actions">
+          <a *ngIf="contactAction === 'call'" class="contact-action" [href]="'tel:' + contact.phone" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="call-outline"></ion-icon><span>Llamar</span></a>
+          <a *ngIf="contactAction === 'message'" class="contact-action" [href]="'sms:' + contact.phone" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="chatbubble-outline"></ion-icon><span>Mensaje</span></a>
+          <a *ngIf="contactAction === 'video'" class="contact-action" [href]="whatsappUrl(contact)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="videocam-outline"></ion-icon><span>WhatsApp</span></a>
+          <a *ngIf="contactAction === 'help'" class="contact-action" [href]="whatsappUrl(contact, true)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="chatbubble-ellipses-outline"></ion-icon><span>Pedir ayuda</span></a>
+          <ion-button fill="clear" color="medium" (click)="removeContact(contact)" [attr.aria-label]="'Quitar a ' + contact.name"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
+        </div>
+      </article>
+    </section>
+
+    <section *ngIf="section === 'ayuda'" class="help-options" aria-label="Opciones de ayuda">
+      <button type="button" class="help-option help-call" (click)="goToContacts('call')">
+        <span class="help-icon"><ion-icon name="call-outline"></ion-icon></span>
+        <span><strong>Llamar a un familiar</strong><small>Habla con alguien de confianza</small></span>
+        <ion-icon class="help-arrow" name="chevron-forward-outline"></ion-icon>
+      </button>
+      <button type="button" class="help-option help-video" (click)="goToContacts('video')">
+        <span class="help-icon"><ion-icon name="videocam-outline"></ion-icon></span>
+        <span><strong>Hacer una videollamada</strong><small>Abre WhatsApp con tu contacto</small></span>
+        <ion-icon class="help-arrow" name="chevron-forward-outline"></ion-icon>
+      </button>
+      <button type="button" class="help-option help-message" (click)="goToContacts('help')">
+        <span class="help-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></span>
+        <span><strong>Pedir ayuda a mi familia</strong><small>Prepara un mensaje para enviar</small></span>
+        <ion-icon class="help-arrow" name="chevron-forward-outline"></ion-icon>
+      </button>
+      <div class="learning-note"><ion-icon name="heart-outline"></ion-icon><p>Si necesitas apoyo inmediato, llama directamente a una persona de confianza.</p></div>
     </section>
 
     <section *ngIf="section === 'verificacion'" class="content-list" aria-label="Preguntas de práctica">
@@ -99,3 +177,10 @@
     </aside>
   </main>
 </ion-content>
+<ion-footer class="bottom-footer">
+  <nav class="bottom-nav" aria-label="Navegación inferior">
+    <a routerLink="/home"><ion-icon name="home-outline"></ion-icon><span>Inicio</span></a>
+    <a routerLink="/apartados/ayuda" routerLinkActive="active"><ion-icon name="help-circle-outline"></ion-icon><span>Ayuda</span></a>
+    <a routerLink="/settings"><ion-icon name="person-circle-outline"></ion-icon><span>Perfil</span></a>
+  </nav>
+</ion-footer>

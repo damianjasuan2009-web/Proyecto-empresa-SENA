@@ -132,7 +132,7 @@ ion-toolbar {
   gap: 8px 24px;
   margin: 12px 0 0;
   padding-left: 20px;
-  color: #655b51;
+  color: var(--app-muted);
 }
 
 .item-action,
@@ -247,5 +247,298 @@ ion-toolbar {
 
   .progress-summary strong {
     margin-left: 0;
+  }
+}
+
+.tutorial-player {
+  padding: 20px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
+
+.player-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: -8px 0 8px;
+}
+
+.player-heading ion-button {
+  margin-left: -8px;
+}
+
+.tutorial-player h2 {
+  margin: 8px 0 16px;
+  color: var(--app-text);
+  font-size: 1.35rem;
+}
+
+.instruction-panel {
+  display: flex;
+  min-height: 150px;
+  align-items: center;
+  gap: 18px;
+  margin: 18px 0 14px;
+  padding: 22px;
+  border-radius: 14px;
+  background: var(--app-banner);
+}
+
+.instruction-number {
+  display: grid;
+  flex: 0 0 48px;
+  width: 48px;
+  height: 48px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--app-primary);
+  color: #fff;
+  font-size: 1.3rem;
+  font-weight: 800;
+}
+
+.instruction-panel p {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 1.2rem;
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.listen-button {
+  min-height: 50px;
+  --border-color: var(--app-primary);
+  --color: var(--app-primary-hover);
+}
+
+.player-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.player-controls ion-button {
+  min-height: 50px;
+  --border-radius: 12px;
+}
+
+.contact-intro {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px;
+  border-radius: 14px;
+  background: var(--app-note-background);
+}
+
+.contact-intro p {
+  margin: 0;
+  color: var(--app-muted);
+  line-height: 1.45;
+}
+
+.contact-intro ion-button {
+  flex: 0 0 auto;
+  min-height: 48px;
+}
+
+.empty-contacts {
+  display: grid;
+  justify-items: center;
+  gap: 8px;
+  padding: 28px 20px;
+  border: 1px dashed var(--app-border);
+  border-radius: 16px;
+  background: var(--app-surface);
+  text-align: center;
+}
+
+.empty-contacts > ion-icon {
+  color: var(--app-primary);
+  font-size: 2.4rem;
+}
+
+.empty-contacts h2,
+.empty-contacts p {
+  margin: 0;
+}
+
+.empty-contacts h2 {
+  color: var(--app-text);
+  font-size: 1.2rem;
+}
+
+.empty-contacts p {
+  color: var(--app-muted);
+}
+
+.contact-item {
+  align-items: center;
+}
+
+.contact-avatar {
+  display: grid;
+  flex: 0 0 50px;
+  width: 50px;
+  height: 50px;
+  place-items: center;
+  border-radius: 50%;
+  background: var(--app-peach-soft);
+  color: var(--app-primary-hover);
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.contact-item .item-copy h2 {
+  margin-top: 0;
+}
+
+.contact-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-action {
+  display: inline-flex;
+  min-width: 100px;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  background: var(--app-sage-soft);
+  color: var(--app-secondary);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.contact-action ion-icon {
+  font-size: 1.2rem;
+}
+
+.help-options {
+  display: grid;
+  gap: 12px;
+}
+
+.help-option {
+  display: flex;
+  min-height: 94px;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 16px;
+  color: var(--app-text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.help-call {
+  background: var(--app-sage-soft);
+}
+
+.help-video {
+  background: var(--app-blue-soft);
+}
+
+.help-message {
+  background: var(--app-rose-soft);
+}
+
+.help-icon {
+  display: grid;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 15px;
+  background: var(--app-surface);
+  color: var(--app-primary);
+  font-size: 1.65rem;
+}
+
+.help-option > span:nth-child(2) {
+  display: grid;
+  flex: 1;
+  gap: 3px;
+}
+
+.help-option strong {
+  font-size: 1.08rem;
+}
+
+.help-option small {
+  color: var(--app-muted);
+  font-size: 0.92rem;
+}
+
+.help-arrow {
+  color: var(--app-muted);
+  font-size: 1.3rem;
+}
+
+.bottom-footer {
+  border-top: 1px solid var(--app-border);
+  background: var(--app-surface-warm);
+}
+
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  width: min(100%, 700px);
+  margin: 0 auto;
+}
+
+.bottom-nav a {
+  display: grid;
+  min-height: 62px;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  color: var(--app-muted);
+  font-size: 0.86rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bottom-nav a ion-icon {
+  font-size: 1.35rem;
+}
+
+.bottom-nav a.active {
+  color: var(--app-primary-hover);
+}
+
+@media (max-width: 640px) {
+  .player-controls {
+    flex-direction: column-reverse;
+  }
+
+  .player-controls ion-button {
+    width: 100%;
+  }
+
+  .contact-intro,
+  .contact-item {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .contact-intro ion-button,
+  .contact-actions,
+  .contact-action {
+    width: 100%;
+  }
+
+  .contact-actions {
+    justify-content: space-between;
   }
 }

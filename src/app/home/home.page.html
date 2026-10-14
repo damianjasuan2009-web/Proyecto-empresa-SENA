@@ -22,6 +22,10 @@
         <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
         <ion-label>Verificación</ion-label>
       </ion-item>
+      <ion-item button routerLink="/apartados/ayuda" detail="false">
+        <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+        <ion-label>Ayuda</ion-label>
+      </ion-item>
       <ion-item button routerLink="/settings" detail="false">
         <ion-icon name="settings-outline" slot="start"></ion-icon>
         <ion-label>Configuración</ion-label>
@@ -53,9 +57,9 @@
     <main class="home-shell">
       <section class="welcome-panel">
         <div>
-          <p class="eyebrow">Tu espacio de aprendizaje</p>
-          <h1>Hola, vamos paso a paso</h1>
-          <p>Aprende a usar la tecnología con calma y a tu propio ritmo.</p>
+          <p class="eyebrow">TeAcompaño</p>
+          <h1>¡Hola! ¿En qué podemos ayudarte?</h1>
+          <p>Elige una opción. Te acompañamos paso a paso.</p>
         </div>
         <div class="streak-summary">
           <ion-icon name="flame-outline"></ion-icon>
@@ -77,32 +81,50 @@
 
       <section class="section-heading">
         <div>
-          <p class="eyebrow">¿Qué quieres aprender?</p>
-          <h2>Elige un apartado</h2>
+          <p class="eyebrow">Accesos rápidos</p>
+          <h2>¿Qué necesitas hacer?</h2>
         </div>
       </section>
 
-      <section class="section-grid" aria-label="Apartados de aprendizaje">
-        <article class="section-card learning-card">
-          <div class="section-icon"><ion-icon name="book-outline"></ion-icon></div>
-          <h3>Aprendizaje</h3>
-          <p>Explora cursos de mensajes, seguridad, banca y redes.</p>
-          <ion-button expand="block" routerLink="/apartados/aprendizaje">Ver cursos</ion-button>
-        </article>
+      <section class="action-grid" aria-label="Acciones rápidas">
+        <button type="button" class="action-card action-call" (click)="openContacts('call')">
+          <span class="action-icon"><ion-icon name="call-outline"></ion-icon></span>
+          <span class="action-copy"><strong>Llamar a un familiar</strong><small>Elige a quién quieres llamar</small></span>
+          <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
 
-        <article class="section-card tutorials-card">
-          <div class="section-icon"><ion-icon name="play-circle-outline"></ion-icon></div>
-          <h3>Tutoriales</h3>
-          <p>Guías fáciles, explicadas paso a paso.</p>
-          <ion-button expand="block" routerLink="/apartados/tutoriales">Ver tutoriales</ion-button>
-        </article>
+        <button type="button" class="action-card action-message" (click)="openContacts('message')">
+          <span class="action-icon"><ion-icon name="chatbubble-ellipses-outline"></ion-icon></span>
+          <span class="action-copy"><strong>Enviar un mensaje</strong><small>Escribe a alguien de confianza</small></span>
+          <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
 
-        <article class="section-card verification-card">
-          <div class="section-icon"><ion-icon name="checkmark-circle-outline"></ion-icon></div>
-          <h3>Verificación</h3>
-          <p>Practica lo aprendido con preguntas sencillas.</p>
-          <ion-button expand="block" routerLink="/apartados/verificacion">Comenzar</ion-button>
-        </article>
+        <button type="button" class="action-card action-photo" (click)="cameraInput.click()">
+          <span class="action-icon"><ion-icon name="camera-outline"></ion-icon></span>
+          <span class="action-copy"><strong>Tomar una foto</strong><small>Usa la cámara o elige una imagen</small></span>
+          <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
+
+        <button type="button" class="action-card action-learn" routerLink="/apartados/tutoriales">
+          <span class="action-icon"><ion-icon name="bulb-outline"></ion-icon></span>
+          <span class="action-copy"><strong>Aprender algo nuevo</strong><small>Guías sencillas a tu ritmo</small></span>
+          <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
+        <input #cameraInput class="camera-input" type="file" accept="image/*" capture="environment" (change)="onPhotoSelected($event)" aria-label="Elegir o tomar una foto" />
+      </section>
+
+      <figure *ngIf="photoPreview" class="photo-preview">
+        <img [src]="photoPreview" alt="Foto seleccionada" />
+        <figcaption>
+          <span>Tu foto está lista</span>
+          <ion-button (click)="sharePhoto()"><ion-icon slot="start" name="share-outline"></ion-icon>Compartir</ion-button>
+          <ion-button fill="clear" color="medium" (click)="clearPhoto()">Quitar foto</ion-button>
+        </figcaption>
+      </figure>
+
+      <section class="learning-links" aria-label="Más opciones de aprendizaje">
+        <a routerLink="/apartados/aprendizaje"><ion-icon name="book-outline"></ion-icon><span>Ver todos los cursos</span><ion-icon name="chevron-forward-outline"></ion-icon></a>
+        <a routerLink="/apartados/verificacion"><ion-icon name="checkmark-circle-outline"></ion-icon><span>Practicar lo aprendido</span><ion-icon name="chevron-forward-outline"></ion-icon></a>
       </section>
 
       <section class="daily-tip">
@@ -114,4 +136,11 @@
       </section>
     </main>
   </ion-content>
+  <ion-footer class="bottom-footer">
+    <nav class="bottom-nav" aria-label="Navegación inferior">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><ion-icon name="home-outline"></ion-icon><span>Inicio</span></a>
+      <a routerLink="/apartados/ayuda" routerLinkActive="active"><ion-icon name="help-circle-outline"></ion-icon><span>Ayuda</span></a>
+      <a routerLink="/settings" routerLinkActive="active"><ion-icon name="person-circle-outline"></ion-icon><span>Perfil</span></a>
+    </nav>
+  </ion-footer>
 </div>

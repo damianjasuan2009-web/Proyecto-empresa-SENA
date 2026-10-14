@@ -6,7 +6,9 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'aprendizaje' },
   { path: 'aprendizaje', component: LearningSectionPage, data: { section: 'aprendizaje' } },
   { path: 'tutoriales', component: LearningSectionPage, data: { section: 'tutoriales' } },
-  { path: 'verificacion', component: LearningSectionPage, data: { section: 'verificacion' } }
+  { path: 'verificacion', component: LearningSectionPage, data: { section: 'verificacion' } },
+  { path: 'contactos', component: LearningSectionPage, data: { section: 'contactos' } },
+  { path: 'ayuda', component: LearningSectionPage, data: { section: 'ayuda' } }
 ];
 
 @NgModule({

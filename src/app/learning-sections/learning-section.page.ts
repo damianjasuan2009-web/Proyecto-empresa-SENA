@@ -1,9 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertController, ToastController } from '@ionic/angular';
-import { LearningContentService, VerificationTask } from '../services/learning-content.service';
+import { LearningContentService, Tutorial, VerificationTask } from '../services/learning-content.service';
+import { TrustedContactsService, TrustedContact } from '../services/trusted-contacts.service';
 
-type Section = 'aprendizaje' | 'tutoriales' | 'verificacion';
+type Section = 'aprendizaje' | 'tutoriales' | 'verificacion' | 'contactos' | 'ayuda';
+type ContactAction = 'call' | 'message' | 'video' | 'help';
 
 @Component({
   selector: 'app-learning-section',
@@ -17,13 +19,27 @@ export class LearningSectionPage {
   private readonly alertController = inject(AlertController);
   private readonly toastController = inject(ToastController);
   readonly learningContent = inject(LearningContentService);
+  readonly contactBook = inject(TrustedContactsService);
   readonly section = this.route.snapshot.data['section'] as Section;
+  activeTutorialId: number | null = null;
+  currentStepIndex = 0;
+
+  get activeTutorial(): Tutorial | undefined {
+    return this.learningContent.tutorials.find(tutorial => tutorial.id === this.activeTutorialId);
+  }
+
+  get contactAction(): ContactAction {
+    const action = this.route.snapshot.queryParamMap.get('action');
+    return action === 'message' || action === 'video' || action === 'help' ? action : 'call';
+  }
 
   get title(): string {
     const titles: Record<Section, string> = {
       aprendizaje: 'Rutas de aprendizaje',
       tutoriales: 'Tutoriales paso a paso',
-      verificacion: 'Comprueba lo aprendido'
+      verificacion: 'Comprueba lo aprendido',
+      contactos: 'Personas de confianza',
+      ayuda: 'Estamos para ayudarte'
     };
     return titles[this.section];
   }
@@ -32,32 +48,119 @@ export class LearningSectionPage {
     const descriptions: Record<Section, string> = {
       aprendizaje: 'Elige un tema y aprende habilidades útiles para tu día a día.',
       tutoriales: 'Sigue cada instrucción con calma. Puedes volver a leerla cuando quieras.',
-      verificacion: 'Responde unas preguntas cortas para practicar con confianza.'
+      verificacion: 'Responde unas preguntas cortas para practicar con confianza.',
+      contactos: 'Guarda a las personas a quienes quieres llamar o escribir.',
+      ayuda: 'Elige cómo quieres comunicarte con tu familia o pedir apoyo.'
     };
     return descriptions[this.section];
   }
 
-  async openTutorial(tutorialId: number): Promise<void> {
-    const tutorial = this.learningContent.tutorials.find(item => item.id === tutorialId);
+  startTutorial(tutorialId: number): void {
+    this.activeTutorialId = tutorialId;
+    this.currentStepIndex = 0;
+  }
+
+  previousStep(): void {
+    this.currentStepIndex = Math.max(0, this.currentStepIndex - 1);
+  }
+
+  nextStep(): void {
+    const tutorial = this.activeTutorial;
     if (!tutorial) {
       return;
     }
 
+    if (this.currentStepIndex < tutorial.steps.length - 1) {
+      this.currentStepIndex += 1;
+      return;
+    }
+
+    this.learningContent.markTutorialComplete(tutorial.id);
+    this.activeTutorialId = null;
+    this.currentStepIndex = 0;
+    void this.showToast('¡Muy bien! Guardamos tu avance.', 'success');
+  }
+
+  readCurrentStep(): void {
+    const tutorial = this.activeTutorial;
+    if (!tutorial || typeof window === 'undefined' || !('speechSynthesis' in window)) {
+      void this.showToast('La lectura en voz alta no está disponible en este dispositivo.', 'warning');
+      return;
+    }
+
+    window.speechSynthesis.cancel();
+    const instruction = new SpeechSynthesisUtterance(tutorial.steps[this.currentStepIndex]);
+    instruction.lang = 'es-CO';
+    window.speechSynthesis.speak(instruction);
+  }
+
+  closeTutorial(): void {
+    if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+      window.speechSynthesis.cancel();
+    }
+    this.activeTutorialId = null;
+    this.currentStepIndex = 0;
+  }
+
+  async addContact(): Promise<void> {
     const alert = await this.alertController.create({
-      header: tutorial.title,
-      message: tutorial.steps.map((step, index) => `${index + 1}. ${step}`).join('\n'),
+      header: 'Agregar persona de confianza',
+      message: 'Escribe su nombre y número de teléfono.',
+      inputs: [
+        { name: 'name', type: 'text', placeholder: 'Nombre' },
+        { name: 'phone', type: 'tel', placeholder: 'Teléfono, por ejemplo +57 300 123 4567' }
+      ],
       buttons: [
-        { text: 'Cerrar', role: 'cancel' },
+        { text: 'Cancelar', role: 'cancel' },
         {
-          text: tutorial.completed ? 'Ya lo aprendí' : 'Marcar como aprendido',
-          handler: () => {
-            this.learningContent.markTutorialComplete(tutorial.id);
-            void this.showToast('¡Bien hecho! Guardamos tu avance.', 'success');
+          text: 'Guardar',
+          handler: (data: { name: string; phone: string }) => {
+            const saved = this.contactBook.addContact(data.name, data.phone);
+            void this.showToast(
+              saved ? 'Contacto guardado en este dispositivo.' : 'Revisa el nombre y escribe un teléfono válido.',
+              saved ? 'success' : 'warning'
+            );
+            return saved;
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  async removeContact(contact: TrustedContact): Promise<void> {
+    const alert = await this.alertController.create({
+      header: 'Quitar contacto',
+      message: `¿Quieres quitar a ${contact.name} de tus personas de confianza?`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Quitar', role: 'destructive', handler: () => this.contactBook.removeContact(contact.id) }
+      ]
+    });
+    await alert.present();
+  }
+
+  whatsappUrl(contact: TrustedContact, withHelpMessage = false): string {
+    const phone = contact.phone.replace(/\D/g, '');
+    const message = withHelpMessage ? '?text=Hola%2C%20necesito%20ayuda%20con%20mi%20tel%C3%A9fono.' : '';
+    return `https://wa.me/${phone}${message}`;
+  }
+
+  goToContacts(action: ContactAction): void {
+    void this.router.navigate(['/apartados/contactos'], { queryParams: { action } });
+  }
+
+  contactActionLabel(contact: TrustedContact): string {
+    if (this.contactAction === 'message') {
+      return `Enviar mensaje a ${contact.name}`;
+    }
+    if (this.contactAction === 'video') {
+      return `Abrir WhatsApp para llamar a ${contact.name}`;
+    }
+    if (this.contactAction === 'help') {
+      return `Pedir ayuda a ${contact.name}`;
+    }
+    return `Llamar a ${contact.name}`;
   }
 
   async verify(task: VerificationTask): Promise<void> {
