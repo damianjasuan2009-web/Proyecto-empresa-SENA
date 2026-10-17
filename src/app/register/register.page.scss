@@ -59,6 +59,10 @@ form ion-label {
   font-weight: 700;
 }
 
+.email-field ion-label {
+  margin-bottom: 6px;
+}
+
 form ion-input {
   --padding-start: 12px;
   --padding-end: 12px;

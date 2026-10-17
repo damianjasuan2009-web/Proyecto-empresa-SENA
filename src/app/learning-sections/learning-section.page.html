@@ -75,7 +75,7 @@
     </section>
 
     <section *ngIf="section === 'tutoriales' && !activeTutorial" class="content-list" aria-label="Guías disponibles">
-      <article class="content-item" *ngFor="let tutorial of learningContent.tutorials">
+      <article class="content-item tutorial-item" *ngFor="let tutorial of learningContent.tutorials">
         <div class="item-icon tutorial-icon"><ion-icon name="play-outline"></ion-icon></div>
         <div class="item-copy">
           <span class="item-label">{{ tutorial.level }} · {{ tutorial.duration }}</span>

@@ -151,6 +151,15 @@ ion-toolbar {
   font-size: 1rem;
 }
 
+.tutorial-item .item-action,
+.path-item .item-action {
+  min-width: 116px;
+  min-height: 42px;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  font-size: 0.92rem;
+}
+
 .item-action[disabled] {
   --background: var(--app-secondary);
   --color: #fff;
@@ -243,6 +252,24 @@ ion-toolbar {
     width: auto;
     flex: 1;
     margin-left: 0;
+  }
+
+  .tutorial-item .item-action-group {
+    width: auto;
+    max-width: calc(100% - 64px);
+  }
+
+  .tutorial-item .item-action-group .item-action {
+    min-width: 116px;
+    max-width: 100%;
+    flex: 0 1 auto;
+  }
+
+  .path-item .item-action {
+    width: auto;
+    max-width: calc(100% - 64px);
+    margin-left: 64px;
+    flex: 0 1 auto;
   }
 
   .progress-summary strong {

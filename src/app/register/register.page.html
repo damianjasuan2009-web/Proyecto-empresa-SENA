@@ -16,8 +16,8 @@
     </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Correo Electrónico</ion-label>
+      <ion-item class="ion-margin-bottom email-field">
+        <ion-label position="stacked">Correo Electrónico</ion-label>
         <ion-input type="email" formControlName="email" placeholder="ejemplo@empresa.com"></ion-input>
       </ion-item>
       <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['required']">
