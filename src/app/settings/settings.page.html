@@ -15,6 +15,7 @@
       <p class="eyebrow">Personaliza tu experiencia</p>
       <h1>Preferencias de la aplicación</h1>
       <p>Configura el estilo y la forma en que quieres usar TeAcompaño.</p>
+      <p>Los interruptores se aplican y se guardan automáticamente.</p>
     </section>
 
     <ion-card>
@@ -24,17 +25,17 @@
       <ion-card-content>
         <ion-item lines="none">
           <ion-label>Modo oscuro</ion-label>
-          <ion-toggle [(ngModel)]="preferences.darkMode" color="primary"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.darkMode" (ionChange)="onPreferenceToggle('darkMode', $event.detail.checked)" color="primary"></ion-toggle>
         </ion-item>
 
         <ion-item lines="none">
           <ion-label>Alto contraste</ion-label>
-          <ion-toggle [(ngModel)]="preferences.highContrast" color="primary"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.highContrast" (ionChange)="onPreferenceToggle('highContrast', $event.detail.checked)" color="primary"></ion-toggle>
         </ion-item>
 
         <ion-item lines="none">
           <ion-label>Vista compacta</ion-label>
-          <ion-toggle [(ngModel)]="preferences.compactView" color="primary"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.compactView" (ionChange)="onPreferenceToggle('compactView', $event.detail.checked)" color="primary"></ion-toggle>
         </ion-item>
 
         <ion-item lines="none">
@@ -54,12 +55,12 @@
       <ion-card-content>
         <ion-item lines="none">
           <ion-label>Correo electrónico</ion-label>
-          <ion-toggle [(ngModel)]="preferences.emailNotifications" color="success"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.emailNotifications" (ionChange)="onPreferenceToggle('emailNotifications', $event.detail.checked)" color="success"></ion-toggle>
         </ion-item>
 
         <ion-item lines="none">
           <ion-label>Reportes semanales</ion-label>
-          <ion-toggle [(ngModel)]="preferences.weeklyReports" color="success"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.weeklyReports" (ionChange)="onPreferenceToggle('weeklyReports', $event.detail.checked)" color="success"></ion-toggle>
         </ion-item>
       </ion-card-content>
     </ion-card>

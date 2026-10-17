@@ -74,3 +74,21 @@ ion-label {
   --border-radius: 12px;
 }
 
+:host-context(body.compact-view) .settings-shell {
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+:host-context(body.compact-view) .settings-header {
+  margin-bottom: 10px;
+  padding: 14px;
+}
+
+:host-context(body.compact-view) .settings-actions {
+  gap: 8px;
+  margin-top: 12px;
+}
+
+:host-context(body.compact-view) .settings-actions ion-button {
+  min-height: 46px;
+}

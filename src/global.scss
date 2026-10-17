@@ -154,7 +154,26 @@ body.theme-dark .btn-primary-warm[disabled] {
 }
 
 body.compact-view ion-card {
+	margin: 8px 0;
 	border-radius: 12px;
+}
+
+body.compact-view ion-card-header {
+	--padding-top: 12px;
+	--padding-end: 16px;
+	--padding-bottom: 4px;
+	--padding-start: 16px;
+}
+
+body.compact-view ion-card-content {
+	--padding-top: 8px;
+	--padding-end: 16px;
+	--padding-bottom: 12px;
+	--padding-start: 16px;
+}
+
+body.compact-view ion-item {
+	--min-height: 48px;
 }
 
 body.large-font {

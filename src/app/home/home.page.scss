@@ -304,6 +304,74 @@ ion-toolbar {
   line-height: 1.5;
 }
 
+:host-context(body.compact-view) .home-shell {
+  padding-top: 12px;
+  padding-bottom: 20px;
+}
+
+:host-context(body.compact-view) .welcome-panel {
+  gap: 16px;
+  padding: 18px;
+}
+
+:host-context(body.compact-view) .welcome-panel h1,
+:host-context(body.compact-view) .section-heading h2 {
+  font-size: 1.65rem;
+}
+
+:host-context(body.compact-view) .progress-summary {
+  margin-top: 12px;
+  padding: 14px 16px;
+}
+
+:host-context(body.compact-view) .progress-copy {
+  margin-bottom: 8px;
+}
+
+:host-context(body.compact-view) .section-heading {
+  margin: 20px 0 10px;
+}
+
+:host-context(body.compact-view) .action-grid {
+  gap: 8px;
+}
+
+:host-context(body.compact-view) .action-card {
+  min-height: 68px;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+}
+
+:host-context(body.compact-view) .action-icon {
+  flex-basis: 44px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 1.5rem;
+}
+
+:host-context(body.compact-view) .learning-links {
+  margin-top: 8px;
+}
+
+:host-context(body.compact-view) .learning-links a {
+  min-height: 46px;
+  gap: 8px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+:host-context(body.compact-view) .daily-tip {
+  gap: 10px;
+  margin-top: 12px;
+  padding: 12px 14px;
+}
+
+:host-context(body.compact-view) .bottom-nav a {
+  min-height: 54px;
+}
+
 @media (max-width: 760px) {
   .action-grid {
     grid-template-columns: 1fr;

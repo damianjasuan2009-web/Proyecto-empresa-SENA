@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ThemePreferencesService, UserPreferences } from '../services/theme-preferences.service';
 
+type TogglePreference = 'darkMode' | 'highContrast' | 'compactView' | 'emailNotifications' | 'weeklyReports';
+
 @Component({
   selector: 'app-settings',
   templateUrl: './settings.page.html',
@@ -44,8 +46,7 @@ export class SettingsPage implements OnInit {
   }
 
   async savePreferences() {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.preferences));
-    this.applyTheme();
+    this.persistPreferences();
 
     const toast = await this.toastController.create({
       message: 'Preferencias guardadas correctamente.',
@@ -67,6 +68,15 @@ export class SettingsPage implements OnInit {
       fontSize: 'normal'
     };
 
+    this.persistPreferences();
+  }
+
+  onPreferenceToggle(preference: TogglePreference, checked: boolean): void {
+    this.preferences[preference] = checked;
+    this.persistPreferences();
+  }
+
+  private persistPreferences(): void {
     localStorage.setItem(this.storageKey, JSON.stringify(this.preferences));
     this.applyTheme();
   }
