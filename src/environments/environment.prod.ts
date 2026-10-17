@@ -1,11 +1,13 @@
 export const environment = {
   production: true,
   firebase: {
-    apiKey: "YOUR_API_KEY",
-    authDomain: "YOUR_AUTH_DOMAIN",
-    projectId: "YOUR_PROJECT_ID",
-    storageBucket: "YOUR_STORAGE_BUCKET",
-    messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-    appId: "YOUR_APP_ID"
-  }
+    apiKey: "AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU",
+    authDomain: "abuelo-digital-b2d45.firebaseapp.com",
+    projectId: "abuelo-digital-b2d45",
+    storageBucket: "abuelo-digital-b2d45.firebasestorage.app",
+    messagingSenderId: "420361839486",
+    appId: "1:420361839486:web:ec96aaf33823d7de0fc92f"
+  },
+  geminiApiKey: 'AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg'
 };
+
