@@ -1,6 +1,13 @@
 import { inject, Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, user, User } from '@angular/fire/auth';
-import { Observable } from 'rxjs';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  user,
+  User
+} from '@angular/fire/auth';
+import { firstValueFrom, Observable, take } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +22,10 @@ export class AuthService {
 
   async login({ email, password }: { email: string; password: string }): Promise<any> {
     return await signInWithEmailAndPassword(this.auth, email, password);
+  }
+
+  async getCurrentUser(): Promise<User | null> {
+    return await firstValueFrom(this.user$.pipe(take(1)));
   }
 
   async logout(): Promise<void> {
