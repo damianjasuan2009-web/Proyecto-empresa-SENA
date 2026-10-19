@@ -118,7 +118,7 @@
           <a *ngIf="contactAction === 'message'" class="contact-action" [href]="'sms:' + contact.phone" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="chatbubble-outline"></ion-icon><span>Mensaje</span></a>
           <a *ngIf="contactAction === 'video'" class="contact-action" [href]="whatsappUrl(contact)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="videocam-outline"></ion-icon><span>WhatsApp</span></a>
           <a *ngIf="contactAction === 'help'" class="contact-action" [href]="whatsappUrl(contact, true)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="contactActionLabel(contact)"><ion-icon name="chatbubble-ellipses-outline"></ion-icon><span>Pedir ayuda</span></a>
-          <ion-button fill="clear" color="medium" (click)="removeContact(contact)" [attr.aria-label]="'Quitar a ' + contact.name"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
+          <ion-button class="contact-delete" fill="clear" color="medium" (click)="removeContact(contact)" [attr.aria-label]="'Quitar a ' + contact.name"><ion-icon slot="icon-only" name="trash-outline"></ion-icon></ion-button>
         </div>
       </article>
     </section>
@@ -143,7 +143,7 @@
     </section>
 
     <section *ngIf="section === 'verificacion'" class="content-list" aria-label="Preguntas de práctica">
-      <article class="content-item" *ngFor="let task of learningContent.verificationTasks">
+      <article class="content-item verification-item" *ngFor="let task of learningContent.verificationTasks">
         <div class="item-icon verification-icon"><ion-icon name="shield-checkmark-outline"></ion-icon></div>
         <div class="item-copy">
           <span class="item-label">{{ task.points }} puntos</span>

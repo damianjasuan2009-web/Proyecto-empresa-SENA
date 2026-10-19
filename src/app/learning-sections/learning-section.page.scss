@@ -152,7 +152,8 @@ ion-toolbar {
 }
 
 .tutorial-item .item-action,
-.path-item .item-action {
+.path-item .item-action,
+.verification-item .item-action {
   min-width: 116px;
   min-height: 42px;
   --padding-start: 10px;
@@ -254,12 +255,14 @@ ion-toolbar {
     margin-left: 0;
   }
 
-  .tutorial-item .item-action-group {
+  .tutorial-item .item-action-group,
+  .verification-item .item-action-group {
     width: auto;
     max-width: calc(100% - 64px);
   }
 
-  .tutorial-item .item-action-group .item-action {
+  .tutorial-item .item-action-group .item-action,
+  .verification-item .item-action-group .item-action {
     min-width: 116px;
     max-width: 100%;
     flex: 0 1 auto;
@@ -431,10 +434,21 @@ ion-toolbar {
   gap: 6px;
 }
 
+.contact-delete {
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  margin: 0;
+  --padding-start: 0;
+  --padding-end: 0;
+}
+
 .contact-action {
   display: inline-flex;
-  min-width: 100px;
-  min-height: 46px;
+  box-sizing: border-box;
+  width: 116px;
+  min-width: 116px;
+  min-height: 42px;
   align-items: center;
   justify-content: center;
   gap: 7px;
@@ -560,12 +574,16 @@ ion-toolbar {
   }
 
   .contact-intro ion-button,
-  .contact-actions,
-  .contact-action {
+  .contact-actions {
     width: 100%;
   }
 
   .contact-actions {
-    justify-content: space-between;
+    justify-content: flex-start;
+  }
+
+  .contact-action {
+    width: 116px;
+    flex: 0 0 116px;
   }
 }
