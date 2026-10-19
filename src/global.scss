@@ -55,10 +55,6 @@ ion-content {
 	--color: var(--app-text);
 }
 
-.bottom-footer {
-	padding-bottom: var(--ion-safe-area-bottom, env(safe-area-inset-bottom, 0px));
-}
-
 ion-toolbar {
 	--background: var(--app-surface-warm);
 	--color: var(--app-text);
