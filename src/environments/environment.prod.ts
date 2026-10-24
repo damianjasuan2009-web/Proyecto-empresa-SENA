@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  githubPages: false,
   firebase: {
     apiKey: 'AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU',
     authDomain: 'abuelo-digital-b2d45.firebaseapp.com',
