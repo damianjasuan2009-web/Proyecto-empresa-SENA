@@ -1,0 +1,197 @@
+.assistant-page {
+  --background: var(--app-background);
+}
+
+ion-toolbar {
+  --background: var(--app-surface-warm);
+  --color: var(--app-text);
+}
+
+.assistant-shell {
+  display: flex;
+  width: min(100% - 28px, 780px);
+  min-height: 100%;
+  flex-direction: column;
+  margin: 0 auto;
+  padding: 20px 0 14px;
+}
+
+.assistant-intro {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 18px;
+  padding: 20px;
+  border-radius: 18px;
+  background: var(--app-banner);
+}
+
+.assistant-avatar {
+  display: grid;
+  flex: 0 0 52px;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--app-surface);
+  color: var(--app-primary);
+  font-size: 1.7rem;
+}
+
+.eyebrow {
+  margin: 0 0 5px;
+  color: var(--app-primary-hover);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.assistant-intro h1 {
+  margin: 0;
+  color: var(--app-text);
+  font-size: 1.55rem;
+  line-height: 1.25;
+}
+
+.assistant-intro p:last-child {
+  margin: 6px 0 0;
+  color: var(--app-muted);
+}
+
+.conversation {
+  display: grid;
+  flex: 1;
+  align-content: start;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 18px;
+  background: var(--app-surface);
+}
+
+.message {
+  width: fit-content;
+  max-width: min(90%, 600px);
+  padding: 12px 16px;
+  border-radius: 16px;
+}
+
+.assistant-message {
+  justify-self: start;
+  background: var(--app-blue-soft);
+}
+
+.user-message {
+  justify-self: end;
+  background: var(--app-sage-soft);
+}
+
+.message-sender {
+  color: var(--app-primary-hover);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+
+.message p {
+  margin: 4px 0 0;
+  color: var(--app-text);
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.message-input {
+  flex: 1;
+  min-height: 52px;
+  border: 1px solid var(--app-border);
+  border-radius: 14px;
+  --background: var(--app-surface);
+  --color: var(--app-text);
+  --padding-start: 12px;
+  --inner-padding-end: 10px;
+}
+
+.composer ion-button {
+  width: 52px;
+  height: 52px;
+  margin: 0;
+  --border-radius: 14px;
+  --background: var(--app-primary);
+  --color: #fff;
+}
+
+.privacy-note {
+  margin: 8px 4px 0;
+  color: var(--app-muted);
+  font-size: 0.88rem;
+  text-align: center;
+}
+
+.bottom-footer {
+  border-top: 1px solid var(--app-border);
+  background: var(--app-surface-warm);
+}
+
+.bottom-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: min(100%, 700px);
+  margin: 0 auto;
+}
+
+.bottom-nav a {
+  display: grid;
+  min-height: 62px;
+  align-content: center;
+  justify-items: center;
+  gap: 2px;
+  color: var(--app-muted);
+  font-size: 0.82rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.bottom-nav a ion-icon {
+  font-size: 1.35rem;
+}
+
+.bottom-nav a.active {
+  color: var(--app-primary-hover);
+}
+
+:host-context(body.compact-view) .assistant-shell {
+  padding-top: 10px;
+}
+
+:host-context(body.compact-view) .assistant-intro {
+  margin-bottom: 10px;
+  padding: 14px;
+}
+
+@media (max-width: 520px) {
+  .assistant-shell {
+    width: min(100% - 20px, 780px);
+    padding-top: 12px;
+  }
+
+  .assistant-intro {
+    align-items: flex-start;
+    padding: 16px;
+  }
+  .assistant-intro h1 {
+    font-size: 1.35rem;
+  }
+
+  .conversation {
+    padding: 12px;
+  }
+
+  .message {
+    max-width: 96%;
+  }
+}

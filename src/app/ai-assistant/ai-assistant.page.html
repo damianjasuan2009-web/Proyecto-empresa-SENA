@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar color="light">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home" text="Inicio"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Asistente IA</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="assistant-page">
+  <main class="assistant-shell">
+    <header class="assistant-intro">
+      <span class="assistant-avatar"><ion-icon name="sparkles-outline"></ion-icon></span>
+      <div>
+        <p class="eyebrow">Aquí estoy para ayudarte</p>
+        <h1>Pregunta lo que necesites</h1>
+        <p>Te responderé paso a paso y con palabras sencillas.</p>
+      </div>
+    </header>
+
+    <section class="conversation" aria-label="Conversación con el asistente">
+      <article *ngFor="let message of messages" class="message" [class.user-message]="message.role === 'user'" [class.assistant-message]="message.role === 'model'">
+        <span class="message-sender">{{ message.role === 'user' ? 'Tú' : 'Asistente' }}</span>
+        <p>{{ message.text }}</p>
+      </article>
+      <article *ngIf="isSending" class="message assistant-message" aria-live="polite">
+        <span class="message-sender">Asistente</span>
+        <p>Estoy preparando una respuesta…</p>
+      </article>
+    </section>
+
+    <form class="composer" (ngSubmit)="sendMessage()">
+      <ion-item class="message-input" lines="none">
+        <ion-textarea
+          name="message"
+          [(ngModel)]="messageDraft"
+          placeholder="Escribe tu pregunta aquí"
+          aria-label="Escribe tu pregunta"
+          [autoGrow]="true"
+          [maxlength]="2000"
+          [disabled]="isSending"
+          rows="1">
+        </ion-textarea>
+      </ion-item>
+      <ion-button type="submit" [disabled]="!messageDraft.trim() || isSending" aria-label="Enviar pregunta">
+        <ion-icon slot="icon-only" name="send-outline"></ion-icon>
+      </ion-button>
+    </form>
+    <p class="privacy-note">No compartas contraseñas, códigos de seguridad ni datos bancarios.</p>
+  </main>
+</ion-content>
+
+<ion-footer class="bottom-footer">
+  <nav class="bottom-nav" aria-label="Navegación inferior">
+    <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><ion-icon name="home-outline"></ion-icon><span>Inicio</span></a>
+    <a routerLink="/apartados/ayuda" routerLinkActive="active"><ion-icon name="help-circle-outline"></ion-icon><span>Ayuda</span></a>
+    <a routerLink="/asistente" routerLinkActive="active"><ion-icon name="sparkles-outline"></ion-icon><span>Asistente</span></a>
+    <a routerLink="/settings" routerLinkActive="active"><ion-icon name="person-circle-outline"></ion-icon><span>Perfil</span></a>
+  </nav>
+</ion-footer>

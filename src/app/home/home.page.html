@@ -26,6 +26,10 @@
         <ion-icon name="help-circle-outline" slot="start"></ion-icon>
         <ion-label>Ayuda</ion-label>
       </ion-item>
+      <ion-item button routerLink="/asistente" detail="false">
+        <ion-icon name="sparkles-outline" slot="start"></ion-icon>
+        <ion-label>Asistente IA</ion-label>
+      </ion-item>
       <ion-item button routerLink="/settings" detail="false">
         <ion-icon name="settings-outline" slot="start"></ion-icon>
         <ion-label>Configuración</ion-label>
@@ -110,6 +114,11 @@
           <span class="action-copy"><strong>Aprender algo nuevo</strong><small>Guías sencillas a tu ritmo</small></span>
           <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
         </button>
+        <button type="button" class="action-card action-assistant" routerLink="/asistente">
+          <span class="action-icon"><ion-icon name="sparkles-outline"></ion-icon></span>
+          <span class="action-copy"><strong>Preguntar a la IA</strong><small>Recibe ayuda paso a paso</small></span>
+          <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
+        </button>
         <input #cameraInput class="camera-input" type="file" accept="image/*" capture="environment" (change)="onPhotoSelected($event)" aria-label="Elegir o tomar una foto" />
       </section>
 
@@ -140,6 +149,7 @@
     <nav class="bottom-nav" aria-label="Navegación inferior">
       <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }"><ion-icon name="home-outline"></ion-icon><span>Inicio</span></a>
       <a routerLink="/apartados/ayuda" routerLinkActive="active"><ion-icon name="help-circle-outline"></ion-icon><span>Ayuda</span></a>
+      <a routerLink="/asistente" routerLinkActive="active"><ion-icon name="sparkles-outline"></ion-icon><span>Asistente</span></a>
       <a routerLink="/settings" routerLinkActive="active"><ion-icon name="person-circle-outline"></ion-icon><span>Perfil</span></a>
     </nav>
   </ion-footer>

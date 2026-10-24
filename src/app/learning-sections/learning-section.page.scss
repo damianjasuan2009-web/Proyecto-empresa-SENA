@@ -533,7 +533,7 @@ ion-toolbar {
 
 .bottom-nav {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   width: min(100%, 700px);
   margin: 0 auto;
 }
@@ -545,7 +545,7 @@ ion-toolbar {
   justify-items: center;
   gap: 2px;
   color: var(--app-muted);
-  font-size: 0.86rem;
+  font-size: 0.82rem;
   font-weight: 700;
   text-decoration: none;
 }

@@ -33,6 +33,11 @@ const routes: Routes = [
     canActivate: [authenticatedGuard],
     loadChildren: () => import('./settings/settings.module').then(m => m.SettingsPageModule)
   },
+  {
+    path: 'asistente',
+    canActivate: [authenticatedGuard],
+    loadChildren: () => import('./ai-assistant/ai-assistant.module').then(m => m.AiAssistantPageModule)
+  },
 ];
 
 @NgModule({

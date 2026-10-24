@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU",
+    apiKey: "AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg",
     authDomain: "abuelo-digital-b2d45.firebaseapp.com",
     projectId: "abuelo-digital-b2d45",
     storageBucket: "abuelo-digital-b2d45.firebasestorage.app",
