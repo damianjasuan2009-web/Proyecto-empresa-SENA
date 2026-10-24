@@ -20,15 +20,14 @@ export class AssistantRequestError extends Error {
 export class AiAssistantService {
   private readonly learningContent = inject(LearningContentService);
   private readonly functions = inject(Functions);
+  private readonly askGemini = httpsCallable<
+    { history: AssistantMessage[]; message: string; context: string },
+    { answer: string }
+  >(this.functions, 'askGemini');
 
   async sendMessage(history: AssistantMessage[], message: string): Promise<string> {
-    const askGemini = httpsCallable<
-      { history: AssistantMessage[]; message: string; context: string },
-      { answer: string }
-    >(this.functions, 'askGemini');
-
     try {
-      const { data } = await askGemini({
+      const { data } = await this.askGemini({
         history: history.slice(-12),
         message,
         context: this.buildSystemInstruction()
