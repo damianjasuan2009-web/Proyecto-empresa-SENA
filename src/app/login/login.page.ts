@@ -2,7 +2,9 @@ import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { BiometryErrorType } from '@aparajita/capacitor-biometric-auth';
 import { AuthService } from '../services/auth.service';
+import { BiometricLoginService, LoginCredentials } from '../services/biometric-login.service';
 
 @Component({
   selector: 'app-login',
@@ -17,6 +19,7 @@ export class LoginPage implements OnInit {
   private readonly loadingController = inject(LoadingController);
   private readonly toastController = inject(ToastController);
   private readonly alertController = inject(AlertController);
+  private readonly biometricLogin = inject(BiometricLoginService);
 
   credentials!: FormGroup;
   showPassword = false;
@@ -64,9 +67,11 @@ export class LoginPage implements OnInit {
     await loading.present();
 
     try {
-      await this.authService.login(this.credentials.value);
+      const credentials: LoginCredentials = this.credentials.getRawValue();
+      await this.authService.login(credentials);
       await loading.dismiss();
       this.router.navigateByUrl('/home', { replaceUrl: true });
+      void this.offerBiometricSetup(credentials);
     } catch (error: any) {
       await loading.dismiss();
       const toast = await this.toastController.create({
@@ -121,23 +126,101 @@ export class LoginPage implements OnInit {
   }
 
   async loginWithBiometrics() {
-    const alert = await this.alertController.create({
-      header: 'Huella o Reconocimiento',
-      message: 'Coloca tu dedo en el lector de huella o mira a la cámara de tu teléfono para ingresar.',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Identificarme',
-          handler: () => {
-            this.showToast('Acceso biométrico listo para este dispositivo', 'success');
+    try {
+      if (!await this.biometricLogin.isAvailable()) {
+        await this.showToast('Este dispositivo no tiene biometría compatible configurada. Inicia sesión con tu correo y contraseña.', 'warning');
+        return;
+      }
+
+      if (!await this.biometricLogin.hasSavedCredentials()) {
+        await this.showToast('Primero inicia sesión con tu correo y contraseña y activa la huella cuando te lo ofrezcamos.', 'warning');
+        return;
+      }
+
+      await this.biometricLogin.authenticate();
+      const savedCredentials = await this.biometricLogin.getSavedCredentials();
+      if (!savedCredentials) {
+        await this.showToast('No encontramos los datos guardados. Inicia sesión con tu correo y contraseña para configurarlo de nuevo.', 'warning');
+        return;
+      }
+
+      await this.authService.login(savedCredentials);
+      this.router.navigateByUrl('/home', { replaceUrl: true });
+    } catch (error: unknown) {
+      const code = this.getAuthErrorCode(error);
+      if (code === 'auth/invalid-credential' || code === 'auth/wrong-password' || code === 'auth/user-not-found') {
+        await this.biometricLogin.removeSavedCredentials();
+        await this.showToast('La contraseña guardada ya no es válida. Inicia sesión con tu correo y contraseña para volver a configurar la huella.', 'warning');
+        return;
+      }
+
+      if (this.isBiometricCancellation(code)) {
+        return;
+      }
+
+      await this.showToast('No se pudo verificar tu identidad. Inténtalo de nuevo o inicia sesión con tu correo y contraseña.', 'warning');
+    }
+  }
+
+  private async offerBiometricSetup(credentials: LoginCredentials): Promise<void> {
+    try {
+      if (!await this.biometricLogin.isAvailable()) {
+        return;
+      }
+
+      const savedCredentials = await this.biometricLogin.getSavedCredentials();
+      if (savedCredentials?.email.toLowerCase() === credentials.email.toLowerCase()) {
+        await this.biometricLogin.saveCredentials(credentials);
+        return;
+      }
+
+      const toast = await this.toastController.create({
+        message: savedCredentials
+          ? '¿Quieres usar la cuenta actual para el inicio biométrico en este dispositivo?'
+          : 'Puedes activar el inicio con huella para entrar más rápido la próxima vez.',
+        duration: 10000,
+        position: 'bottom',
+        buttons: [
+          {
+            text: savedCredentials ? 'Cambiar' : 'Activar',
+            handler: () => {
+              void this.activateBiometricLogin(credentials);
+            }
           }
-        }
-      ]
-    });
-    await alert.present();
+        ]
+      });
+      await toast.present();
+    } catch {
+      await this.showToast('No se pudo comprobar la disponibilidad de la biometría. Puedes iniciar sesión normalmente.', 'warning');
+    }
+  }
+
+  private async activateBiometricLogin(credentials: LoginCredentials): Promise<void> {
+    try {
+      await this.biometricLogin.authenticate();
+      await this.biometricLogin.saveCredentials(credentials);
+      await this.showToast('Inicio biométrico activado en este dispositivo.', 'success');
+    } catch (error: unknown) {
+      if (this.isBiometricCancellation(this.getAuthErrorCode(error))) {
+        return;
+      }
+
+      await this.showToast('No se pudo configurar el inicio biométrico. Puedes iniciar sesión con tu correo y contraseña.', 'warning');
+    }
+  }
+
+  private getAuthErrorCode(error: unknown): string | undefined {
+    if (typeof error !== 'object' || error === null || !('code' in error)) {
+      return undefined;
+    }
+
+    return typeof error.code === 'string' ? error.code : undefined;
+  }
+
+  private isBiometricCancellation(code: string | undefined): boolean {
+    return code === BiometryErrorType.userCancel ||
+      code === BiometryErrorType.systemCancel ||
+      code === BiometryErrorType.appCancel;
   }
 
   async requestHelp() {

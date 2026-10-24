@@ -16,10 +16,10 @@
     </div>
 
     <form [formGroup]="registerForm" (ngSubmit)="register()">
-      <ion-item class="ion-margin-bottom email-field">
-        <ion-label position="stacked">Correo Electrónico</ion-label>
-        <ion-input type="email" formControlName="email" placeholder="ejemplo@empresa.com"></ion-input>
-      </ion-item>
+      <div class="register-field">
+        <label class="field-label" id="register-email-label">Correo Electrónico</label>
+        <ion-input aria-labelledby="register-email-label" type="email" formControlName="email" placeholder="ejemplo@empresa.com"></ion-input>
+      </div>
       <ion-text color="danger" *ngIf="email?.touched && email?.errors?.['required']">
         <p class="error-msg">El correo electrónico es requerido.</p>
       </ion-text>
@@ -27,10 +27,10 @@
         <p class="error-msg">Ingrese un correo electrónico válido.</p>
       </ion-text>
 
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="stacked">Contraseña</ion-label>
-        <ion-input type="password" formControlName="password" placeholder="Mínimo 6 caracteres"></ion-input>
-      </ion-item>
+      <div class="register-field">
+        <label class="field-label" id="register-password-label">Contraseña</label>
+        <ion-input aria-labelledby="register-password-label" type="password" formControlName="password" placeholder="Mínimo 6 caracteres"></ion-input>
+      </div>
       <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['required']">
         <p class="error-msg">La contraseña es requerida.</p>
       </ion-text>
@@ -38,10 +38,10 @@
         <p class="error-msg">La contraseña debe tener al menos 6 caracteres.</p>
       </ion-text>
 
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="stacked">Confirmar Contraseña</ion-label>
-        <ion-input type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña"></ion-input>
-      </ion-item>
+      <div class="register-field">
+        <label class="field-label" id="register-confirm-password-label">Confirmar Contraseña</label>
+        <ion-input aria-labelledby="register-confirm-password-label" type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña"></ion-input>
+      </div>
       <ion-text color="danger" *ngIf="confirmPassword?.touched && registerForm.errors?.['mismatch']">
         <p class="error-msg">Las contraseñas no coinciden.</p>
       </ion-text>
