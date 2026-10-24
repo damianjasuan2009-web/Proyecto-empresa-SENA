@@ -110,12 +110,30 @@ export class LearningContentService {
         return;
       }
 
-      const progress = JSON.parse(saved) as { tutorials?: number[]; verifications?: number[] };
-      this.tutorials.forEach(tutorial => tutorial.completed = progress.tutorials?.includes(tutorial.id) ?? false);
-      this.verificationTasks.forEach(task => task.completed = progress.verifications?.includes(task.id) ?? false);
-    } catch {
+      const progress: unknown = JSON.parse(saved);
+      if (typeof progress !== 'object' || progress === null || Array.isArray(progress)) {
+        throw new Error('Saved learning progress must be an object.');
+      }
+
+      const savedProgress = progress as Record<string, unknown>;
+      const tutorialIds = this.validIds(savedProgress['tutorials'], this.tutorials.map(item => item.id));
+      const verificationIds = this.validIds(savedProgress['verifications'], this.verificationTasks.map(item => item.id));
+      this.tutorials.forEach(tutorial => tutorial.completed = tutorialIds.has(tutorial.id));
+      this.verificationTasks.forEach(task => task.completed = verificationIds.has(task.id));
+    } catch (error: unknown) {
+      console.warn('Could not load saved learning progress; clearing the invalid data.', error);
       localStorage.removeItem(this.storageKey);
     }
+  }
+
+  private validIds(value: unknown, allowedIds: number[]): Set<number> {
+    if (!Array.isArray(value)) {
+      return new Set();
+    }
+
+    return new Set(value.filter((id): id is number =>
+      typeof id === 'number' && Number.isInteger(id) && allowedIds.includes(id)
+    ));
   }
 
   private saveProgress(): void {

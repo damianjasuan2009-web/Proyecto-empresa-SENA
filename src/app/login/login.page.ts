@@ -67,10 +67,10 @@ export class LoginPage implements OnInit {
       await this.authService.login(this.credentials.value);
       await loading.dismiss();
       this.router.navigateByUrl('/home', { replaceUrl: true });
-    } catch (error: any) {
+    } catch (error: unknown) {
       await loading.dismiss();
       const toast = await this.toastController.create({
-        message: this.getErrorMessage(error.code),
+        message: this.getErrorMessage(this.getErrorCode(error)),
         duration: 4000,
         color: 'danger',
         position: 'bottom',
@@ -83,94 +83,6 @@ export class LoginPage implements OnInit {
       });
       await toast.present();
     }
-  }
-
-  async loginWithPhone() {
-    const alert = await this.alertController.create({
-      header: 'Ingreso con Celular',
-      subHeader: 'Código por mensaje de texto (SMS)',
-      message: 'Te enviaremos un código de 6 números a tu celular para que no tengas que escribir contraseña.',
-      inputs: [
-        {
-          name: 'phone',
-          type: 'tel',
-          placeholder: 'Ejemplo: 300 123 4567',
-          attributes: {
-            inputmode: 'tel'
-          }
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Enviar código',
-          handler: (data) => {
-            if (data.phone) {
-              this.showToast('Código enviado a ' + data.phone + '. Revisa tus mensajes.', 'success');
-            } else {
-              this.showToast('Por favor escribe tu número de teléfono', 'warning');
-            }
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  async loginWithBiometrics() {
-    const alert = await this.alertController.create({
-      header: 'Huella o Reconocimiento',
-      message: 'Coloca tu dedo en el lector de huella o mira a la cámara de tu teléfono para ingresar.',
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Identificarme',
-          handler: () => {
-            this.showToast('Acceso biométrico listo para este dispositivo', 'success');
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
-  async requestHelp() {
-    const alert = await this.alertController.create({
-      header: '¿Necesitas ayuda para entrar?',
-      subHeader: 'Estamos contigo para guiarte paso a paso',
-      message: 'Elige una de las siguientes opciones para recibir asistencia inmediata:',
-      buttons: [
-        {
-          text: 'Llamar a mi familiar de confianza',
-          handler: () => {
-            this.showToast('Iniciando llamada con tu contacto de apoyo...', 'secondary');
-          }
-        },
-        {
-          text: 'Llamar a Soporte SENA',
-          handler: () => {
-            this.showToast('Conectando con el equipo de soporte técnico...', 'secondary');
-          }
-        },
-        {
-          text: 'Recuperar mi contraseña por correo',
-          handler: () => {
-            this.forgotPassword();
-          }
-        },
-        {
-          text: 'Volver atrás',
-          role: 'cancel'
-        }
-      ]
-    });
-    await alert.present();
   }
 
   async forgotPassword() {
@@ -192,11 +104,23 @@ export class LoginPage implements OnInit {
         },
         {
           text: 'Enviar correo',
-          handler: (data) => {
-            if (data.email) {
-              this.showToast('Se ha enviado un correo con instrucciones a ' + data.email, 'success');
-            } else {
-              this.showToast('Por favor escribe un correo válido', 'warning');
+          handler: async (data: { email?: string }) => {
+            const email = String(data.email ?? '').trim();
+            if (this.fb.control(email, [Validators.required, Validators.email]).invalid) {
+              await this.showToast('Escribe una dirección de correo válida para continuar.', 'warning');
+              return false;
+            }
+
+            try {
+              await this.authService.sendPasswordReset(email);
+              await this.showToast(
+                'Si el correo corresponde a una cuenta, recibirás allí las instrucciones para cambiar la contraseña.',
+                'success'
+              );
+              return true;
+            } catch (error: unknown) {
+              await this.showToast(this.getResetErrorMessage(this.getErrorCode(error)), 'danger');
+              return false;
             }
           }
         }
@@ -216,12 +140,31 @@ export class LoginPage implements OnInit {
     await toast.present();
   }
 
+  private getErrorCode(error: unknown): string {
+    return typeof error === 'object' && error !== null && 'code' in error
+      ? String(error.code)
+      : '';
+  }
+
+  private getResetErrorMessage(code: string): string {
+    switch (code) {
+      case 'auth/invalid-email':
+        return 'El formato del correo no es válido. Revísalo e inténtalo de nuevo.';
+      case 'auth/too-many-requests':
+        return 'Se hicieron demasiadas solicitudes. Espera un momento antes de intentarlo otra vez.';
+      case 'auth/network-request-failed':
+        return 'No se pudo enviar la solicitud. Revisa tu conexión e inténtalo de nuevo.';
+      default:
+        return 'No se pudo solicitar el cambio de contraseña. Inténtalo de nuevo o pide ayuda a una persona de confianza.';
+    }
+  }
+
   private getErrorMessage(code: string): string {
     switch (code) {
       case 'auth/user-not-found':
       case 'auth/wrong-password':
       case 'auth/invalid-credential':
-        return 'El correo o la contraseña no coinciden. Revisa que estén bien escritos o pulsa "¿Necesitas ayuda?".';
+        return 'El correo o la contraseña no coinciden. Revisa que estén bien escritos o pulsa "Recuperar contraseña".';
       case 'auth/invalid-email':
         return 'El formato del correo no es válido. Ejemplo: nombre@correo.com';
       case 'auth/too-many-requests':

@@ -23,7 +23,8 @@ export class ThemePreferencesService {
       if (saved) {
         this.apply(JSON.parse(saved) as Partial<UserPreferences>);
       }
-    } catch {
+    } catch (error: unknown) {
+      console.warn('Could not apply saved appearance preferences.', error);
       this.apply({});
     }
   }

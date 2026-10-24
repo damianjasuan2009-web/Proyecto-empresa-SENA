@@ -78,6 +78,28 @@ ion-toolbar {
 	--border-color: var(--app-border);
 }
 
+.app-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	max-width: 100%;
+	vertical-align: middle;
+}
+
+.app-brand img {
+	width: 32px;
+	height: 32px;
+	flex: 0 0 auto;
+	object-fit: contain;
+	border-radius: 8px;
+}
+
+.app-brand > span {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
 ion-card {
 	--background: var(--app-surface);
 	--color: var(--app-text);
@@ -124,6 +146,19 @@ ion-select {
 		--app-screen-gutter: 12px;
 		--app-screen-gap: 10px;
 		--app-screen-top-space: 10px;
+	}
+
+	ion-title .app-brand {
+		gap: 6px;
+	}
+
+	ion-title .app-brand img {
+		width: 28px;
+		height: 28px;
+	}
+
+	ion-title .app-brand > span {
+		font-size: 0.95rem;
 	}
 }
 

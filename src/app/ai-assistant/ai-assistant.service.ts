@@ -72,7 +72,7 @@ export class AiAssistantService {
     }
 
     if (hasAny('contrasena', 'clave', 'iniciar sesion', 'login', 'no puedo entrar', 'olvide mi')) {
-      return `${intro}\n\n1. Revisa que tu correo esté escrito correctamente y vuelve a escribir tu contraseña con calma.\n2. Si aún no puedes entrar, pulsa “Pedir Ayuda” y elige recuperar la contraseña por correo.\n\nNo compartas tu contraseña ni códigos. ¿Pudiste ingresar?`;
+      return `${intro}\n\n1. Revisa que tu correo esté escrito correctamente y vuelve a escribir tu contraseña con calma.\n2. Si aún no puedes entrar, pulsa “Recuperar contraseña” para solicitar un enlace por correo.\n\nNo compartas tu contraseña ni códigos. ¿Pudiste ingresar?`;
     }
 
     if (hasAny('whatsapp', 'videollamada', 'video llamada', 'audio', 'nota de voz')) {

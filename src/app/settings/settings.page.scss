@@ -52,6 +52,13 @@ ion-card-title {
   font-size: 1.2rem;
 }
 
+.settings-note {
+  margin: 0 0 8px;
+  color: var(--app-muted);
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
+
 ion-item {
   --background: transparent;
   --border-color: var(--app-border);

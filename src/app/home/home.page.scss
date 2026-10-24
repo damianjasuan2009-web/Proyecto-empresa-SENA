@@ -45,25 +45,6 @@ ion-toolbar {
   font-size: 1.05rem;
 }
 
-.streak-summary {
-  display: grid;
-  min-width: 130px;
-  justify-items: center;
-  gap: 4px;
-  padding: 16px;
-  border-radius: 16px;
-  background: var(--app-surface-warm);
-  color: var(--app-primary-hover);
-}
-
-.streak-summary ion-icon {
-  font-size: 1.8rem;
-}
-
-.streak-summary strong {
-  font-size: 1.25rem;
-}
-
 .progress-summary {
   margin-top: 22px;
   padding: 20px 22px;
@@ -401,14 +382,6 @@ ion-toolbar {
     font-size: 1.55rem;
   }
 
-  .streak-summary {
-    width: 100%;
-    grid-template-columns: auto auto 1fr;
-    justify-items: start;
-    align-items: center;
-    padding: 12px 14px;
-  }
-
   .progress-summary {
     margin-top: 14px;
     padding: 16px;
@@ -467,11 +440,6 @@ ion-toolbar {
 
   .welcome-panel h1 {
     font-size: 1.5rem;
-  }
-
-  .streak-summary {
-    min-width: 110px;
-    padding: 10px;
   }
 
   .progress-summary {

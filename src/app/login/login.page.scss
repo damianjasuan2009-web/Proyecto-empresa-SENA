@@ -356,79 +356,6 @@ $warm-shadow-hover: var(--app-shadow-hover);
     font-weight: 500;
   }
 
-  .methods-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-  }
-
-  .alt-method-btn {
-    width: 100%;
-    background: var(--app-surface-warm);
-    border: 2px solid #FED7AA;
-    border-radius: 16px;
-    padding: 12px 14px;
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-align: left;
-    cursor: pointer;
-    transition: all 0.25s ease;
-
-    &:hover, &:focus {
-      background: $warm-peach-light;
-      border-color: $warm-amber;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
-    }
-
-    .method-icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.6rem;
-      flex-shrink: 0;
-
-      &.phone-circle {
-        background: var(--app-peach-soft);
-        color: $warm-terracotta-dark;
-        border: 1px solid $warm-border;
-      }
-
-      &.fingerprint-circle {
-        background: var(--app-peach-soft);
-        color: $warm-terracotta-dark;
-        border: 1px solid $warm-border;
-      }
-    }
-
-    .method-text {
-      flex: 1;
-
-      strong {
-        display: block;
-        font-size: 1.05rem;
-        color: $warm-text-main;
-        margin-bottom: 2px;
-      }
-
-      small {
-        display: block;
-        font-size: 0.86rem;
-        color: $warm-text-muted;
-        line-height: 1.25;
-      }
-    }
-
-    .method-arrow {
-      font-size: 1.4rem;
-      color: $warm-amber-dark;
-      flex-shrink: 0;
-    }
-  }
 }
 
 // SECCIÓN: REGISTRO / CREAR CUENTA
@@ -639,16 +566,6 @@ $warm-shadow-hover: var(--app-shadow-hover);
     .section-desc {
       font-size: 1.15rem;
     }
-    .alt-method-btn {
-      .method-text {
-        strong {
-          font-size: 1.2rem;
-        }
-        small {
-          font-size: 1rem;
-        }
-      }
-    }
   }
 
   .register-promo-card {
@@ -685,8 +602,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
   border-radius: 16px;
 }
 
-.reveal-password-btn,
-.alt-method-btn {
+.reveal-password-btn {
   border-radius: 14px;
 }
 
@@ -732,5 +648,23 @@ $warm-shadow-hover: var(--app-shadow-hover);
     --padding-start: 8px;
     --padding-end: 8px;
     font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .warm-toolbar .toolbar-brand .brand-title {
+    display: none;
+  }
+
+  .warm-toolbar .font-size-btn {
+    --padding-start: 6px;
+    --padding-end: 6px;
+
+    .font-toggle-text {
+      max-width: 96px;
+      white-space: normal;
+      text-align: center;
+      line-height: 1.1;
+    }
   }
 }

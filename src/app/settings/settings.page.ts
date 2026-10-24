@@ -36,15 +36,30 @@ export class SettingsPage implements OnInit {
     if (typeof localStorage === 'undefined') {
       return;
     }
-    const saved = localStorage.getItem(this.storageKey);
-    if (!saved) {
-      return;
-    }
 
     try {
-      this.preferences = { ...this.preferences, ...JSON.parse(saved) };
-    } catch {
-      this.preferences = { ...this.preferences };
+      const saved = localStorage.getItem(this.storageKey);
+      if (!saved) {
+        return;
+      }
+
+      const parsed: unknown = JSON.parse(saved);
+      if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
+        throw new Error('Saved preferences must be an object.');
+      }
+
+      const values = parsed as Record<string, unknown>;
+      this.preferences = {
+        darkMode: values['darkMode'] === true,
+        highContrast: values['highContrast'] === true,
+        compactView: values['compactView'] === true,
+        emailNotifications: values['emailNotifications'] !== false,
+        weeklyReports: values['weeklyReports'] !== false,
+        fontSize: values['fontSize'] === 'large' ? 'large' : 'normal'
+      };
+    } catch (error: unknown) {
+      console.warn('Could not load saved preferences; defaults will be used.', error);
+      localStorage.removeItem(this.storageKey);
     }
   }
 

@@ -5,7 +5,12 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Configuración</ion-title>
+    <ion-title>
+      <span class="app-brand">
+        <img src="assets/icon/teacompano-logo.svg" alt="" />
+        <span>Configuración</span>
+      </span>
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -50,9 +55,10 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Notificaciones</ion-card-title>
+        <ion-card-title>Preferencias de avisos</ion-card-title>
       </ion-card-header>
       <ion-card-content>
+        <p class="settings-note">Estas opciones se guardan en este dispositivo. La aplicación todavía no envía correos ni reportes automáticos.</p>
         <ion-item lines="none">
           <ion-label>Correo electrónico</ion-label>
           <ion-toggle [(ngModel)]="preferences.emailNotifications" (ionChange)="onPreferenceToggle('emailNotifications', $event.detail.checked)" color="success"></ion-toggle>

@@ -48,7 +48,12 @@
       <ion-buttons slot="start">
         <ion-menu-button></ion-menu-button>
       </ion-buttons>
-      <ion-title>TeAcompaño</ion-title>
+      <ion-title>
+        <span class="app-brand">
+          <img src="assets/icon/teacompano-logo.svg" alt="" />
+          <span>TeAcompaño</span>
+        </span>
+      </ion-title>
       <ion-buttons slot="end">
         <ion-button (click)="goToSettings()" aria-label="Configuración">
           <ion-icon slot="icon-only" name="settings-outline"></ion-icon>
@@ -64,11 +69,6 @@
           <p class="eyebrow">TeAcompaño</p>
           <h1>¡Hola! ¿En qué podemos ayudarte?</h1>
           <p>Elige una opción. Te acompañamos paso a paso.</p>
-        </div>
-        <div class="streak-summary">
-          <ion-icon name="flame-outline"></ion-icon>
-          <strong>{{ streakDays }} días</strong>
-          <span>de práctica</span>
         </div>
       </section>
 
