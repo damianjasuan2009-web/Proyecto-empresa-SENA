@@ -38,6 +38,9 @@
 
 :root {
 	--ion-font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+	--app-screen-gutter: clamp(12px, 4vw, 32px);
+	--app-screen-gap: clamp(10px, 2.5vw, 20px);
+	--app-screen-top-space: clamp(10px, 2.5vh, 24px);
 }
 
 html,
@@ -113,6 +116,32 @@ ion-select {
 
 	ion-title {
 		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 360px) {
+	:root {
+		--app-screen-gutter: 12px;
+		--app-screen-gap: 10px;
+		--app-screen-top-space: 10px;
+	}
+}
+
+@media (min-width: 768px) {
+	:root {
+		--app-screen-gutter: clamp(28px, 5vw, 56px);
+		--app-screen-gap: clamp(18px, 2.5vw, 28px);
+	}
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+	:root {
+		--app-screen-top-space: 8px;
+		--app-screen-gap: 10px;
+	}
+
+	ion-toolbar {
+		--min-height: 48px;
 	}
 }
 

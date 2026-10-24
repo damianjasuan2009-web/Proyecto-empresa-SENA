@@ -8,9 +8,9 @@ ion-toolbar {
 }
 
 .settings-shell {
-  width: min(100% - 28px, 760px);
+  width: min(calc(100% - var(--app-screen-gutter) - var(--app-screen-gutter)), 760px);
   margin: 0 auto;
-  padding: 16px 0 36px;
+  padding: var(--app-screen-top-space) 0 36px;
 }
 
 .settings-header {
@@ -76,7 +76,7 @@ ion-label {
 
 @media (max-width: 520px) {
   .settings-shell {
-    width: min(100% - 24px, 760px);
+    width: min(calc(100% - var(--app-screen-gutter) - var(--app-screen-gutter)), 760px);
     padding-top: 10px;
     padding-bottom: 24px;
   }
@@ -100,6 +100,36 @@ ion-label {
 
   ion-item {
     --min-height: 52px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .settings-shell {
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+
+  .settings-header {
+    margin-bottom: 8px;
+    padding: 12px 16px;
+  }
+
+  ion-card {
+    margin-top: 8px;
+  }
+
+  ion-item {
+    --min-height: 46px;
+  }
+
+  .settings-actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+    margin-top: 10px;
+  }
+
+  .settings-actions ion-button {
+    min-height: 46px;
   }
 }
 

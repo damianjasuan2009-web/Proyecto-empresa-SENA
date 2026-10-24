@@ -41,7 +41,6 @@ $warm-shadow-hover: var(--app-shadow-hover);
       font-weight: 800;
       letter-spacing: 0;
       color: var(--app-text);
-      letter-spacing: 0;
     }
   }
 
@@ -79,7 +78,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
 
 // TARJETA DE BIENVENIDA Y LOGO
 .welcome-card {
-  background: #FFFFFF;
+  background: var(--app-surface);
   border-radius: 24px;
   border: 2px solid $warm-border;
   box-shadow: $warm-shadow;
@@ -144,7 +143,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
 
 // FORMULARIO PRINCIPAL
 .form-card {
-  background: #FFFFFF;
+  background: var(--app-surface);
   border-radius: 24px;
   border: 2px solid $warm-border;
   box-shadow: $warm-shadow;
@@ -323,7 +322,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
 
 // SECCIÓN: OTROS MÉTODOS DE INICIO DE SESIÓN
 .alternative-methods-card {
-  background: #FFFFFF;
+  background: var(--app-surface);
   border-radius: 24px;
   border: 2px solid $warm-border;
   box-shadow: $warm-shadow;
@@ -434,7 +433,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
 
 // SECCIÓN: REGISTRO / CREAR CUENTA
 .register-promo-card {
-  background: linear-gradient(135deg, #FEF3C7 0%, #FFEDD5 100%);
+  background: var(--app-banner);
   border-radius: 24px;
   border: 2px solid $warm-border-strong;
   box-shadow: $warm-shadow;
@@ -499,7 +498,7 @@ $warm-shadow-hover: var(--app-shadow-hover);
 
 // SECCIÓN DE ASISTENCIA Y AYUDA
 .support-card {
-  background: #FFFFFF;
+  background: var(--app-surface);
   border-radius: 20px;
   border: 1px solid var(--app-border);
   padding: 18px;
@@ -670,6 +669,8 @@ $warm-shadow-hover: var(--app-shadow-hover);
   }
 }
 
+// Las tarjetas y las propiedades de tema ya usan variables CSS (--app-*) directamente arriba.
+// Este bloque de override de tema oscuro/claro está preservado para compatibilidad con transiciones.
 .welcome-card,
 .form-card,
 .alternative-methods-card,
@@ -680,23 +681,13 @@ $warm-shadow-hover: var(--app-shadow-hover);
   box-shadow: var(--app-shadow);
 }
 
-.welcome-card,
-.form-card,
-.alternative-methods-card,
-.support-card {
-  background: var(--app-surface);
+.input-box {
+  border-radius: 16px;
 }
 
-.register-promo-card {
-  background: var(--app-banner);
-}
-
-.input-box,
 .reveal-password-btn,
-.alt-method-btn,
-.btn-create-account,
-.btn-help {
-  border-radius: 12px !important;
+.alt-method-btn {
+  border-radius: 14px;
 }
 
 @media (max-width: 520px) {

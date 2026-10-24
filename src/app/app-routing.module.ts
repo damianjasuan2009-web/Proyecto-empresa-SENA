@@ -38,6 +38,11 @@ const routes: Routes = [
     canActivate: [authenticatedGuard],
     loadChildren: () => import('./ai-assistant/ai-assistant.module').then(m => m.AiAssistantPageModule)
   },
+  {
+    path: '**',
+    redirectTo: 'home',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({

@@ -8,9 +8,9 @@ ion-toolbar {
 }
 
 .section-shell {
-  width: min(100% - 32px, 980px);
+  width: min(calc(100% - var(--app-screen-gutter) - var(--app-screen-gutter)), 980px);
   margin: 0 auto;
-  padding: 20px 0 40px;
+  padding: var(--app-screen-top-space) 0 40px;
 }
 
 .section-nav {
@@ -560,7 +560,7 @@ ion-toolbar {
 
 @media (max-width: 640px) {
   .section-shell {
-    width: min(100% - 24px, 980px);
+    width: min(calc(100% - var(--app-screen-gutter) - var(--app-screen-gutter)), 980px);
     padding-top: 10px;
     padding-bottom: 24px;
   }
@@ -628,5 +628,34 @@ ion-toolbar {
   .contact-action {
     width: 116px;
     flex: 0 0 116px;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .section-shell {
+    padding-top: 8px;
+    padding-bottom: 16px;
+  }
+
+  .section-intro {
+    margin: 12px 0;
+  }
+
+  .content-list {
+    gap: 8px;
+  }
+
+  .content-item {
+    padding: 12px;
+  }
+
+  .instruction-panel {
+    min-height: 88px;
+    margin: 10px 0;
+    padding: 12px;
+  }
+
+  .bottom-nav a {
+    min-height: 48px;
   }
 }

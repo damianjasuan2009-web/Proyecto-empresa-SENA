@@ -13,7 +13,7 @@ ion-toolbar {
   min-height: 100%;
   flex-direction: column;
   margin: 0 auto;
-  padding: 20px 0 14px;
+  padding: var(--app-screen-top-space) 0 14px;
 }
 
 .assistant-intro {
@@ -178,7 +178,7 @@ ion-toolbar {
 
 @media (max-width: 520px) {
   .assistant-shell {
-    width: min(100% - 20px, 780px);
+    width: min(calc(100% - var(--app-screen-gutter) - var(--app-screen-gutter)), 780px);
     padding-top: 10px;
     padding-bottom: 10px;
   }
@@ -223,5 +223,55 @@ ion-toolbar {
 
   .privacy-note {
     font-size: 0.82rem;
+  }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+  .assistant-shell {
+    padding-top: 6px;
+    padding-bottom: 6px;
+  }
+
+  .assistant-intro {
+    gap: 10px;
+    margin-bottom: 8px;
+    padding: 10px 14px;
+  }
+
+  .assistant-avatar {
+    flex-basis: 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .assistant-intro h1 {
+    font-size: 1.15rem;
+  }
+
+  .assistant-intro p:last-child {
+    margin-top: 2px;
+  }
+
+  .conversation {
+    gap: 8px;
+    padding: 10px;
+  }
+
+  .composer {
+    margin-top: 8px;
+  }
+
+  .message-input,
+  .composer ion-button {
+    min-height: 46px;
+    height: 46px;
+  }
+
+  .privacy-note {
+    margin-top: 4px;
+  }
+
+  .bottom-nav a {
+    min-height: 48px;
   }
 }
