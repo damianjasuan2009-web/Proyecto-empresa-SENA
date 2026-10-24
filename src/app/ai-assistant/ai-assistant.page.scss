@@ -62,10 +62,13 @@ ion-toolbar {
   flex: 1;
   align-content: start;
   gap: 12px;
+  min-height: 0;
   padding: 16px;
   border: 1px solid var(--app-border);
   border-radius: 18px;
   background: var(--app-surface);
+  overflow-y: auto;
+  overscroll-behavior: contain;
 }
 
 .message {
@@ -146,12 +149,12 @@ ion-toolbar {
 
 .bottom-nav a {
   display: grid;
-  min-height: 62px;
+  min-height: 64px;
   align-content: center;
   justify-items: center;
   gap: 2px;
   color: var(--app-muted);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -176,22 +179,49 @@ ion-toolbar {
 @media (max-width: 520px) {
   .assistant-shell {
     width: min(100% - 20px, 780px);
-    padding-top: 12px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 
   .assistant-intro {
     align-items: flex-start;
-    padding: 16px;
+    gap: 12px;
+    margin-bottom: 12px;
+    padding: 14px;
   }
+
   .assistant-intro h1 {
-    font-size: 1.35rem;
+    font-size: 1.25rem;
+  }
+
+  .assistant-avatar {
+    flex-basis: 44px;
+    width: 44px;
+    height: 44px;
+    border-radius: 13px;
+    font-size: 1.45rem;
   }
 
   .conversation {
+    flex: 1;
     padding: 12px;
   }
 
   .message {
     max-width: 96%;
+    padding: 10px 12px;
+  }
+
+  .composer {
+    gap: 6px;
+  }
+
+  .composer ion-button {
+    width: 48px;
+    height: 48px;
+  }
+
+  .privacy-note {
+    font-size: 0.82rem;
   }
 }

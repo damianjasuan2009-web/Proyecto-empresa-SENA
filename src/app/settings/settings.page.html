@@ -40,7 +40,7 @@
 
         <ion-item lines="none">
           <ion-label>Fuente</ion-label>
-          <ion-select [(ngModel)]="preferences.fontSize" interface="popover" placeholder="Selecciona una opción">
+          <ion-select [(ngModel)]="preferences.fontSize" (ionChange)="persistFontSize($event.detail.value)" interface="popover" placeholder="Selecciona una opción">
             <ion-select-option value="normal">Normal</ion-select-option>
             <ion-select-option value="large">Grande</ion-select-option>
           </ion-select>

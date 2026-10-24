@@ -540,12 +540,12 @@ ion-toolbar {
 
 .bottom-nav a {
   display: grid;
-  min-height: 62px;
+  min-height: 64px;
   align-content: center;
   justify-items: center;
   gap: 2px;
   color: var(--app-muted);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -559,12 +559,55 @@ ion-toolbar {
 }
 
 @media (max-width: 640px) {
+  .section-shell {
+    width: min(100% - 24px, 980px);
+    padding-top: 10px;
+    padding-bottom: 24px;
+  }
+
+  .section-intro {
+    margin: 16px 0;
+  }
+
+  .section-intro h1 {
+    font-size: 1.55rem;
+  }
+
+  .section-nav {
+    scroll-snap-type: x proximity;
+    scrollbar-width: thin;
+  }
+
+  .section-nav a {
+    scroll-snap-align: start;
+    padding: 9px 12px;
+    font-size: 0.95rem;
+  }
+
+  .content-list {
+    gap: 10px;
+  }
+
   .player-controls {
     flex-direction: column-reverse;
   }
 
   .player-controls ion-button {
     width: 100%;
+  }
+
+  .tutorial-player {
+    padding: 16px;
+  }
+
+  .instruction-panel {
+    min-height: 120px;
+    gap: 12px;
+    padding: 16px;
+  }
+
+  .instruction-panel p {
+    font-size: 1.05rem;
   }
 
   .contact-intro,

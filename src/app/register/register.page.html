@@ -28,8 +28,8 @@
       </ion-text>
 
       <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Contraseña</ion-label>
-        <ion-input type="password" formControlName="password" placeholder="******"></ion-input>
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" formControlName="password" placeholder="Mínimo 6 caracteres"></ion-input>
       </ion-item>
       <ion-text color="danger" *ngIf="password?.touched && password?.errors?.['required']">
         <p class="error-msg">La contraseña es requerida.</p>
@@ -39,8 +39,8 @@
       </ion-text>
 
       <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">Confirmar Contraseña</ion-label>
-        <ion-input type="password" formControlName="confirmPassword" placeholder="******"></ion-input>
+        <ion-label position="stacked">Confirmar Contraseña</ion-label>
+        <ion-input type="password" formControlName="confirmPassword" placeholder="Repite tu contraseña"></ion-input>
       </ion-item>
       <ion-text color="danger" *ngIf="confirmPassword?.touched && registerForm.errors?.['mismatch']">
         <p class="error-msg">Las contraseñas no coinciden.</p>

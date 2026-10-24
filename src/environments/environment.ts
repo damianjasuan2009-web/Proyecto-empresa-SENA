@@ -2,17 +2,19 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+const runtimeEnv = (globalThis as { __APP_ENV__?: { geminiApiKey?: string } }).__APP_ENV__ ?? {};
+
 export const environment = {
   production: false,
   firebase: {
-    apiKey: "AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg",
-    authDomain: "abuelo-digital-b2d45.firebaseapp.com",
-    projectId: "abuelo-digital-b2d45",
-    storageBucket: "abuelo-digital-b2d45.firebasestorage.app",
-    messagingSenderId: "420361839486",
-    appId: "1:420361839486:web:ec96aaf33823d7de0fc92f"
+    apiKey: 'AIzaSyBgQWvtLQew257crLIKj6cjMYqR2G_xYTU',
+    authDomain: 'abuelo-digital-b2d45.firebaseapp.com',
+    projectId: 'abuelo-digital-b2d45',
+    storageBucket: 'abuelo-digital-b2d45.firebasestorage.app',
+    messagingSenderId: '420361839486',
+    appId: '1:420361839486:web:ec96aaf33823d7de0fc92f'
   },
-  geminiApiKey: 'AQ.Ab8RN6J_6V680OUM4sZafq_3Suuly9fFguAeqlBl3Pi1v4zVqg'
+  geminiApiKey: runtimeEnv.geminiApiKey ?? ''
 };
 
 /*

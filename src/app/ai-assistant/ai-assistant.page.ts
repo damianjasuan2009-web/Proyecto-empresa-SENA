@@ -1,5 +1,5 @@
-import { Component, inject } from '@angular/core';
-import { ToastController } from '@ionic/angular';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { IonContent, ToastController } from '@ionic/angular';
 import { AiAssistantService, AssistantMessage, AssistantRequestError } from './ai-assistant.service';
 
 @Component({
@@ -9,6 +9,8 @@ import { AiAssistantService, AssistantMessage, AssistantRequestError } from './a
   standalone: false
 })
 export class AiAssistantPage {
+  @ViewChild(IonContent, { static: false }) private ionContent!: IonContent;
+
   private readonly assistant = inject(AiAssistantService);
   private readonly toastController = inject(ToastController);
   messages: AssistantMessage[] = [{
@@ -27,10 +29,15 @@ export class AiAssistantPage {
     this.messages = [...this.messages, { role: 'user', text }];
     this.messageDraft = '';
     this.isSending = true;
+    // Scroll al mensaje del usuario recién añadido
+    this.scrollToBottom();
 
     try {
-      const answer = await this.assistant.sendMessage(this.messages.slice(1, -1), text);
+      // Se envía el historial completo previo al nuevo mensaje del usuario (excluyendo sólo el último que es `text`)
+      const answer = await this.assistant.sendMessage(this.messages.slice(0, -1), text);
       this.messages = [...this.messages, { role: 'model', text: answer }];
+      // Scroll automático a la respuesta del asistente
+      this.scrollToBottom();
     } catch (error) {
       this.messages = this.messages.slice(0, -1);
       this.messageDraft = text;
@@ -41,6 +48,12 @@ export class AiAssistantPage {
     } finally {
       this.isSending = false;
     }
+  }
+
+  private scrollToBottom(): void {
+    setTimeout(() => {
+      this.ionContent?.scrollToBottom(300);
+    }, 50);
   }
 
   private async showToast(message: string, color: string): Promise<void> {

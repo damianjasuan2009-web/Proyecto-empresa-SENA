@@ -43,11 +43,25 @@
 html,
 body {
 	min-height: 100%;
+	min-height: 100dvh;
 	background: var(--app-background);
 	color: var(--app-text);
 	font-family: var(--ion-font-family);
 	font-size: 17px;
 	line-height: 1.5;
+}
+
+ion-app {
+	min-height: 100%;
+	min-height: 100dvh;
+}
+
+ion-header {
+	padding-top: env(safe-area-inset-top, 0px);
+}
+
+ion-footer {
+	padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 ion-content {
@@ -85,6 +99,21 @@ ion-select {
 	--color: var(--app-text);
 	--placeholder-color: var(--app-muted);
 	font-size: 1.05rem;
+}
+
+@media (max-width: 520px) {
+	html,
+	body {
+		font-size: 16px;
+	}
+
+	ion-toolbar {
+		--min-height: 52px;
+	}
+
+	ion-title {
+		font-size: 1.1rem;
+	}
 }
 
 body.theme-dark {

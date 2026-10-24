@@ -24,7 +24,7 @@ export class RegisterPage implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', [Validators.required]]
-    }, { validator: this.passwordMatchValidator });
+    }, { validators: this.passwordMatchValidator });
   }
 
   passwordMatchValidator(g: FormGroup) {
@@ -47,6 +47,8 @@ export class RegisterPage implements OnInit {
 
   async register() {
     if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      await this.showToast('Revisa los datos del formulario antes de continuar.', 'warning');
       return;
     }
 
@@ -81,6 +83,16 @@ export class RegisterPage implements OnInit {
     }
   }
 
+  private async showToast(message: string, color: 'success' | 'warning' | 'danger' | 'primary' | 'secondary'): Promise<void> {
+    const toast = await this.toastController.create({
+      message,
+      duration: 2500,
+      color,
+      position: 'bottom'
+    });
+    await toast.present();
+  }
+
   private getErrorMessage(code: string): string {
     switch (code) {
       case 'auth/email-already-in-use':
@@ -89,6 +101,8 @@ export class RegisterPage implements OnInit {
         return 'El correo electrónico ingresado no es válido.';
       case 'auth/weak-password':
         return 'La contraseña es muy débil. Usa al menos 6 caracteres.';
+      case 'auth/network-request-failed':
+        return 'No se pudo completar la solicitud. Revisa tu conexión e inténtalo otra vez.';
       default:
         return 'Ocurrió un error al registrar la cuenta. Inténtalo de nuevo.';
     }

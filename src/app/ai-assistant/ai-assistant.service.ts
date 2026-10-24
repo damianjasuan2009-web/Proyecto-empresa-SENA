@@ -40,9 +40,9 @@ export class AiAssistantService {
   private readonly learningContent = inject(LearningContentService);
 
   async sendMessage(history: AssistantMessage[], message: string): Promise<string> {
-    const apiKey = environment.geminiApiKey;
+    const apiKey = environment.geminiApiKey?.trim();
     if (!apiKey) {
-      throw new AssistantRequestError('configuration', 'El asistente no está configurado. Revisa la clave de Gemini.');
+      return this.buildOfflineReply(message);
     }
 
     let response: Response;
@@ -65,10 +65,7 @@ export class AiAssistantService {
         }
       );
     } catch {
-      throw new AssistantRequestError(
-        'connection',
-        'No pudimos obtener una respuesta. Revisa tu conexión e inténtalo de nuevo.'
-      );
+      return this.buildOfflineReply(message, 'No pude contactar a Gemini, pero aquí tienes una guía práctica desde el app.');
     }
 
     let result: GeminiResponse;
@@ -76,10 +73,7 @@ export class AiAssistantService {
       result = await response.json() as GeminiResponse;
     } catch {
       if (!response.ok) {
-        throw new AssistantRequestError(
-          'service',
-          `Gemini devolvió el error HTTP ${response.status}, pero no se pudo leer su detalle.`
-        );
+        return this.buildOfflineReply(message, `Gemini respondió con un problema temporal (HTTP ${response.status}). Te dejo una respuesta práctica mientras se reanuda el servicio.`);
       }
       throw new AssistantRequestError(
         'response',
@@ -98,31 +92,24 @@ export class AiAssistantService {
         providerMessageLower.includes('api key not valid') ||
         providerMessageLower.includes('api key is invalid')
       ) {
-        throw new AssistantRequestError('configuration', 'La clave de Gemini no es válida o no tiene permiso para usar el asistente.');
+        return this.buildOfflineReply(message, 'La clave de Gemini no está disponible o no es válida en este momento. Usaré una respuesta local para seguir ayudándote.');
       }
       if (response.status === 429) {
-        throw new AssistantRequestError('limit', 'El asistente está recibiendo muchas solicitudes. Espera un momento e inténtalo de nuevo.');
+        return this.buildOfflineReply(message, 'El asistente está ocupado por ahora. Mientras tanto, te dejo una respuesta rápida basada en la app.');
       }
       if (response.status === 404) {
-        const detail = this.safeProviderMessage(providerMessage, apiKey);
-        throw new AssistantRequestError(
-          'configuration',
-          detail
-            ? `Gemini no encontró el modelo o recurso solicitado (HTTP 404): ${detail}`
-            : `Gemini no encontró el modelo o recurso solicitado (HTTP 404). El modelo configurado es ${GEMINI_MODEL}; revisa también que la clave pertenezca a un proyecto con Gemini API habilitada.`
-        );
+        return this.buildOfflineReply(message, 'Gemini no encontró el modelo solicitado. Te doy una respuesta práctica con la guía de TeAcompaño.');
       }
       if (response.status >= 500) {
-        throw new AssistantRequestError('service', `Gemini tiene un problema temporal (HTTP ${response.status}). Inténtalo de nuevo más tarde.`);
+        return this.buildOfflineReply(message, 'Gemini tiene un problema temporal. Aquí va una respuesta útil mientras se reanuda.');
       }
 
       const detail = this.safeProviderMessage(providerMessage, apiKey);
-      throw new AssistantRequestError(
-        'service',
-        detail
-          ? `Gemini rechazó la solicitud (HTTP ${response.status}): ${detail}`
-          : `Gemini rechazó la solicitud (HTTP ${response.status}). Revisa la configuración de la API.`
-      );
+      if (detail) {
+        return this.buildOfflineReply(message, `Gemini rechazó la solicitud: ${detail}. Te dejo una respuesta local para seguir.`);
+      }
+
+      return this.buildOfflineReply(message, 'La respuesta del asistente no pudo completarse. Te dejo una guía de apoyo local.');
     }
 
     const answer = result.candidates?.[0]?.content?.parts
@@ -133,21 +120,44 @@ export class AiAssistantService {
       const blockReason = result.promptFeedback?.blockReason;
       const finishReason = result.candidates?.[0]?.finishReason;
       if (blockReason) {
-        throw new AssistantRequestError('response', `Gemini bloqueó esta solicitud (${blockReason}). Prueba con otra pregunta.`);
+        return this.buildOfflineReply(message, `Gemini bloqueó esta solicitud (${blockReason}). Te muestro una opción segura para seguir.`);
       }
       if (finishReason === 'MAX_TOKENS') {
-        throw new AssistantRequestError('response', 'La respuesta fue demasiado larga y quedó incompleta. Prueba con una pregunta más concreta.');
+        return this.buildOfflineReply(message, 'La respuesta fue demasiado larga. Te doy una versión breve y clara para continuar.');
       }
       if (finishReason === 'SAFETY') {
-        throw new AssistantRequestError('response', 'Gemini no pudo responder esta pregunta por sus reglas de seguridad. Prueba con otra formulación.');
+        return this.buildOfflineReply(message, 'Gemini no pudo responder esa pregunta por seguridad. Te ofrezco una respuesta segura y simple.');
       }
-      throw new AssistantRequestError(
-        'response',
-        `Gemini respondió sin texto${finishReason ? ` (motivo: ${finishReason})` : ''}. Inténtalo con otra pregunta.`
-      );
+      return this.buildOfflineReply(message, 'Gemini respondió sin contenido útil. Aquí va una guía práctica para ayudarte.');
     }
 
     return answer;
+  }
+
+  private buildOfflineReply(message: string, intro = 'Puedo ayudarte con esto desde la guía de TeAcompaño:'): string {
+    const normalized = message.toLowerCase();
+
+    if (normalized.includes('contraseña') || normalized.includes('clave') || normalized.includes('login')) {
+      return `${intro} Lo más seguro es revisar el correo o la contraseña con calma, no compartirla por mensaje y usar la opción de ayuda si no recuerdas los datos. Si te equivocas, puedes pedir ayuda desde la pantalla de inicio.`;
+    }
+
+    if (normalized.includes('llamar') || normalized.includes('mensaje') || normalized.includes('contacto') || normalized.includes('familia')) {
+      return `${intro} En TeAcompaño puedes ir a Inicio y elegir “Llamar a un familiar” o “Enviar un mensaje”, o entrar a la sección de Contactos para guardar a personas de confianza y contactar con ellas con calma.`;
+    }
+
+    if (normalized.includes('foto') || normalized.includes('cámara') || normalized.includes('imagen')) {
+      return `${intro} Desde la pantalla de inicio hay una opción para tomar una foto o elegir una imagen. Luego puedes revisarla y compartirla si lo necesitas.`;
+    }
+
+    if (normalized.includes('tutorial') || normalized.includes('aprender') || normalized.includes('guía') || normalized.includes('como')) {
+      return `${intro} Puedes entrar a Aprendizaje o Tutoriales para seguir guías paso a paso. Cada paso se explica con claridad y puedes escuchar la instrucción en voz alta.`;
+    }
+
+    if (normalized.includes('ayuda') || normalized.includes('emergencia') || normalized.includes('urgente')) {
+      return `${intro} Si necesitas ayuda urgente, entra a la sección de Ayuda, revisa tus contactos de confianza y usa la opción de pedir apoyo. También puedes buscar ayuda en la pantalla de inicio.`;
+    }
+
+    return `${intro} En TeAcompaño puedes navegar desde Inicio, Aprendizaje, Tutoriales, Verificación, Ayuda y Perfil. Si quieres, te puedo orientar paso a paso para algo concreto como llamar, enviar mensajes, usar la cámara o seguir una guía.`;
   }
 
   private safeProviderMessage(message: string, apiKey: string): string {

@@ -92,3 +92,18 @@ form ion-button {
   font-weight: 700;
   text-underline-offset: 3px;
 }
+
+@media (max-width: 520px) {
+  .register-container {
+    width: min(100% - 8px, 520px);
+    padding-top: 12px;
+  }
+
+  .header-section {
+    padding: 16px;
+  }
+
+  form {
+    padding: 14px;
+  }
+}

@@ -74,6 +74,35 @@ ion-label {
   --border-radius: 12px;
 }
 
+@media (max-width: 520px) {
+  .settings-shell {
+    width: min(100% - 24px, 760px);
+    padding-top: 10px;
+    padding-bottom: 24px;
+  }
+
+  .settings-header {
+    margin-bottom: 12px;
+    padding: 16px;
+  }
+
+  .settings-header h1 {
+    font-size: 1.5rem;
+  }
+
+  ion-card {
+    margin-top: 10px;
+  }
+
+  ion-card-title {
+    font-size: 1.1rem;
+  }
+
+  ion-item {
+    --min-height: 52px;
+  }
+}
+
 :host-context(body.compact-view) .settings-shell {
   padding-top: 10px;
   padding-bottom: 20px;

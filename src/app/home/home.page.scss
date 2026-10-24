@@ -263,12 +263,12 @@ ion-toolbar {
 
 .bottom-nav a {
   display: grid;
-  min-height: 62px;
+  min-height: 64px;
   align-content: center;
   justify-items: center;
   gap: 2px;
   color: var(--app-muted);
-  font-size: 0.82rem;
+  font-size: 0.875rem;
   font-weight: 700;
   text-decoration: none;
 }
@@ -385,13 +385,20 @@ ion-toolbar {
 @media (max-width: 520px) {
   .home-shell {
     width: min(100% - 24px, 1080px);
-    padding-top: 14px;
+    padding-top: 12px;
+    padding-bottom: 20px;
   }
 
   .welcome-panel {
     align-items: flex-start;
     flex-direction: column;
-    padding: 22px;
+    gap: 14px;
+    padding: 18px;
+  }
+
+  .welcome-panel h1,
+  .section-heading h2 {
+    font-size: 1.55rem;
   }
 
   .streak-summary {
@@ -399,6 +406,47 @@ ion-toolbar {
     grid-template-columns: auto auto 1fr;
     justify-items: start;
     align-items: center;
+    padding: 12px 14px;
+  }
+
+  .progress-summary {
+    margin-top: 14px;
+    padding: 16px;
+  }
+
+  .section-heading {
+    margin: 22px 0 12px;
+  }
+
+  .action-grid {
+    gap: 10px;
+  }
+
+  .action-card {
+    min-height: 78px;
+    gap: 12px;
+    padding: 12px;
+  }
+
+  .action-icon {
+    flex-basis: 46px;
+    width: 46px;
+    height: 46px;
+    border-radius: 13px;
+    font-size: 1.5rem;
+  }
+
+  .action-copy strong {
+    font-size: 1rem;
+  }
+
+  .action-copy small {
+    font-size: 0.88rem;
+  }
+
+  .daily-tip {
+    margin-top: 14px;
+    padding: 14px;
   }
 
   .photo-preview {

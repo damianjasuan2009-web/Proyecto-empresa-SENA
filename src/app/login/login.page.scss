@@ -698,3 +698,48 @@ $warm-shadow-hover: var(--app-shadow-hover);
 .btn-help {
   border-radius: 12px !important;
 }
+
+@media (max-width: 520px) {
+  .login-wrapper {
+    padding: 12px 10px 24px;
+  }
+
+  .welcome-card,
+  .form-card,
+  .alternative-methods-card,
+  .register-promo-card,
+  .support-card {
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .welcome-card .logo-container .main-logo {
+    width: 104px;
+    height: 104px;
+    border-radius: 24px;
+  }
+
+  .welcome-card .greeting-text .main-title {
+    font-size: 1.5rem;
+  }
+
+  .welcome-card .greeting-text .friendly-badge {
+    max-width: 100%;
+    border-radius: 14px;
+    padding: 8px 12px;
+  }
+
+  .form-card .form-header h2 {
+    font-size: 1.3rem;
+  }
+
+  .form-card .input-group {
+    margin-bottom: 16px;
+  }
+
+  .warm-toolbar .font-size-btn {
+    --padding-start: 8px;
+    --padding-end: 8px;
+    font-size: 0.78rem;
+  }
+}

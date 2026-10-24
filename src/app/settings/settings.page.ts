@@ -33,6 +33,9 @@ export class SettingsPage implements OnInit {
   }
 
   loadPreferences() {
+    if (typeof localStorage === 'undefined') {
+      return;
+    }
     const saved = localStorage.getItem(this.storageKey);
     if (!saved) {
       return;
@@ -73,6 +76,15 @@ export class SettingsPage implements OnInit {
 
   onPreferenceToggle(preference: TogglePreference, checked: boolean): void {
     this.preferences[preference] = checked;
+    this.persistPreferences();
+  }
+
+  persistFontSize(fontSize: UserPreferences['fontSize']): void {
+    if (fontSize !== 'normal' && fontSize !== 'large') {
+      return;
+    }
+
+    this.preferences.fontSize = fontSize;
     this.persistPreferences();
   }
 
