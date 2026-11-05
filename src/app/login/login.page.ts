@@ -60,7 +60,7 @@ export class LoginPage implements OnInit {
     }
 
     const loading = await this.loadingController.create({
-      message: 'Entrando a TeAcompaño... Un momento por favor',
+      message: 'Entrando a ClicContigo... Un momento por favor',
       spinner: 'crescent',
       cssClass: 'warm-loading'
     });

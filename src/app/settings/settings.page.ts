@@ -25,7 +25,7 @@ export class SettingsPage implements OnInit {
     fontSize: 'normal'
   };
 
-  private readonly storageKey = 'teacompano-settings';
+  private readonly storageKey = 'cliccontigo-settings';
 
   ngOnInit() {
     this.loadPreferences();

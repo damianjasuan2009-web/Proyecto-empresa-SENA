@@ -152,17 +152,17 @@ export class AiAssistantService {
 
     // Llamar por teléfono
     if (n.includes('llamar') || n.includes('llamada') || (n.includes('hablar') && n.includes('telef'))) {
-      return `${intro}\n\n📞 Cómo llamar a alguien desde TeAcompaño:\n1. Ve a la pantalla de Inicio.\n2. Toca el botón "Llamar a un familiar".\n3. Verás una lista con tus personas de confianza.\n4. Toca el nombre de quien quieres llamar.\n5. Tu teléfono hará la llamada solo.\n\nSi no aparece la persona, primero agrégala en la sección "Contactos".`;
+      return `${intro}\n\n📞 Cómo llamar a alguien desde ClicContigo:\n1. Ve a la pantalla de Inicio.\n2. Toca el botón "Llamar a un familiar".\n3. Verás una lista con tus personas de confianza.\n4. Toca el nombre de quien quieres llamar.\n5. Tu teléfono hará la llamada solo.\n\nSi no aparece la persona, primero agrégala en la sección "Contactos".`;
     }
 
     // Enviar mensaje de texto / SMS
     if (n.includes('mensaje') || n.includes('sms') || n.includes('texto') || n.includes('escribir')) {
-      return `${intro}\n\n✉️ Cómo enviar un mensaje de texto desde TeAcompaño:\n1. Ve a la pantalla de Inicio.\n2. Toca "Enviar un mensaje".\n3. Elige a la persona de tu lista de confianza.\n4. Tu teléfono abrirá el mensaje listo para que escribas.\n5. Escribe lo que quieres decir y toca "Enviar".\n\n¿Necesitas ayuda con algún paso?`;
+      return `${intro}\n\n✉️ Cómo enviar un mensaje de texto desde ClicContigo:\n1. Ve a la pantalla de Inicio.\n2. Toca "Enviar un mensaje".\n3. Elige a la persona de tu lista de confianza.\n4. Tu teléfono abrirá el mensaje listo para que escribas.\n5. Escribe lo que quieres decir y toca "Enviar".\n\n¿Necesitas ayuda con algún paso?`;
     }
 
     // Foto / cámara
     if (n.includes('foto') || n.includes('fotograf') || n.includes('cámara') || n.includes('camara') || n.includes('imagen') || n.includes('tomar')) {
-      return `${intro}\n\n📷 Cómo tomar o compartir una foto desde TeAcompaño:\n1. En la pantalla de Inicio, toca el ícono de cámara.\n2. Tu teléfono abrirá la cámara.\n3. Apunta al lugar o persona y toca el botón grande del círculo.\n4. Si quieres compartirla, toca "Compartir" y elige a quién enviársela.\n\n¡No hay prisa, tómate todo el tiempo que necesites!`;
+      return `${intro}\n\n📷 Cómo tomar o compartir una foto desde ClicContigo:\n1. En la pantalla de Inicio, toca el ícono de cámara.\n2. Tu teléfono abrirá la cámara.\n3. Apunta al lugar o persona y toca el botón grande del círculo.\n4. Si quieres compartirla, toca "Compartir" y elige a quién enviársela.\n\n¡No hay prisa, tómate todo el tiempo que necesites!`;
     }
 
     // Contraseña / seguridad / estafa / engaño
@@ -172,7 +172,7 @@ export class AiAssistantService {
 
     // Tutorial / guía / aprender / cómo
     if (n.includes('tutorial') || n.includes('aprender') || n.includes('guía') || n.includes('guia') || n.includes('cómo') || n.includes('como') || n.includes('enseñar') || n.includes('paso')) {
-      return `${intro}\n\n📖 Cómo seguir una guía en TeAcompaño:\n1. Toca "Tutoriales" en el menú de la app.\n2. Elige el tema que quieres aprender.\n3. Toca el botón "Comenzar".\n4. Lee cada paso sin apuro. Puedes tocar "Escuchar este paso" para escucharlo en voz alta.\n5. Toca "Siguiente paso" cuando estés listo.\n6. Al terminar, la app guarda tu progreso.\n\nPuedes repetir una guía todas las veces que quieras.`;
+      return `${intro}\n\n📖 Cómo seguir una guía en ClicContigo:\n1. Toca "Tutoriales" en el menú de la app.\n2. Elige el tema que quieres aprender.\n3. Toca el botón "Comenzar".\n4. Lee cada paso sin apuro. Puedes tocar "Escuchar este paso" para escucharlo en voz alta.\n5. Toca "Siguiente paso" cuando estés listo.\n6. Al terminar, la app guarda tu progreso.\n\nPuedes repetir una guía todas las veces que quieras.`;
     }
 
     // Correo electrónico / email
@@ -187,7 +187,7 @@ export class AiAssistantService {
 
     // Ajustes / letra / pantalla / ver mejor / accesibilidad
     if (n.includes('letra') || n.includes('pantalla') || n.includes('brillo') || n.includes('volumen') || n.includes('ajuste') || n.includes('accesibilidad') || n.includes('ver mejor') || n.includes('tamaño') || n.includes('tamano') || n.includes('oscuro') || n.includes('fuente')) {
-      return `${intro}\n\n⚙️ Cómo ver la pantalla más cómodo:\n\nDesde TeAcompaño:\n1. Toca "Perfil" en el menú de abajo.\n2. Busca las opciones de "Texto grande", "Alto contraste" o "Modo oscuro".\n3. Actívalas tocando el botón de cada una.\n\nDesde tu teléfono:\n1. Abre "Ajustes" o "Configuración" (ícono de engranaje ⚙️).\n2. Busca "Pantalla" o "Accesibilidad".\n3. Toca "Tamaño de texto" y mueve el control hacia la derecha para agrandar las letras.`;
+      return `${intro}\n\n⚙️ Cómo ver la pantalla más cómodo:\n\nDesde ClicContigo:\n1. Toca "Perfil" en el menú de abajo.\n2. Busca las opciones de "Texto grande", "Alto contraste" o "Modo oscuro".\n3. Actívalas tocando el botón de cada una.\n\nDesde tu teléfono:\n1. Abre "Ajustes" o "Configuración" (ícono de engranaje ⚙️).\n2. Busca "Pantalla" o "Accesibilidad".\n3. Toca "Tamaño de texto" y mueve el control hacia la derecha para agrandar las letras.`;
     }
 
     // Recordatorio / cita / calendario / alarma
@@ -197,7 +197,7 @@ export class AiAssistantService {
 
     // Contactos — agregar / quitar
     if (n.includes('contacto') || n.includes('agregar') || n.includes('guardar') || n.includes('familiar') || n.includes('familia')) {
-      return `${intro}\n\n👥 Cómo agregar un contacto de confianza en TeAcompaño:\n1. Toca "Ayuda" en el menú de abajo.\n2. Busca la opción "Contactos de confianza" o "Mis contactos".\n3. Toca el botón para agregar uno nuevo.\n4. Escribe el nombre y el número de teléfono.\n5. Guarda los cambios.\n\nEsos contactos te aparecerán cuando quieras llamar o pedir ayuda rápido.`;
+      return `${intro}\n\n👥 Cómo agregar un contacto de confianza en ClicContigo:\n1. Toca "Ayuda" en el menú de abajo.\n2. Busca la opción "Contactos de confianza" o "Mis contactos".\n3. Toca el botón para agregar uno nuevo.\n4. Escribe el nombre y el número de teléfono.\n5. Guarda los cambios.\n\nEsos contactos te aparecerán cuando quieras llamar o pedir ayuda rápido.`;
     }
 
     // Verificación / práctica / preguntas
@@ -207,11 +207,11 @@ export class AiAssistantService {
 
     // Ayuda / emergencia / urgente / no puedo
     if (n.includes('ayuda') || n.includes('emergencia') || n.includes('urgente') || n.includes('problema') || n.includes('no puedo') || n.includes('no sé') || n.includes('no se') || n.includes('perdi') || n.includes('perdí')) {
-      return `${intro}\n\n🆘 Si necesitas ayuda ahora mismo:\n1. Toca "Ayuda" en el menú de abajo de TeAcompaño.\n2. Verás tu lista de personas de confianza.\n3. Toca el nombre de quien quieres contactar.\n4. Puedes llamarle o enviarle un mensaje desde ahí.\n\nRecuerda: pedir ayuda es lo más inteligente que puedes hacer. No estás solo. ¿Qué necesitas?`;
+      return `${intro}\n\n🆘 Si necesitas ayuda ahora mismo:\n1. Toca "Ayuda" en el menú de abajo de ClicContigo.\n2. Verás tu lista de personas de confianza.\n3. Toca el nombre de quien quieres contactar.\n4. Puedes llamarle o enviarle un mensaje desde ahí.\n\nRecuerda: pedir ayuda es lo más inteligente que puedes hacer. No estás solo. ¿Qué necesitas?`;
     }
 
     // Respuesta general
-    return `${intro}\n\nPuedo ayudarte con muchas cosas en TeAcompaño. Por ejemplo:\n\n📱 Enviar mensajes o hacer videollamadas por WhatsApp\n📞 Llamar a tus familiares con un solo toque\n🔒 Reconocer mensajes peligrosos y cuidarte de estafas\n📖 Seguir guías paso a paso para aprender sin prisa\n⚙️ Ajustar el teléfono para que sea más cómodo\n🆘 Pedir ayuda a tus personas de confianza\n\nCuéntame con más detalle qué necesitas y te explico paso a paso. ¿Qué te gustaría hacer?`;
+    return `${intro}\n\nPuedo ayudarte con muchas cosas en ClicContigo. Por ejemplo:\n\n📱 Enviar mensajes o hacer videollamadas por WhatsApp\n📞 Llamar a tus familiares con un solo toque\n🔒 Reconocer mensajes peligrosos y cuidarte de estafas\n📖 Seguir guías paso a paso para aprender sin prisa\n⚙️ Ajustar el teléfono para que sea más cómodo\n🆘 Pedir ayuda a tus personas de confianza\n\nCuéntame con más detalle qué necesitas y te explico paso a paso. ¿Qué te gustaría hacer?`;
   }
 
   private safeProviderMessage(message: string, apiKey: string): string {
@@ -235,7 +235,7 @@ export class AiAssistantService {
       .map(v => `- ${v.title}: ${v.question}`)
       .join('\n');
 
-    return `Eres el asistente de TeAcompaño, una aplicación diseñada para enseñar a personas mayores o con pocos conocimientos tecnológicos a usar el teléfono celular de forma segura y sencilla.
+    return `Eres el asistente de ClicContigo, una aplicación diseñada para enseñar a personas mayores o con pocos conocimientos tecnológicos a usar el teléfono celular de forma segura y sencilla.
 
 ═══════════════════════════════════════════
 CÓMO DEBES HABLAR (muy importante)

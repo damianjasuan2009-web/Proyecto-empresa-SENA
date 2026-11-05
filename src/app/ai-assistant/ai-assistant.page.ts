@@ -15,7 +15,7 @@ export class AiAssistantPage {
   private readonly toastController = inject(ToastController);
   messages: AssistantMessage[] = [{
     role: 'model',
-    text: '¡Hola! Soy tu asistente de TeAcompaño. ¿Qué te gustaría aprender o resolver hoy?'
+    text: '¡Hola! Soy tu asistente de ClicContigo. ¿Qué te gustaría aprender o resolver hoy?'
   }];
   messageDraft = '';
   isSending = false;

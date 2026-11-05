@@ -8,7 +8,7 @@ export interface TrustedContact {
 
 @Injectable({ providedIn: 'root' })
 export class TrustedContactsService {
-  private readonly storageKey = 'teacompano-trusted-contacts';
+  private readonly storageKey = 'cliccontigo-trusted-contacts';
   contacts: TrustedContact[] = [];
 
   constructor() {

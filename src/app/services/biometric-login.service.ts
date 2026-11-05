@@ -27,10 +27,10 @@ export class BiometricLoginService {
 
   async authenticate(): Promise<void> {
     await BiometricAuth.authenticate({
-      reason: 'Confirma tu identidad para entrar a TeAcompaño',
+      reason: 'Confirma tu identidad para entrar a ClicContigo',
       cancelTitle: 'Cancelar',
       allowDeviceCredential: false,
-      androidTitle: 'Entrar a TeAcompaño',
+      androidTitle: 'Entrar a ClicContigo',
       androidSubtitle: 'Confirma tu identidad con biometría',
       androidBiometryStrength: AndroidBiometryStrength.strong,
       iosFallbackTitle: ''
@@ -95,7 +95,7 @@ export class BiometricLoginService {
 
   private ensureStorageReady(): Promise<void> {
     if (!this.storageReady) {
-      this.storageReady = SecureStorage.setKeyPrefix('teacompano_').catch((error: unknown) => {
+      this.storageReady = SecureStorage.setKeyPrefix('cliccontigo_').catch((error: unknown) => {
         this.storageReady = null;
         throw error;
       });

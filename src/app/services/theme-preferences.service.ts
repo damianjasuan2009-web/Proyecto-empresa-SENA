@@ -11,7 +11,7 @@ export interface UserPreferences {
 
 @Injectable({ providedIn: 'root' })
 export class ThemePreferencesService {
-  private readonly storageKey = 'teacompano-settings';
+  private readonly storageKey = 'cliccontigo-settings';
 
   applySavedPreferences(): void {
     if (typeof localStorage === 'undefined') {

@@ -37,7 +37,7 @@ export interface VerificationTask {
 
 @Injectable({ providedIn: 'root' })
 export class LearningContentService {
-  private readonly storageKey = 'teacompano-learning-progress';
+  private readonly storageKey = 'cliccontigo-learning-progress';
 
   readonly learningPaths: LearningPath[] = [
     { id: 1, title: 'WhatsApp y mensajes', description: 'Comunícate y comparte momentos con tu familia.', level: 'Inicial', icon: 'chatbubbles-outline', topics: ['Enviar mensajes y audios', 'Compartir fotos', 'Hacer videollamadas'] },
