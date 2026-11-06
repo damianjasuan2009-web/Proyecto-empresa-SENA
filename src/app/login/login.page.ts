@@ -90,41 +90,6 @@ export class LoginPage implements OnInit {
     }
   }
 
-  async loginWithPhone() {
-    const alert = await this.alertController.create({
-      header: 'Ingreso con Celular',
-      subHeader: 'Código por mensaje de texto (SMS)',
-      message: 'Te enviaremos un código de 6 números a tu celular para que no tengas que escribir contraseña.',
-      inputs: [
-        {
-          name: 'phone',
-          type: 'tel',
-          placeholder: 'Ejemplo: 300 123 4567',
-          attributes: {
-            inputmode: 'tel'
-          }
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancelar',
-          role: 'cancel'
-        },
-        {
-          text: 'Enviar código',
-          handler: (data) => {
-            if (data.phone) {
-              this.showToast('Código enviado a ' + data.phone + '. Revisa tus mensajes.', 'success');
-            } else {
-              this.showToast('Por favor escribe tu número de teléfono', 'warning');
-            }
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }
-
   async loginWithBiometrics() {
     try {
       if (!await this.biometricLogin.isAvailable()) {
@@ -227,39 +192,18 @@ export class LoginPage implements OnInit {
     const alert = await this.alertController.create({
       header: '¿Necesitas ayuda para entrar?',
       subHeader: 'Estamos contigo para guiarte paso a paso',
-      message: 'Elige una de las siguientes opciones para recibir asistencia inmediata:',
+      message: 'Para proteger tu cuenta, contacta a tu familia o a soporte desde un número de teléfono que ya conozcas. También puedes usar “¿Olvidaste tu contraseña?” para recuperar el acceso por correo.',
       buttons: [
-        {
-          text: 'Llamar a mi familiar de confianza',
-          handler: () => {
-            this.showToast('Iniciando llamada con tu contacto de apoyo...', 'secondary');
-          }
-        },
-        {
-          text: 'Llamar a Soporte SENA',
-          handler: () => {
-            this.showToast('Conectando con el equipo de soporte técnico...', 'secondary');
-          }
-        },
-        {
-          text: 'Recuperar mi contraseña por correo',
-          handler: () => {
-            this.forgotPassword();
-          }
-        },
-        {
-          text: 'Volver atrás',
-          role: 'cancel'
-        }
+        { text: 'Entendido', role: 'cancel' }
       ]
     });
     await alert.present();
   }
 
-  async forgotPassword() {
+  async forgotPassword(): Promise<void> {
     const alert = await this.alertController.create({
       header: 'Recuperar Contraseña',
-      message: 'Escribe el correo electrónico con el que te registraste. Te enviaremos un enlace sencillo para crear una nueva clave.',
+      message: 'Escribe el correo asociado a tu cuenta. Si está registrado, Firebase te enviará un enlace para crear una nueva contraseña.',
       inputs: [
         {
           name: 'email',
@@ -274,18 +218,41 @@ export class LoginPage implements OnInit {
           role: 'cancel'
         },
         {
-          text: 'Enviar correo',
-          handler: (data) => {
-            if (data.email) {
-              this.showToast('Se ha enviado un correo con instrucciones a ' + data.email, 'success');
-            } else {
-              this.showToast('Por favor escribe un correo válido', 'warning');
+          text: 'Enviar enlace',
+          handler: async (data: { email?: string }) => {
+            const email = data.email?.trim() ?? '';
+            const emailControl = this.fb.control(email, [Validators.required, Validators.email]);
+            if (emailControl.invalid) {
+              await this.showToast('Escribe un correo electrónico válido.', 'warning');
+              return false;
+            }
+
+            try {
+              await this.authService.sendPasswordResetEmail(email);
+              await this.showToast('Si el correo está registrado, recibirás instrucciones para recuperar tu cuenta.', 'success');
+              return true;
+            } catch (error: unknown) {
+              await this.showToast(this.getPasswordResetErrorMessage(this.getAuthErrorCode(error)), 'danger');
+              return false;
             }
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  private getPasswordResetErrorMessage(code: string | undefined): string {
+    switch (code) {
+      case 'auth/invalid-email':
+        return 'El formato del correo no es válido. Revísalo e inténtalo de nuevo.';
+      case 'auth/too-many-requests':
+        return 'Se hicieron demasiadas solicitudes. Espera un momento antes de volver a intentarlo.';
+      case 'auth/network-request-failed':
+        return 'No se pudo conectar. Revisa tu conexión a internet e inténtalo de nuevo.';
+      default:
+        return 'No se pudo enviar el enlace. Revisa el correo e inténtalo de nuevo.';
+    }
   }
 
   private async showToast(message: string, color: string) {

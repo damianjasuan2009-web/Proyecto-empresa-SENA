@@ -131,6 +131,9 @@
           <span class="btn-text">INICIAR SESIÓN</span>
         </ion-button>
       </form>
+      <ion-button expand="block" fill="clear" type="button" (click)="forgotPassword()">
+        ¿Olvidaste tu contraseña?
+      </ion-button>
     </div>
 
     <!-- SECCIÓN: OTROS MÉTODOS DE INICIO DE SESIÓN (Punto 2 Diapositiva 17) -->
@@ -143,15 +146,15 @@
 
       <div class="methods-grid">
         <!-- Método 1: Celular / SMS -->
-        <button type="button" class="alt-method-btn" (click)="loginWithPhone()">
+        <button type="button" class="alt-method-btn" disabled>
           <div class="method-icon-circle phone-circle">
             <ion-icon name="phone-portrait"></ion-icon>
           </div>
           <div class="method-text">
-            <strong>Entrar con mi número celular</strong>
-            <small>Te enviamos un mensaje de texto con un código fácil</small>
+            <strong>Ingreso con número celular</strong>
+            <small>Esta opción todavía no está habilitada</small>
           </div>
-          <ion-icon name="chevron-forward" class="method-arrow"></ion-icon>
+          <ion-icon name="time-outline" class="method-arrow"></ion-icon>
         </button>
 
         <!-- Método 2: Huella digital o Biometría -->
@@ -195,7 +198,7 @@
           <ion-icon name="help-buoy" class="support-icon"></ion-icon>
           <div>
             <strong>¿Tienes dudas o necesitas ayuda?</strong>
-            <span>Puedes pedir asistencia a tu familiar registrado o a soporte técnico.</span>
+            <span>Usa un número de teléfono que conozcas para pedir ayuda a tu familia o a soporte.</span>
           </div>
         </div>
         <ion-button fill="outline" color="dark" class="btn-help" (click)="requestHelp()">
