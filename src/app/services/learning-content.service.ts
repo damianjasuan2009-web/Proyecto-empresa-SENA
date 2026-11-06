@@ -114,7 +114,11 @@ export class LearningContentService {
       this.tutorials.forEach(tutorial => tutorial.completed = progress.tutorials?.includes(tutorial.id) ?? false);
       this.verificationTasks.forEach(task => task.completed = progress.verifications?.includes(task.id) ?? false);
     } catch {
-      localStorage.removeItem(this.storageKey);
+      try {
+        localStorage.removeItem(this.storageKey);
+      } catch {
+        console.warn('No se pudo limpiar el progreso guardado con formato inválido.');
+      }
     }
   }
 
@@ -123,9 +127,13 @@ export class LearningContentService {
       return;
     }
 
-    localStorage.setItem(this.storageKey, JSON.stringify({
-      tutorials: this.tutorials.filter(item => item.completed).map(item => item.id),
-      verifications: this.verificationTasks.filter(item => item.completed).map(item => item.id)
-    }));
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify({
+        tutorials: this.tutorials.filter(item => item.completed).map(item => item.id),
+        verifications: this.verificationTasks.filter(item => item.completed).map(item => item.id)
+      }));
+    } catch {
+      console.warn('El progreso se mantendrá durante esta visita, pero no se pudo guardar en el navegador.');
+    }
   }
 }

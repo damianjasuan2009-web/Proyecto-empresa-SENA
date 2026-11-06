@@ -21,10 +21,14 @@ export class ThemePreferencesService {
     try {
       const saved = localStorage.getItem(this.storageKey);
       if (saved) {
-        this.apply(JSON.parse(saved) as Partial<UserPreferences>);
+        const preferences: unknown = JSON.parse(saved);
+        if (typeof preferences === 'object' && preferences !== null && !Array.isArray(preferences)) {
+          this.apply(preferences as Partial<UserPreferences>);
+        }
       }
     } catch {
       this.apply({});
+      console.warn('No se pudieron leer las preferencias guardadas; se usará el tema predeterminado.');
     }
   }
 

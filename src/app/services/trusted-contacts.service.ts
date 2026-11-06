@@ -10,6 +10,7 @@ export interface TrustedContact {
 export class TrustedContactsService {
   private readonly storageKey = 'cliccontigo-trusted-contacts';
   contacts: TrustedContact[] = [];
+  persistenceAvailable = true;
 
   constructor() {
     this.loadContacts();
@@ -46,21 +47,50 @@ export class TrustedContactsService {
 
   private loadContacts(): void {
     if (typeof localStorage === 'undefined') {
+      this.persistenceAvailable = false;
       return;
     }
 
     try {
       const saved = localStorage.getItem(this.storageKey);
-      this.contacts = saved ? JSON.parse(saved) as TrustedContact[] : [];
+      if (!saved) {
+        return;
+      }
+
+      const parsed: unknown = JSON.parse(saved);
+      if (!Array.isArray(parsed)) {
+        throw new Error('El formato de contactos guardados no es válido.');
+      }
+
+      this.contacts = parsed.filter((contact): contact is TrustedContact =>
+        typeof contact === 'object' &&
+        contact !== null &&
+        'id' in contact &&
+        typeof contact.id === 'string' &&
+        'name' in contact &&
+        typeof contact.name === 'string' &&
+        'phone' in contact &&
+        typeof contact.phone === 'string'
+      );
     } catch {
       this.contacts = [];
-      localStorage.removeItem(this.storageKey);
+      this.persistenceAvailable = false;
+      console.warn('No se pudieron recuperar los contactos guardados; puedes agregarlos nuevamente.');
     }
   }
 
   private saveContacts(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (typeof localStorage === 'undefined') {
+      this.persistenceAvailable = false;
+      return;
+    }
+
+    try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.contacts));
+      this.persistenceAvailable = true;
+    } catch {
+      this.persistenceAvailable = false;
+      console.warn('No se pudieron guardar los contactos en este navegador.');
     }
   }
 }

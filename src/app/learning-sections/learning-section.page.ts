@@ -117,8 +117,12 @@ export class LearningSectionPage {
           handler: (data: { name: string; phone: string }) => {
             const saved = this.contactBook.addContact(data.name, data.phone);
             void this.showToast(
-              saved ? 'Contacto guardado en este dispositivo.' : 'Revisa el nombre y escribe un teléfono válido.',
-              saved ? 'success' : 'warning'
+              saved
+                ? this.contactBook.persistenceAvailable
+                  ? 'Contacto guardado en este dispositivo.'
+                  : 'Contacto agregado por ahora, pero este navegador no permite guardarlo para la próxima visita.'
+                : 'Revisa el nombre y escribe un teléfono válido.',
+              saved ? (this.contactBook.persistenceAvailable ? 'success' : 'warning') : 'warning'
             );
             return saved;
           }

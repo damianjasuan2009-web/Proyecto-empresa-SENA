@@ -15,7 +15,6 @@ export class HomePage {
   private readonly router = inject(Router);
   private readonly toastController = inject(ToastController);
   readonly learningContent = inject(LearningContentService);
-  streakDays = 12;
   photoPreview: string | null = null;
   private selectedPhoto: File | null = null;
 
