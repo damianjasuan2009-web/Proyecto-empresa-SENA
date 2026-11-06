@@ -4,9 +4,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
-  user,
-  User
+  user
 } from '@angular/fire/auth';
+import type { User } from 'firebase/auth';
 import { firstValueFrom, Observable, take } from 'rxjs';
 
 @Injectable({

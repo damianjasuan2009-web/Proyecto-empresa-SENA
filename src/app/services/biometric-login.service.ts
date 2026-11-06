@@ -94,13 +94,13 @@ export class BiometricLoginService {
   }
 
   private ensureStorageReady(): Promise<void> {
-    if (!this.storageReady) {
+    if (this.storageReady === null) {
       this.storageReady = SecureStorage.setKeyPrefix('cliccontigo_').catch((error: unknown) => {
         this.storageReady = null;
         throw error;
       });
     }
 
-    return this.storageReady;
+    return this.storageReady ?? Promise.resolve();
   }
 }
