@@ -60,16 +60,33 @@
   <ion-content class="home-page">
     <main class="home-shell">
       <section class="welcome-panel">
-        <div>
-          <p class="eyebrow">ClicContigo</p>
-          <h1>¡Hola! ¿En qué podemos ayudarte?</h1>
-          <p>Elige una opción. Te acompañamos paso a paso.</p>
+        <div class="hero-copy">
+          <p class="eyebrow">ClicContigo • {{ greeting }}</p>
+          <h1>¿En qué te ayudamos hoy?</h1>
+          <p>{{ focusMessage }}</p>
+          <div class="hero-pills">
+            <span><ion-icon name="checkmark-circle-outline"></ion-icon>{{ learningContent.totalCompletedTutorials }} guías</span>
+            <span><ion-icon name="sparkles-outline"></ion-icon>Asistente listo</span>
+          </div>
         </div>
-        <div class="streak-summary">
-          <ion-icon name="heart-outline"></ion-icon>
-          <strong>A tu ritmo</strong>
-          <span>sin prisa</span>
+
+        <div class="streak-summary" aria-label="Resumen de actividad">
+          <ion-icon name="flame-outline"></ion-icon>
+          <span>Racha</span>
+          <strong>{{ learningContent.learningProgress }}%</strong>
+          <small>Meta semanal</small>
         </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Indicadores rápidos">
+        <article *ngFor="let card of summaryCards" class="stat-card stat-{{ card.tone }}">
+          <span class="stat-icon"><ion-icon [name]="card.icon"></ion-icon></span>
+          <div>
+            <p>{{ card.label }}</p>
+            <strong>{{ card.value }}</strong>
+            <small>{{ card.hint }}</small>
+          </div>
+        </article>
       </section>
 
       <section class="progress-summary" aria-label="Resumen de progreso">
@@ -114,11 +131,13 @@
           <span class="action-copy"><strong>Aprender algo nuevo</strong><small>Guías sencillas a tu ritmo</small></span>
           <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
         </button>
+
         <button type="button" class="action-card action-assistant" routerLink="/asistente">
           <span class="action-icon"><ion-icon name="sparkles-outline"></ion-icon></span>
           <span class="action-copy"><strong>Preguntar a la IA</strong><small>Recibe ayuda paso a paso</small></span>
           <ion-icon class="action-arrow" name="chevron-forward-outline"></ion-icon>
         </button>
+
         <input #cameraInput class="camera-input" type="file" accept="image/*" capture="environment" (change)="onPhotoSelected($event)" aria-label="Elegir o tomar una foto" />
       </section>
 
@@ -140,7 +159,7 @@
         <ion-icon name="bulb-outline"></ion-icon>
         <div>
           <strong>Recuerda</strong>
-          <p>No tienes que aprender todo hoy. Puedes volver cuando quieras.</p>
+          <p>No tienes que aprender todo hoy. Puedes volver cuando quieras y seguir a tu ritmo.</p>
         </div>
       </section>
     </main>

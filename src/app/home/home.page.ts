@@ -18,6 +18,61 @@ export class HomePage {
   photoPreview: string | null = null;
   private selectedPhoto: File | null = null;
 
+  get greeting(): string {
+    const hour = new Date().getHours();
+    if (hour < 12) {
+      return 'Buenos días';
+    }
+    if (hour < 18) {
+      return 'Buenas tardes';
+    }
+    return 'Buenas noches';
+  }
+
+  get focusMessage(): string {
+    const progress = this.learningContent.learningProgress;
+    if (progress < 30) {
+      return 'Hoy puedes dar un paso pequeño pero importante: empieza con una guía o una práctica rápida.';
+    }
+    if (progress < 70) {
+      return 'Tu progreso va muy bien. Sigue con una práctica y refuerza lo que ya aprendiste.';
+    }
+    return 'Tienes muy buen avance. Mantén el ritmo y sigue disfrutando del aprendizaje.';
+  }
+
+  get summaryCards(): Array<{ label: string; value: string; hint: string; tone: string; icon: string }> {
+    return [
+      {
+        label: 'Guías completadas',
+        value: `${this.learningContent.totalCompletedTutorials}`,
+        hint: 'de 7 disponibles',
+        tone: 'sage',
+        icon: 'checkmark-circle-outline'
+      },
+      {
+        label: 'Prácticas',
+        value: `${this.learningContent.completedVerifications}`,
+        hint: 'actividades revisadas',
+        tone: 'blue',
+        icon: 'sparkles-outline'
+      },
+      {
+        label: 'Progreso',
+        value: `${this.learningContent.learningProgress}%`,
+        hint: 'meta semanal',
+        tone: 'gold',
+        icon: 'trending-up-outline'
+      },
+      {
+        label: 'Ayuda rápida',
+        value: 'Listo',
+        hint: 'en 1 toque',
+        tone: 'peach',
+        icon: 'shield-checkmark-outline'
+      }
+    ];
+  }
+
   openContacts(action: 'call' | 'message'): void {
     void this.router.navigate(['/apartados/contactos'], { queryParams: { action } });
   }

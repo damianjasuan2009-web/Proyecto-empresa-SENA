@@ -18,50 +18,170 @@ ion-toolbar {
   align-items: center;
   justify-content: space-between;
   gap: 24px;
-  padding: 30px;
-  border-radius: 20px;
-  background: var(--app-banner);
+  padding: 28px;
+  border: 1px solid var(--app-border);
+  border-radius: 24px;
+  background: linear-gradient(135deg, var(--app-banner) 0%, var(--app-surface-warm) 100%);
+  box-shadow: var(--app-shadow);
   color: var(--app-text);
 }
 
+.hero-copy {
+  flex: 1;
+}
+
 .eyebrow {
-  margin: 0 0 8px;
+  margin: 0 0 10px;
   color: var(--app-primary-hover);
-  font-size: 0.95rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 }
 
 .welcome-panel h1,
 .section-heading h2 {
   margin: 0;
   color: var(--app-text);
-  font-size: 1.8rem;
-  line-height: 1.25;
+  font-size: clamp(1.8rem, 3vw, 2.5rem);
+  line-height: 1.15;
 }
 
 .welcome-panel p:last-child {
   margin: 10px 0 0;
   color: var(--app-muted);
   font-size: 1.05rem;
+  line-height: 1.5;
+}
+
+.hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.hero-pills span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border: 1px solid rgba(128, 86, 56, 0.18);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.38);
+  color: var(--app-primary-hover);
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.hero-pills ion-icon {
+  font-size: 1rem;
 }
 
 .streak-summary {
   display: grid;
-  min-width: 130px;
+  min-width: 150px;
   justify-items: center;
   gap: 4px;
-  padding: 16px;
-  border-radius: 16px;
-  background: var(--app-surface-warm);
+  padding: 18px 16px;
+  border: 1px solid rgba(128, 86, 56, 0.14);
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.32);
   color: var(--app-primary-hover);
+  text-align: center;
 }
 
 .streak-summary ion-icon {
-  font-size: 1.8rem;
+  font-size: 1.9rem;
+}
+
+.streak-summary span {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 .streak-summary strong {
-  font-size: 1.25rem;
+  font-size: 1.7rem;
+}
+
+.streak-summary small {
+  color: var(--app-muted);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.stat-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  border: 1px solid var(--app-border);
+  border-radius: 18px;
+  background: var(--app-surface);
+  box-shadow: var(--app-shadow);
+}
+
+.stat-card div {
+  min-width: 0;
+}
+
+.stat-card p,
+.stat-card small {
+  margin: 0;
+}
+
+.stat-card p {
+  color: var(--app-muted);
+  font-size: 0.8rem;
+}
+
+.stat-card strong {
+  display: block;
+  margin-top: 4px;
+  color: var(--app-text);
+  font-size: 1.4rem;
+  line-height: 1.1;
+}
+
+.stat-card small {
+  display: block;
+  margin-top: 2px;
+  color: var(--app-muted);
+}
+
+.stat-icon {
+  display: grid;
+  place-items: center;
+  width: 46px;
+  height: 46px;
+  border-radius: 14px;
+  font-size: 1.45rem;
+}
+
+.stat-sage .stat-icon {
+  background: var(--app-sage-soft);
+  color: var(--app-secondary);
+}
+
+.stat-blue .stat-icon {
+  background: var(--app-blue-soft);
+  color: var(--app-blue);
+}
+
+.stat-gold .stat-icon {
+  background: var(--app-gold-soft);
+  color: var(--app-accent);
+}
+
+.stat-peach .stat-icon {
+  background: var(--app-peach-soft);
+  color: var(--app-primary);
 }
 
 .progress-summary {
@@ -70,6 +190,7 @@ ion-toolbar {
   border: 1px solid var(--app-border);
   border-radius: 16px;
   background: var(--app-surface);
+  box-shadow: var(--app-shadow);
 }
 
 .progress-copy {
@@ -377,6 +498,10 @@ ion-toolbar {
 }
 
 @media (max-width: 760px) {
+  .stats-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .action-grid {
     grid-template-columns: 1fr;
   }
@@ -403,10 +528,14 @@ ion-toolbar {
 
   .streak-summary {
     width: 100%;
-    grid-template-columns: auto auto 1fr;
     justify-items: start;
     align-items: center;
     padding: 12px 14px;
+    text-align: left;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
   }
 
   .progress-summary {
