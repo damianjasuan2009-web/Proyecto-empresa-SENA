@@ -57,7 +57,7 @@
               "outputHashing": "all"
             },
             "github-pages": {
-              "baseHref": "/Proyecto-empresa-SENA/",
+              "baseHref": "./",
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
