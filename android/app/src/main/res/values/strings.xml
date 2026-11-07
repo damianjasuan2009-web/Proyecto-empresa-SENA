@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">TeAcompaño</string>
-    <string name="title_activity_main">TeAcompaño</string>
+    <string name="app_name">ClicContigo</string>
+    <string name="title_activity_main">ClicContigo</string>
     <string name="package_name">com.teacompano.app</string>
     <string name="custom_url_scheme">com.teacompano.app</string>
 </resources>
