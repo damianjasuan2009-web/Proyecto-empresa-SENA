@@ -5,12 +5,7 @@
         <ion-icon slot="icon-only" name="arrow-back-outline"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>
-      <span class="app-brand">
-        <img src="assets/icon/teacompano-logo.jpg" alt="" />
-        <span>Configuración</span>
-      </span>
-    </ion-title>
+    <ion-title>Configuración</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -19,8 +14,9 @@
     <section class="settings-header">
       <p class="eyebrow">Personaliza tu experiencia</p>
       <h1>Preferencias de la aplicación</h1>
-      <p>Configura el estilo y la forma en que quieres usar TeAcompaño.</p>
+      <p>Configura el estilo y la forma en que quieres usar ClicContigo.</p>
       <p>Los interruptores se aplican y se guardan automáticamente.</p>
+      <p>Las notificaciones por correo y los reportes semanales todavía no están disponibles.</p>
     </section>
 
     <ion-card>
@@ -55,18 +51,17 @@
 
     <ion-card>
       <ion-card-header>
-        <ion-card-title>Preferencias de avisos</ion-card-title>
+        <ion-card-title>Notificaciones</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <p class="settings-note">Estas opciones se guardan en este dispositivo. La aplicación todavía no envía correos ni reportes automáticos.</p>
         <ion-item lines="none">
           <ion-label>Correo electrónico</ion-label>
-          <ion-toggle [(ngModel)]="preferences.emailNotifications" (ionChange)="onPreferenceToggle('emailNotifications', $event.detail.checked)" color="success"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.emailNotifications" (ionChange)="onPreferenceToggle('emailNotifications', $event.detail.checked)" color="success" disabled></ion-toggle>
         </ion-item>
 
         <ion-item lines="none">
           <ion-label>Reportes semanales</ion-label>
-          <ion-toggle [(ngModel)]="preferences.weeklyReports" (ionChange)="onPreferenceToggle('weeklyReports', $event.detail.checked)" color="success"></ion-toggle>
+          <ion-toggle [(ngModel)]="preferences.weeklyReports" (ionChange)="onPreferenceToggle('weeklyReports', $event.detail.checked)" color="success" disabled></ion-toggle>
         </ion-item>
       </ion-card-content>
     </ion-card>

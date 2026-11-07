@@ -37,7 +37,7 @@ export interface VerificationTask {
 
 @Injectable({ providedIn: 'root' })
 export class LearningContentService {
-  private readonly storageKey = 'teacompano-learning-progress';
+  private readonly storageKey = 'cliccontigo-learning-progress';
 
   readonly learningPaths: LearningPath[] = [
     { id: 1, title: 'WhatsApp y mensajes', description: 'Comunícate y comparte momentos con tu familia.', level: 'Inicial', icon: 'chatbubbles-outline', topics: ['Enviar mensajes y audios', 'Compartir fotos', 'Hacer videollamadas'] },
@@ -110,30 +110,16 @@ export class LearningContentService {
         return;
       }
 
-      const progress: unknown = JSON.parse(saved);
-      if (typeof progress !== 'object' || progress === null || Array.isArray(progress)) {
-        throw new Error('Saved learning progress must be an object.');
+      const progress = JSON.parse(saved) as { tutorials?: number[]; verifications?: number[] };
+      this.tutorials.forEach(tutorial => tutorial.completed = progress.tutorials?.includes(tutorial.id) ?? false);
+      this.verificationTasks.forEach(task => task.completed = progress.verifications?.includes(task.id) ?? false);
+    } catch {
+      try {
+        localStorage.removeItem(this.storageKey);
+      } catch {
+        console.warn('No se pudo limpiar el progreso guardado con formato inválido.');
       }
-
-      const savedProgress = progress as Record<string, unknown>;
-      const tutorialIds = this.validIds(savedProgress['tutorials'], this.tutorials.map(item => item.id));
-      const verificationIds = this.validIds(savedProgress['verifications'], this.verificationTasks.map(item => item.id));
-      this.tutorials.forEach(tutorial => tutorial.completed = tutorialIds.has(tutorial.id));
-      this.verificationTasks.forEach(task => task.completed = verificationIds.has(task.id));
-    } catch (error: unknown) {
-      console.warn('Could not load saved learning progress; clearing the invalid data.', error);
-      localStorage.removeItem(this.storageKey);
     }
-  }
-
-  private validIds(value: unknown, allowedIds: number[]): Set<number> {
-    if (!Array.isArray(value)) {
-      return new Set();
-    }
-
-    return new Set(value.filter((id): id is number =>
-      typeof id === 'number' && Number.isInteger(id) && allowedIds.includes(id)
-    ));
   }
 
   private saveProgress(): void {
@@ -141,9 +127,13 @@ export class LearningContentService {
       return;
     }
 
-    localStorage.setItem(this.storageKey, JSON.stringify({
-      tutorials: this.tutorials.filter(item => item.completed).map(item => item.id),
-      verifications: this.verificationTasks.filter(item => item.completed).map(item => item.id)
-    }));
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify({
+        tutorials: this.tutorials.filter(item => item.completed).map(item => item.id),
+        verifications: this.verificationTasks.filter(item => item.completed).map(item => item.id)
+      }));
+    } catch {
+      console.warn('El progreso se mantendrá durante esta visita, pero no se pudo guardar en el navegador.');
+    }
   }
 }

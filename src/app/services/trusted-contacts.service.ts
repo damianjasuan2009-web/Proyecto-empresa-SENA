@@ -8,8 +8,9 @@ export interface TrustedContact {
 
 @Injectable({ providedIn: 'root' })
 export class TrustedContactsService {
-  private readonly storageKey = 'teacompano-trusted-contacts';
+  private readonly storageKey = 'cliccontigo-trusted-contacts';
   contacts: TrustedContact[] = [];
+  persistenceAvailable = true;
 
   constructor() {
     this.loadContacts();
@@ -31,7 +32,7 @@ export class TrustedContactsService {
     }
 
     this.contacts = [...this.contacts, {
-      id: normalizedPhone,
+      id: `${Date.now()}-${digits.slice(-4)}`,
       name: normalizedName,
       phone: normalizedPhone
     }];
@@ -46,6 +47,7 @@ export class TrustedContactsService {
 
   private loadContacts(): void {
     if (typeof localStorage === 'undefined') {
+      this.persistenceAvailable = false;
       return;
     }
 
@@ -57,42 +59,38 @@ export class TrustedContactsService {
 
       const parsed: unknown = JSON.parse(saved);
       if (!Array.isArray(parsed)) {
-        throw new Error('Saved trusted contacts must be an array.');
+        throw new Error('El formato de contactos guardados no es válido.');
       }
 
-      const validContacts = parsed.filter((contact): contact is TrustedContact => this.isTrustedContact(contact));
-      const uniqueContacts = validContacts.filter((contact, index) =>
-        validContacts.findIndex(item => item.id === contact.id || item.phone === contact.phone) === index
+      this.contacts = parsed.filter((contact): contact is TrustedContact =>
+        typeof contact === 'object' &&
+        contact !== null &&
+        'id' in contact &&
+        typeof contact.id === 'string' &&
+        'name' in contact &&
+        typeof contact.name === 'string' &&
+        'phone' in contact &&
+        typeof contact.phone === 'string'
       );
-      if (uniqueContacts.length !== parsed.length) {
-        console.warn('Some saved trusted contacts were invalid or duplicated and were ignored.');
-      }
-      this.contacts = uniqueContacts;
-    } catch (error: unknown) {
-      console.warn('Could not load saved trusted contacts; clearing the invalid data.', error);
-      localStorage.removeItem(this.storageKey);
+    } catch {
+      this.contacts = [];
+      this.persistenceAvailable = false;
+      console.warn('No se pudieron recuperar los contactos guardados; puedes agregarlos nuevamente.');
     }
-  }
-
-  private isTrustedContact(value: unknown): value is TrustedContact {
-    if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-      return false;
-    }
-
-    const contact = value as Record<string, unknown>;
-    const digits = typeof contact['phone'] === 'string' ? contact['phone'].replace(/\D/g, '') : '';
-    return typeof contact['id'] === 'string'
-      && contact['id'].length > 0
-      && typeof contact['name'] === 'string'
-      && contact['name'].trim().length > 0
-      && typeof contact['phone'] === 'string'
-      && digits.length >= 10
-      && digits.length <= 15;
   }
 
   private saveContacts(): void {
-    if (typeof localStorage !== 'undefined') {
+    if (typeof localStorage === 'undefined') {
+      this.persistenceAvailable = false;
+      return;
+    }
+
+    try {
       localStorage.setItem(this.storageKey, JSON.stringify(this.contacts));
+      this.persistenceAvailable = true;
+    } catch {
+      this.persistenceAvailable = false;
+      console.warn('No se pudieron guardar los contactos en este navegador.');
     }
   }
 }

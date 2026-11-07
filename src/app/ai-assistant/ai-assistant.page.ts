@@ -15,7 +15,7 @@ export class AiAssistantPage {
   private readonly toastController = inject(ToastController);
   messages: AssistantMessage[] = [{
     role: 'model',
-    text: '¡Hola! Soy tu asistente de TeAcompaño. ¿Qué te gustaría aprender o resolver hoy?'
+    text: '¡Hola! Soy tu asistente de ClicContigo. ¿Qué te gustaría aprender o resolver hoy?'
   }];
   messageDraft = '';
   isSending = false;
@@ -26,6 +26,8 @@ export class AiAssistantPage {
       return;
     }
 
+    // Capturar el historial ANTES de agregar el nuevo mensaje del usuario
+    const historySnapshot = [...this.messages];
     this.messages = [...this.messages, { role: 'user', text }];
     this.messageDraft = '';
     this.isSending = true;
@@ -33,13 +35,14 @@ export class AiAssistantPage {
     this.scrollToBottom();
 
     try {
-      // Se envía el historial completo previo al nuevo mensaje del usuario (excluyendo sólo el último que es `text`)
-      const answer = await this.assistant.sendMessage(this.messages.slice(0, -1), text);
+      // Se envía el historial previo al nuevo mensaje, sin duplicarlo
+      const answer = await this.assistant.sendMessage(historySnapshot, text);
       this.messages = [...this.messages, { role: 'model', text: answer }];
       // Scroll automático a la respuesta del asistente
       this.scrollToBottom();
     } catch (error) {
-      this.messages = this.messages.slice(0, -1);
+      // Revertir: quitar el mensaje del usuario que se agregó antes del try
+      this.messages = historySnapshot;
       this.messageDraft = text;
       const message = error instanceof AssistantRequestError
         ? error.message

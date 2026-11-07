@@ -9,7 +9,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { provideAuth, getAuth } from '@angular/fire/auth';
-import { provideFunctions, getFunctions } from '@angular/fire/functions';
 import { environment } from '../environments/environment';
 
 @NgModule({
@@ -22,8 +21,7 @@ import { environment } from '../environments/environment';
   providers: [
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideFirebaseApp(() => initializeApp(environment.firebase)),
-    provideAuth(() => getAuth()),
-    provideFunctions(() => getFunctions())
+    provideAuth(() => getAuth())
   ],
   bootstrap: [AppComponent],
 })

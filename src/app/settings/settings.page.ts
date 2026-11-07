@@ -25,7 +25,7 @@ export class SettingsPage implements OnInit {
     fontSize: 'normal'
   };
 
-  private readonly storageKey = 'teacompano-settings';
+  private readonly storageKey = 'cliccontigo-settings';
 
   ngOnInit() {
     this.loadPreferences();
@@ -45,31 +45,36 @@ export class SettingsPage implements OnInit {
 
       const parsed: unknown = JSON.parse(saved);
       if (typeof parsed !== 'object' || parsed === null || Array.isArray(parsed)) {
-        throw new Error('Saved preferences must be an object.');
+        return;
       }
 
-      const values = parsed as Record<string, unknown>;
+      const values = parsed as Partial<UserPreferences>;
       this.preferences = {
-        darkMode: values['darkMode'] === true,
-        highContrast: values['highContrast'] === true,
-        compactView: values['compactView'] === true,
-        emailNotifications: values['emailNotifications'] !== false,
-        weeklyReports: values['weeklyReports'] !== false,
-        fontSize: values['fontSize'] === 'large' ? 'large' : 'normal'
+        darkMode: typeof values.darkMode === 'boolean' ? values.darkMode : this.preferences.darkMode,
+        highContrast: typeof values.highContrast === 'boolean' ? values.highContrast : this.preferences.highContrast,
+        compactView: typeof values.compactView === 'boolean' ? values.compactView : this.preferences.compactView,
+        emailNotifications: typeof values.emailNotifications === 'boolean'
+          ? values.emailNotifications
+          : this.preferences.emailNotifications,
+        weeklyReports: typeof values.weeklyReports === 'boolean' ? values.weeklyReports : this.preferences.weeklyReports,
+        fontSize: values.fontSize === 'large' || values.fontSize === 'normal'
+          ? values.fontSize
+          : this.preferences.fontSize
       };
-    } catch (error: unknown) {
-      console.warn('Could not load saved preferences; defaults will be used.', error);
-      localStorage.removeItem(this.storageKey);
+    } catch {
+      console.warn('No se pudieron leer las preferencias guardadas; se usarán los valores predeterminados.');
     }
   }
 
   async savePreferences() {
-    this.persistPreferences();
+    const saved = this.persistPreferences();
 
     const toast = await this.toastController.create({
-      message: 'Preferencias guardadas correctamente.',
+      message: saved
+        ? 'Preferencias guardadas correctamente.'
+        : 'Los cambios se aplicaron, pero este navegador no permite guardarlos para la próxima visita.',
       duration: 1800,
-      color: 'success',
+      color: saved ? 'success' : 'warning',
       position: 'bottom'
     });
 
@@ -103,9 +108,21 @@ export class SettingsPage implements OnInit {
     this.persistPreferences();
   }
 
-  private persistPreferences(): void {
-    localStorage.setItem(this.storageKey, JSON.stringify(this.preferences));
+  private persistPreferences(): boolean {
+    try {
+      if (typeof localStorage === 'undefined') {
+        this.applyTheme();
+        return false;
+      }
+      localStorage.setItem(this.storageKey, JSON.stringify(this.preferences));
+    } catch {
+      console.warn('No se pudieron guardar las preferencias en el almacenamiento local.');
+      this.applyTheme();
+      return false;
+    }
+
     this.applyTheme();
+    return true;
   }
 
   applyTheme() {

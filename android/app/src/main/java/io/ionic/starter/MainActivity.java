@@ -9,18 +9,18 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(android.os.Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        hideNavigationBar();
+        hideSystemBars();
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         if (hasFocus) {
-            hideNavigationBar();
+            hideSystemBars();
         }
     }
 
-    private void hideNavigationBar() {
+    private void hideSystemBars() {
         WindowInsetsControllerCompat controller = WindowCompat.getInsetsController(
             getWindow(),
             getWindow().getDecorView()
@@ -28,6 +28,6 @@ public class MainActivity extends BridgeActivity {
         controller.setSystemBarsBehavior(
             WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         );
-        controller.hide(WindowInsetsCompat.Type.navigationBars());
+        controller.hide(WindowInsetsCompat.Type.systemBars());
     }
 }

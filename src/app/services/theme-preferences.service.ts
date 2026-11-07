@@ -11,7 +11,7 @@ export interface UserPreferences {
 
 @Injectable({ providedIn: 'root' })
 export class ThemePreferencesService {
-  private readonly storageKey = 'teacompano-settings';
+  private readonly storageKey = 'cliccontigo-settings';
 
   applySavedPreferences(): void {
     if (typeof localStorage === 'undefined') {
@@ -21,11 +21,14 @@ export class ThemePreferencesService {
     try {
       const saved = localStorage.getItem(this.storageKey);
       if (saved) {
-        this.apply(JSON.parse(saved) as Partial<UserPreferences>);
+        const preferences: unknown = JSON.parse(saved);
+        if (typeof preferences === 'object' && preferences !== null && !Array.isArray(preferences)) {
+          this.apply(preferences as Partial<UserPreferences>);
+        }
       }
-    } catch (error: unknown) {
-      console.warn('Could not apply saved appearance preferences.', error);
+    } catch {
       this.apply({});
+      console.warn('No se pudieron leer las preferencias guardadas; se usará el tema predeterminado.');
     }
   }
 
